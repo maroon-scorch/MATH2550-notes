@@ -1,0 +1,110 @@
+\section{Lecture 6}
+
+Previously, we have shown that a complex function $f: \Omega \to \Cbb$ is holomorphic if and only if it satisfies the Cauchy-Riemann Equations. Furthermore, if $f \in Hol(\Omega)$, $z_0 \in \Omega$, then we know $f$ is analytic and locally there exists some bounded, open set $G$ containing $z_0$ such that $\partial G$ is $PC^1$ $cl(G) \subset \Omega$, and on $G$,
+\[f(z) = \sum_{k = 0}^\infty a_k (z - z_0)^k, |z - z_0| < r\]
+\[a_n = \frac{1}{2 \pi i} \int_{\partial G} \frac{f(\xi)}{(\xi - z_0)^{n+1}} d\xi\]
+
+\noindent Using the Cauchy's Formula for Derivatives, we note that
+\[f^{(n)}(z_0) = \frac{n!}{2 \pi i} \int_{\partial G} \frac{f(\xi)}{(\xi - z_0)^{n+1}} d\xi \implies a_n = \frac{f^{(n)}(z_0)}{n!}\]
+
+\subsection{Uniqueness Theorems}
+
+\begin{theorem}
+Let $f \in Hol(\Omega)$, $\Omega$ be an open and connected subset of $\Cbb$, and let $z_0 \in \Omega$ such that
+\[f^{(n)}(z_0) = 0\ \forall n \geq 0\]
+Then $f(z) = 0$ on $\Omega$, ie. $f$ is identically zero on $\Omega$.
+\end{theorem}
+
+\begin{proof}
+We will prove this using \textbf{continuous induction}. Indeed, define $A$ to be the set
+\[A \coloneqq \{z \in \Omega : f^{(n)}(z_0) = 0\ \forall n \geq 0\} = \bigcap_{n \geq 0} \{z \in \Omega: f^{(n)}(z) = 0\}\]
+We first note that $A$ is closed since the preimage of $\{0\}$ is closed under continuous function and the intersection of closed sets are closed. Now clearly $A$ is non-empty, since $z_0 \in A$. We now \textbf{claim that $A$ is open}, then the connectedness of $\Omega$ would imply that $A = \Omega$.\\\\
+Indeed, for all $z \in A$, since $f$ is holomorphic, we can find some $\epsilon(z) > 0$ small enough that locally
+\[f(\xi) = \sum_{n = 0}^\infty \frac{f^{(n)}(z)}{n!}(\xi - z)^n, \forall \xi\ s.t.\ |\xi - z| < \epsilon\]
+However, since $z \in A$, we know that
+\[f(\xi) = \sum_{n = 0}^\infty \frac{0}{n!}(\xi - z)^n = 0\]
+Thus we have that $\xi \in A$. Hence, $D_{z, \epsilon} \subset A$. Thus, $A$ is also open.
+\end{proof}
+
+\begin{remark}
+The previous theorem shows that
+\[f(z_0) = \sum a_n (z - z_0)^n, f^{(n)}(z_0) = 0\ \forall n \iff a_n = 0\ \forall n\]
+\end{remark}
+
+\begin{definition}[Limit Points]
+Let $X$ be a topological space and $E \subset X$, we say $a \in X$ is a \textbf{accumulation/cluster/limit point} of $E$ if for all neighborhood $U$ containing $a$, $E \cap (U \setminus \{a\}) \neq \emptyset$
+\end{definition}
+
+\begin{theorem}[Uniqueness Theorem]\label{thm::uniqueness-theorem}
+Let $f \in Hol(\Omega)$ where $\Omega$ is open and connected. Suppose $E \subset \Omega$ such that $f(z) = 0$ for all $z \in E$ and $E$ has some accumulation point $z_0$ in $\Omega$, then $f(z)$ is identically zero on $\Omega$.
+\end{theorem}
+
+\begin{proof}
+The strategy is to apply the previous theorem. We first choose $r > 0$ small enough and consider the open disk $D_{z_0, r}$ to express $f$ as a power-series around $z_0$. Now, let $\Tilde{f}$ be $f$ restricted to $D_{z_0, r}$, we first claim that
+\[\Tilde{f}(z_0) = 0\]
+Indeed, since $z_0$ is a limit point of $E$, there exists a sequence of points $\{z_k\}$ in $E \cap D_{z_0, r}$ that converges to $z_0$. Since $f$ is continuous, we have that
+\[\Tilde{f}(z_0) = \Tilde{f}(\lim_{k \to \infty} z_k) = \lim_{k \to \infty} \Tilde{f}(z_k) = \lim_{k \to \infty} 0 = 0\]
+Now consider the power-series expression of $f$ around $z_0$:
+\[[f(z) = \sum_{n = 0}^\infty a_n (z_0 - z)^n\]
+Since $\Tilde{f}(z_0) = 0$, we clearly have that $a_0 = 0$. Now we will define
+\[f_1(z) \coloneqq \frac{\Tilde{f}(z)}{z - z_0} = \sum_{n = 1}^\infty a_n (z - z_0)^{n-1}\]
+\mattie{Division is fine here since $a_0 = 0$}
+and define $\Tilde{f_1}(z)$ to be restricted to the same domain as before. Then clearly $f_1(z) = 0$ for all $z \in E \setminus \{z_0\}$, so it follows that $\Tilde{f_1}(z_0) = 0$, so $a_1 = 0$.\\\\
+Using induction, we can conclude that all of the $a_n$ are $0$, so $f^{(n)}(z_0) = 0$ for all $n \geq 0$. Apply the previous result and we are done! 
+\end{proof}
+
+\begin{corollary}[Identity Theorem]
+Let $f, g \in Hol(\Omega)$ where $\Omega$ is open and connected. Suppose $E \subset \Omega$ such that $f(z) = g(z)$ for all $z \in E$ and $E$ has some accumulation point $z_0$ in $\Omega$, then $f = g$ on $\Omega$.
+\end{corollary}
+
+\begin{proof}
+Define $h(z) \coloneqq f(z) - g(z)$ and apply Theorem~\ref{thm::uniqueness-theorem}.
+\end{proof}
+
+\subsection{Analytic Extensions}
+
+The uniqueness theorem implies that there's only one unique way to extend certain functions.
+
+\begin{example}
+Consider $f: \Rbb \to \Rbb$ given by $f(x) = e^x$, then $e^z = \sum_{n = 0}^\infty \frac{z^n}{n!}$ is an analytic extension of $e^x$ to the complex plane, and the identity theorem shows that it is in fact that only possible analytic extension.
+\end{example}
+
+\begin{proof}
+Existence is already proven. For uniqueness, take $\Omega = \Cbb$ and $E = \Rbb$, $\Rbb$ clearly has an accumulation point in $\Cbb$, so we can apply the Identity Theorem.
+\end{proof}
+
+\begin{example}
+Similarly, one can also show that
+\[\cos(z) = 1 - \frac{z^2}{2!} + \frac{z^4}{4!} ...\]
+\[\sin(z) = z - \frac{z^3}{3!} + \frac{z^5}{5!} ...\]
+are the only unique extensions of $cos(x)$ and $sin(x)$, hence all trigonometric identities also hold for $z \in \Cbb$.
+\end{example}
+
+\begin{corollary}
+Let $\Omega$ be an open connected set, suppose $f \in Hol(\Omega)$ isn't identically zero on $\Omega$, then the zeroes of $f$ are isolated.
+\end{corollary}
+
+\begin{proof}
+Suppose not, then there exists a sequence of roots $\{z_k\}$ converging to some limit point. Then take $E = \{z_1, ..., z_k, ...\}$, then the Uniqueness Theorem tells us that $f$ is identically zero, so we have a contradiction.
+\end{proof}
+
+\begin{remark}
+While this statement says that roots inside $\Omega$ are isolated, it says NOTHING about the boundary of $\Omega$.
+\end{remark}
+
+\subsection{Order of Zeroes}
+
+\begin{definition}
+Let $f \in Hol(\Omega)$, we define $Z(f)$ as the zero locus of $f$:
+\[Z(f) \coloneqq f^{-1}(0)\]
+\end{definition}
+
+\begin{definition}
+Suppose $f \in Hol(\Omega)$ and $f(z_0) = 0$, rewrite $f$ as a power series around $z_0$ as
+\[f(z) = \sum_{n = 0}^\infty a_n (z - z_0)^n, a_0 = 0\]
+We say the \textbf{order of zero} on $z_0$ is $\min \{n : a_n \neq 0\} = \min \{n: f^{(n)}(z_0) \neq 0$
+\end{definition}
+
+\begin{example}
+$\sin(z)$ has zero of order $1$ at all roots. $(z - z_0)^3$ has a zero of order $3$ at $z_0$.
+\end{example}

@@ -1,0 +1,91 @@
+\section{Lecture 3}
+
+\subsection{Curves and Orientations}
+
+\begin{definition}[Orientation of a Curve]
+Let $\Gamma \subset \Cbb$ be a curve, and let $\gamma, \gamma_1: [a, b] \to \Cbb$ be the standard injective parameterization with $\gamma'(t) \neq 0, \gamma_1'(t) \neq 0$. Then we say $\gamma$ and $\gamma_1$ have the same orientation if $(\gamma \circ \gamma_1^{-1})' > 0$.
+\end{definition}
+
+Note that this is just the standard definition of orientation for $1$-dimensional manifolds.
+
+On a closed loop, the \textbf{positive} direction is given by the \textbf{left-leg rule}, meaning tracing along the curve, the left leg of the curve points into the region enclosed.
+
+This turns out to align exactly with the definition of orientation inherited by the boundary manifold.
+
+\begin{definition}
+We say $f \in CR^1(\Omega)$ if $f \in C^1(\Omega)$ and $\frac{\partial}{\partial \overline{z}} f = 0$ on $\Omega$.
+\end{definition}
+
+\begin{remark}
+    It turns out that $CR^1 = C^1_z$, meaning that being in $CR^1$ is equivalent to being complex differentiable. The direction from $C^1_z \implies CR^1$ is shown in the previous lecture, what about the other direction?
+\end{remark}
+
+\begin{definition}[Multivariable Differentiability]
+We say $f: \Omega \subset \Rbb^n \to \Rbb^m$ is differentiable at $x \in \Omega$ if there exists some $L \in M_{n \times m}(\Rbb)$ such that
+\[f(x + h) = f(x) + L(h) + r_x(h)\]
+, where $r_x(h)$ is sometimes denoted as $O(h)$ and $\lim_{h \to 0} \frac{r_x(h)}{||h||} = 0$
+\end{definition}
+
+\begin{proposition}
+    If a function $f: \Omega \subset \Cbb \to \Cbb$ is $CR^1$, then $f$ is $C_z^1$
+\end{proposition}
+
+\begin{proof}
+Since $f$ is $CR^1$, it is $C^1(\Omega)$, so $f$ is differentiable when viewed as a function in $\Rbb^2$. Write $f = u + iv$, then the differential of $f$ is exactly the Jacobian matrix:
+\[df = \begin{pmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y}\\
+\frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{pmatrix}\]
+Then $f$ satisfiying the $CR$-equations tells us that
+\[\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y},\ \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y}\]
+This means that $df$ is just a scaled rotational matrix, so it's without loss a multiplication by complex numbers. Let $a$ be the complex number representation of $df$.\\\\
+Thus, we have that
+\[f(z + h) = f(z) + a \cdot h + O(h)\]
+Then we have that
+\[\lim_{h \to 0} \frac{f(z + h) - f(z)}{h} = a\]
+, so the complex derivative exists, so $f$ is holomorphic on $\Omega$.
+\end{proof}
+
+When we say something is differentiable on an non-open set $K$, then this means there exists some open $\Omega \supset K$ such that it is differentiable on it, meaning there's some bigger open set this function is differentiable on.
+
+\subsection{Cauchy's Integral Formula}
+
+\begin{theorem}[Cauchy Formula]
+Let $G$ be a bounded open set with boundary $\partial G \in PC^1$. Let $f \in C^1_z(cl(G)) = CR^1(cl(G))$. Then for all $z \in cl(G)$,
+\[f(z) = \frac{1}{2 \pi i} \oint_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
+\end{theorem}
+
+\begin{proof}
+Let $\Omega \supset cl(G)$ be the function $f \in CR^1(\Omega)$. Now consider
+\[g(z) = \frac{f(z)}{z - z_0}\]
+Then we note that $\frac{1}{z - z_0} \in CR^1(\Cbb \setminus \{z_0\})$. Therefore, $g(z) \in CR^1(\Omega \setminus \{z_0\})$.\\\\
+Choose $\epsilon > 0$ small enough such that $D_{z_0, \epsilon}$, the disk of radius $\epsilon$ centered at $z_0$, does not intersect with $\partial G$. Now consier $G_\epsilon \coloneqq G \setminus D_{z_0, \epsilon}$, then
+\[\int_{\partial G_\epsilon} \frac{f(z)}{z - z_0} dz = 0 \forall \textbf{ small enough } \epsilon > 0\]
+Now, we see that
+\[\int_{\partial G_\epsilon} \frac{f(z)}{z - z_0} = \int_{\partial G} \frac{f(z)}{z - z_0} - \int_{\partial D_{z_0, \epsilon}} \frac{f(z)}{z - z_0}\]
+Taking the limit of $\epsilon$ on both sides to $0$, so
+\[0 = \int_{\partial G} \frac{f(z)}{z - z_0} - \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz \]
+\[\int_{\partial G} \frac{f(z)}{z - z_0} = \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz\]
+Since $f(z)$ is differentiable, we can write
+\[f(z) = f(z_0) + f'(z_0) (z - z_0) + O(z - z_0)\]
+So we have that
+\begin{align*}
+  \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz
+  &= \int_{ |z - z_0| = \epsilon} \frac{f(z_0)}{z - z_0} dz + \int_{ |z - z_0| = \epsilon} f'(z_0) dz + \int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz
+\end{align*}
+Parameterize $|z - z_0| = \epsilon$ by $z = z_0 + \epsilon e^{it}, t \in [0, 2\pi]$ and note that
+\[\int_{|z - z_0| = \epsilon} \frac{1}{z - z_0} dz = 2 \pi i\]
+\[\int_{ |z - z_0| = \epsilon} f'(z_0) dz = 0\]
+\[|\int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz| \leq 2 \pi \epsilon \max_{z \in |z - z_0| = \epsilon} |\frac{O(z - z_0)}{z - z_0}|\]
+, which goes to zero as $\epsilon \to 0$. Then we have that
+\begin{align*}
+  \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz
+  &= 2\pi i f(z_0) + \int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz
+  \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz &= 2\pi i f(z_0) + 0
+\end{align*}
+Thus, we have that
+\[\int_{\partial G} \frac{f(z)}{z - z_0} = 2\pi i f(z_0)\]
+\end{proof}
+
+Now we have that
+\[f(z) = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
+
+We will see that shows that we can take the derivative infinitely many times and that $f(z)$ is analytic.

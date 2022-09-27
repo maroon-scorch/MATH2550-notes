@@ -1,0 +1,83 @@
+\section{Lecture 1 - 9/7/2022}
+% Flexible deadline! Can ask for extensions!
+There are a lot of topics in Complex Analysis, it is the goal of the instructor to be a guide around these topics. There're many different treatments of Complex Analysis - some prefer Algebraic ways, some prefer pictorial ways, etc. Because of this, we'll not be strictly following the textbook. Sometimes we will present proofs that are closely aligned to the textbook, but sometimes we will deviate a lot from it, hence why notes are essential.
+
+\subsection{Review of Complex Analysis}
+
+\begin{definition}[Complex Number]
+    A complex number $z$ is denoted as $z = x + iy$, $x, y \in \Rbb$ and $i$ is the root satisfying $i^2 = -1$. The collection of all complex numbers is denoted as $\Cbb$. We define addition and multiplication over $\Cbb$ in the usual sense of algebra.
+\end{definition}
+
+    \noindent There's a close similarity between $x + iy \in \Cbb$ and $(x, y) \in \Rbb^2$. Concretely, when viewed as pairs over $\Rbb^2$, the addition and multiplication of complex numbers becomes:
+    \[(a, b) + (c, d) = (a + c, b + d)\]
+    \[(a, b) \cdot (c, d) = (ac - bd, bc + ad)\]
+
+\begin{proposition}
+    The complex numbers $\Cbb$ form a field.
+\end{proposition}
+
+\begin{proof}
+    It turns out $\Cbb$ is isomorphic to $\frac{\Rbb[x]}{(x^2 + 1)}$ as commutative rings (would be nice to check that $\Cbb$ is a commutative ring in the first place). Since $x^2 + 1$ is irreducible over $\Rbb$, the ideal it generates is maximal, so $\Cbb$ is a field. In particular, $1$ correspond to $1$ and $x$ correspond to $i$ in the quotient.
+\end{proof}
+
+\begin{definition}
+    Let $x + iy \in \Cbb$, we refer to the \textbf{matrix representation} of $x + iy$ as:
+    \[x + iy \sim \begin{pmatrix} x & -y\\ y & x\end{pmatrix}\]
+    In particular we have that
+    \[1 \sim \begin{pmatrix} 1 & 0\\ 0 & 1\end{pmatrix},\ i \sim \begin{pmatrix}
+    0 & -1 \\ 1 & 0
+    \end{pmatrix}\]
+    In particular, the representation is an isomorphism.
+\end{definition}
+
+\begin{definition}
+    Let $z = x + iy \in \Cbb$, we define the \textbf{complex conjugate} of $\Cbb$ as $\overline{z} \coloneqq x - iy$ and $|z|$ as the \textbf{complex norm} of $\sqrt{x^2 + y^2}$.
+\end{definition}
+
+\begin{remark}
+    Usually, the explicitly construct the inverse of $z = x + iy \neq 0$, we have that
+    \[\frac{1}{x + iy} = \frac{x - iy}{(x + iy)(x - iy)} = \frac{x - iy}{x^2 + y^2} = \frac{\overline{z}}{|z|^2}\]
+    However, we note that with the isomorphism given by the definition above also gives us a matrix inverse as its determinant is $x^2 + y^2 \neq 0$ 
+\end{remark}
+
+\begin{definition}
+Let $z \in \Cbb$ such that $|z| = 1$, then we can write
+\[z = x + iy = \cos(\theta) + i \sin(\theta)\]
+We refer to $\theta = \arg(z) + 2 \pi n$, where $\arg(z)$ is the standard \textbf{argument} whose radian is within $[-\pi, \pi)$. This angle is sometimes called $Arg(z)$ and is called the \textbf{principal argument}.
+\end{definition}
+
+\noindent Let $z \in \Cbb$ with $|z| = 1$, then we can write
+\[z \sim \begin{pmatrix} \cos(\theta) & -\sin(\theta)\\ \sin(\theta) & \cos(\theta) \end{pmatrix}\]
+This is just the standard rotational matrix.
+
+\noindent Now for an arbitrary non-zero $z \in \Cbb$ whose norm need not be $1$, we can write
+\[z = |z| \frac{z}{|z|} = |z| \cdot (cos(\theta) + i sin(\theta))\]
+This is called the \textbf{polar representation} of $\Cbb$.
+
+\begin{proposition}
+    Let $z_1, z_2 \in \Cbb$, then
+    \begin{itemize}
+        \item $|z_1 z_2| = |z_1| |z_2|$
+        \item $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)$
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    To show the first, rewrite them in matrix and note their determinant is exactly the complex norm. To show the second, just use the polar coordinate representation and some trigonometry.
+\end{proof}
+
+\begin{corollary}[De Moivre's Formula]
+    $(\cos(\theta) + i sin(\theta))^n = cos(n \theta) + i sin(n \theta)$
+\end{corollary}
+
+\begin{proof}
+    This follows directly from the additivity of angles in complex multiplication.
+\end{proof}
+
+\begin{definition}
+    Let $z = x + iy \in \Cbb$, then $\Re(z) \coloneqq x = \frac{z + \overline{z}}{2}$ and $\Im(z) \coloneqq y = \frac{z - \overline{z}}{2}$ are the real and imaginary part of $z$ respectively.
+\end{definition}
+
+\begin{theorem}[Euler's Identity]
+    $e^{i \theta} = cos(\theta) + i sin(\theta)$
+\end{theorem}

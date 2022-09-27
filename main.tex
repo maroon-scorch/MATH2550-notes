@@ -12,609 +12,406 @@
 
 \maketitle
 
-\noindent Technically, this is a course of functions in one complex variable.
+\noindent Technically, this is a course on ``functions of ONE complex variable".
+\tableofcontents
+\newpage
+
+\include{Lecture/lecture-1.tex}
+\include{Lecture/lecture-2.tex}
+\include{Lecture/lecture-3.tex}
+\include{Lecture/lecture-4.tex}
+\include{Lecture/lecture-5.tex}
+\include{Lecture/lecture-6.tex}
+
 
 \newpage
-\section{Lecture 1 - 9/7/2022}
-% Flexible deadline! Can ask for extensions!
-There are a lot of topics in Complex Analysis, it is the goal of the instructor to be a guide around these topics. There're many different treatments of Complex Analysis - some prefer Algebraic ways, some prefer pictorial ways, etc. Because of this, we'll not be strictly following the textbook. Sometimes we will present proofs that are closely aligned to the textbook, but sometimes we will deviate a lot from it, hence why notes are essential.
+\section{Lecture 7}
 
-\subsection{Review of Complex Analysis}
-
-\begin{definition}[Complex Number]
-    A complex number $z$ is denoted as $z = x + iy$, $x, y \in \Rbb$ and $i$ is the root satisfying $i^2 = -1$. The collection of all complex numbers is denoted as $\Cbb$. We define addition and multiplication over $\Cbb$ in the usual sense of algebra.
-\end{definition}
-
-    \noindent There's a close similarity between $x + iy \in \Cbb$ and $(x, y) \in \Rbb^2$. Concretely, when viewed as pairs over $\Rbb^2$, the addition and multiplication of complex numbers becomes:
-    \[(a, b) + (c, d) = (a + c, b + d)\]
-    \[(a, b) \cdot (c, d) = (ac - bd, bc + ad)\]
-
-\begin{proposition}
-    The complex numbers $\Cbb$ form a field.
-\end{proposition}
-
-\begin{proof}
-    It turns out $\Cbb$ is isomorphic to $\frac{\Rbb[x]}{(x^2 + 1)}$ as commutative rings (would be nice to check that $\Cbb$ is a commutative ring in the first place). Since $x^2 + 1$ is irreducible over $\Rbb$, the ideal it generates is maximal, so $\Cbb$ is a field. In particular, $1$ correspond to $1$ and $x$ correspond to $i$ in the quotient.
-\end{proof}
+\subsection{Revisiting Exponential}
 
 \begin{definition}
-    Let $x + iy \in \Cbb$, we refer to the \textbf{matrix representation} of $x + iy$ as:
-    \[x + iy \sim \begin{pmatrix} x & -y\\ y & x\end{pmatrix}\]
-    In particular we have that
-    \[1 \sim \begin{pmatrix} 1 & 0\\ 0 & 1\end{pmatrix},\ i \sim \begin{pmatrix}
-    0 & -1 \\ 1 & 0
-    \end{pmatrix}\]
-    In particular, the representation is an isomorphism.
-\end{definition}
-
-\begin{definition}
-    Let $z = x + iy \in \Cbb$, we define the \textbf{complex conjugate} of $\Cbb$ as $\overline{z} \coloneqq x - iy$ and $|z|$ as the \textbf{complex norm} of $\sqrt{x^2 + y^2}$.
-\end{definition}
-
-\begin{remark}
-    Usually, the explicitly construct the inverse of $z = x + iy \neq 0$, we have that
-    \[\frac{1}{x + iy} = \frac{x - iy}{(x + iy)(x - iy)} = \frac{x - iy}{x^2 + y^2} = \frac{\overline{z}}{|z|^2}\]
-    However, we note that with the isomorphism given by the definition above also gives us a matrix inverse as its determinant is $x^2 + y^2 \neq 0$ 
-\end{remark}
-
-\begin{definition}
-Let $z \in \Cbb$ such that $|z| = 1$, then we can write
-\[z = x + iy = \cos(\theta) + i \sin(\theta)\]
-We refer to $\theta = \arg(z) + 2 \pi n$, where $\arg(z)$ is the standard \textbf{argument} whose radian is within $[-\pi, \pi)$. This angle is sometimes called $Arg(z)$ and is called the \textbf{principal argument}.
-\end{definition}
-
-\noindent Let $z \in \Cbb$ with $|z| = 1$, then we can write
-\[z \sim \begin{pmatrix} \cos(\theta) & -\sin(\theta)\\ \sin(\theta) & \cos(\theta) \end{pmatrix}\]
-This is just the standard rotational matrix.
-
-\noindent Now for an arbitrary non-zero $z \in \Cbb$ whose norm need not be $1$, we can write
-\[z = |z| \frac{z}{|z|} = |z| \cdot (cos(\theta) + i sin(\theta))\]
-This is called the \textbf{polar representation} of $\Cbb$.
-
-\begin{proposition}
-    Let $z_1, z_2 \in \Cbb$, then
-    \begin{itemize}
-        \item $|z_1 z_2| = |z_1| |z_2|$
-        \item $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)$
-    \end{itemize}
-\end{proposition}
-
-\begin{proof}
-    To show the first, rewrite them in matrix and note their determinant is exactly the complex norm. To show the second, just use the polar coordinate representation and some trigonometry.
-\end{proof}
-
-\begin{corollary}[De Moivre's Formula]
-    $(\cos(\theta) + i sin(\theta))^n = cos(n \theta) + i sin(n \theta)$
-\end{corollary}
-
-\begin{proof}
-    This follows directly from the additivity of angles in complex multiplication.
-\end{proof}
-
-\begin{definition}
-    Let $z = x + iy \in \Cbb$, then $\Re(z) \coloneqq x = \frac{z + \overline{z}}{2}$ and $\Im(z) \coloneqq y = \frac{z - \overline{z}}{2}$ are the real and imaginary part of $z$ respectively.
+    Let $z \in \Cbb$, we define the complex exponential map $e^z: \Cbb \to \Cbb$ as
+    \[e^z \coloneqq 1 + z + \frac{z^2}{2!} + ... = \sum_{n = 0}^\infty \frac{z^n}{n!}\]
 \end{definition}
 
 \begin{theorem}[Euler's Identity]
-    $e^{i \theta} = cos(\theta) + i sin(\theta)$
+Let $x \in \Rbb$, then
+\[e^{ix} = cos(x) + i sin(x)\]
 \end{theorem}
 
-\section{Lecture 2}
-
-\subsection{Differentiability}
-
-\begin{definition}
-Let $\Omega$ be an open subset of $\Cbb$, we say a function $f: \Omega \to \Cbb$ is analytic on $\Cbb$ if for any $z_0 \in \Omega$, there exists a neighborhood $U$ where $z_0 \in U \subset \Omega$, such that
-\[f(z) = \sum_{k = 0}^\infty a_k (z - z_0)^k, \forall z \in U\]
-Note that without loss of generality, we can assume $U = D_{z_0, \delta} = \{z: |z - z_0| < \delta\}$.
-\end{definition}
-
-\begin{remark}
-    If we take $\Omega \subset \Rbb$, then we say $f: \Omega \to \Rbb$ is real-analytic if for all $x_0 \in \Omega$ locally
-    \[f(x) = \sum a)k (x - x_0)^k\]
-    If we take $\Omega \subset \Rbb^2$, then we say $f: \Omega \to \Rbb$ is real-analytic if for all $(x_0, y_0) \in \Omega$, there exist neighborhood $U$ containing $(x_0, y_0)$ such that
-    \[f(x, y) = \sum_{k = 0}^\infty \sum_{n = 0}^\infty a_{n, k} (x - x_0)^n (y - y_0)^k\]
-    \textbf{Note that real analytic function, when viewed as complex function, is not analytic!}
-\end{remark}
-
-The real miracle in the complex analysis is as follows:
-
-If we consider real functions, then we have that
-\[C_1 \supsetneq C_2 \supsetneq ... \supsetneq C^\infty \supsetneq \text{Real-Analytic Functions}\]
-
-However, it turns out that in the Complex Case, complex differentiable functions are in fact analytic, so
-\[C_1 = C_2 = ... = C^\infty = \text{Complex-Analytic Functions}\]
-
-\mattie{Unless stated otherwise, we assume $\Omega$ to be open?}
-
-\begin{definition}
-Let $f: \Omega \subset \Cbb \to \Cbb$ be a complex-valued function. We say $f$ is \textbf{complex-differentiable} at $z \in \Omega$, if the limit exists
-\[f'(z) \coloneqq \lim_{\Delta z \to 0} \frac{f(z + \Delta z) - f(z)}{\Delta z}\]
-$f$ is sometimes also called \textbf{holomorphic} at $z$.
-\end{definition}
-
-\begin{definition}
-We denote $C^1_z(\Omega)$ as the set of functions $f$ where $f(z)$ is differentiable on all of $\Omega$ and the map $z \mapsto f'(z)$ is continuous (continuous derivative).
-\end{definition}
-
-\subsection{Cauchy-Riemann Equations}
-
-Consider $h_1$ be the direction parallel to the real axis and $h_2$ be the direction parallel to the imaginary axis, then
-\[\lim_{h_1 \to 0} \frac{f(z + h_1) - f(z)}{z} = \frac{\partial f}{\partial x} = f'(z) = \frac{1}{i} \frac{\partial f}{\partial y} = \lim_{h_2 \to 0} \frac{f(z + h_2) - f(z)}{z}\]
-
-So in particular, we have that
-\[\frac{\partial f}{\partial x} = -i \frac{\partial f}{\partial y}\]
-
-This is known as the \textbf{Cauchy-Riemann Equation}.
-
-\begin{remark}
-    Write $f = u(x, y) + i v(x, y)$ where $u, v: \Rbb^2 \to \Rbb$, then the Cauchy-Riemann Equation is equivalent to
-    \[\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}\]
-\end{remark}
-
-\begin{definition}[Complex Differentials]
-We define
-\[\frac{\partial}{\partial z} = \frac{1}{2}(\frac{\partial}{\partial x} - i \frac{\partial}{\partial y})\]
-\[\frac{\partial}{\partial \overline{z}} = \frac{1}{2}(\frac{\partial}{\partial x} + i \frac{\partial}{\partial y})\]
-For ease of notations, we will denote
-\[\partial \coloneqq \frac{\partial}{\partial z}, \overline{\partial} \coloneqq \frac{\partial}{\partial \overline{z}}\]
-\end{definition}
-
-\begin{remark}
-In particular, this means that
-\[\frac{\partial f}{\partial \overline{z}} = \frac{1}{2}(\frac{\partial f}{\partial x} + i \frac{\partial f}{\partial y})\]
-    The definition above means that the Cauchy-Riemann Equations is equivalent to $\frac{\partial f}{\partial \overline{z}} = 0$
-\end{remark}
-
-\begin{proposition}
-    Let $f, g$ be complex dfferentiable functions, then
-    \[\partial(f g) = (\partial f) g + f (\partial g)\]
-\end{proposition}
-
-\begin{remark}
-    The $\frac{1}{2}$ coefficient for $\partial, \overline{\partial}$ is a \textbf{correcting} coefficient so that
-    \[\partial z = 1, \partial \overline{z} = 0\]
-    \[\partial z^n = n z^{n-1}\]
-    \[\overline{\partial} z = 0, \overline{\partial} \overline{z} = 1\]
-    \[\overline{\partial} \overline{z}^n = n \overline{z}^{n-1}\]
-\end{remark}
-
-From Calculus, for a differentiable function $f: \Rbb^2 \to \Rbb^2$, then
-\[df = \frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy\]
-Viewing $f$ instead as a complex function, after some algebraic manipulations, you can show that
-\[df = \frac{\partial f}{\partial z} dz + \frac{\partial f}{\partial \overline{z}} d\overline{z}\]
-, where $dz = dx + idy$ and $d\overline{z} = x - iy$.
-
-\begin{definition}
-A $C^1$-path is $\gamma: [a, b] \to \Cbb$ where $\gamma \in C^1([a, b])$. If $\gamma$ is furthermore injective and $\gamma'(t) \neq 0$ on $[a, b]$, then $\gamma([a, b])$ is a $C^1$-curve. (We require these two extra conditions to avoid spikes on the path)
-\end{definition}
-
-\begin{definition}
-Let $\Gamma = \gamma([a, b])$ be a $C^1$-curve, then
-\[\int_\Gamma f(z) dz = \int_a^b f(\gamma(t)) \gamma'(t) dt\]
-\end{definition}
-
-\begin{theorem}[First Cauchy's Theorem]
-Let $f \in C^1_z(\Omega)$, let $G$ be a bounded open set such that $cl(G) \subset \Omega$, and the boundary of $G$ is $C^1$ or piece-wise $C^1$ (we will denote this as $PC^1$), then
-\[\int_{\partial G} f(z) dz = 0\]
-\end{theorem}
-
-\begin{theorem}[Stokes's Theorem]
-Let $G$ be a manifold with $\partial G \in C^1, w \in C^1$
-\[\int_{\partial G} w = \int_G d \omega\]
-\end{theorem}
-
-\begin{proof}[Proof of FIrst Cauchy's Theorem]
-In this case, $G$ is just some subset of $\Cbb$ and we define $\omega \coloneqq f(z) dz$, then we note that
+\begin{proof}
+We can show this via explicit computation, indeed,
 \begin{align*}
-    dw &= df \wedge dz\\
-    &= (\frac{\partial f}{\partial z} dz + \frac{\partial f}{\partial \overline{z}} d\overline{z}) \wedge dz\\
-    &= (\frac{\partial f}{\partial z} dz) \wedge dz \tag*{Cauchy-Riemann Equation}\\
-    &= \frac{\partial f}{\partial z} (dz \wedge dz)\\
-    &= \frac{\partial f}{\partial z} (0)\\
-    &= 0
+    e^{ix} &= \sum_{n = 0}^\infty \frac{(ix)^n}{n!}\\
+    &= \sum_{k = 0}^\infty (-1)^k \frac{x^{2k}}{(2k)!} + i \sum_{k = 0} (-1)^k \frac{x^{2k + 1}}{(2k + 1)!} \tag*{Separate even and odd degree terms}\\
+    &= cos(x) + i sin(x) \tag*{Taylor Series}
 \end{align*}
-Then Stokes' Theorem tells us that
-\[\int_{\partial G} w = \int_G d \omega = \int_G 0 = 0\]
 \end{proof}
 
-\section{Lecture 3}
-
-\begin{definition}[Orientation of a Curve]
-Let $\Gamma \subset \Cbb$ be a curve, and let $\gamma, \gamma_1: [a, b] \to \Cbb$ be the standard injective parameterization with $\gamma'(t) \neq 0, \gamma_1'(t) \neq 0$. Then we say $\gamma$ and $\gamma_1$ have the same orientation if $(\gamma \circ \gamma_1^{-1})' > 0$.
-\end{definition}
-
-Note that this is just the standard definition of orientation for $1$-dimensional manifolds.
-
-On a closed loop, the \textbf{positive} direction is given by the \textbf{left-leg rule}, meaning tracing along the curve, the left leg of the curve points into the region enclosed.
-
-This turns out to align exactly with the definition of orientation inherited by the boundary manifold.
-
-\begin{definition}
-We say $f \in CR^1(\Omega)$ if $f \in C^1(\Omega)$ and $\frac{\partial}{\partial \overline{z}} f = 0$ on $\Omega$.
-\end{definition}
-
-\begin{remark}
-    It turns out that $CR^1 = C^1_z$, meaning that being in $CR^1$ is equivalent to being complex differentiable. The direction from $C^1_z \implies CR^1$ is shown in the previous lecture, what about the other direction?
-\end{remark}
-
-\begin{definition}[Multivariable Differentiability]
-We say $f: \Omega \subset \Rbb^n \to \Rbb^m$ is differentiable at $x \in \Omega$ if there exists some $L \in M_{n \times m}(\Rbb)$ such that
-\[f(x + h) = f(x) + L(h) + r_x(h)\]
-, where $r_x(h)$ is sometimes denoted as $O(h)$ and $\lim_{h \to 0} \frac{r_x(h)}{||h||} = 0$
-\end{definition}
-
-\begin{proposition}
-    If a function $f: \Omega \subset \Cbb \to \Cbb$ is $CR^1$, then $f$ is $C_z^1$
-\end{proposition}
-
-\begin{proof}
-Since $f$ is $CR^1$, it is $C^1(\Omega)$, so $f$ is differentiable when viewed as a function in $\Rbb^2$. Write $f = u + iv$, then the differential of $f$ is exactly the Jacobian matrix:
-\[df = \begin{pmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y}\\
-\frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{pmatrix}\]
-Then $f$ satisfiying the $CR$-equations tells us that
-\[\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y},\ \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y}\]
-This means that $df$ is just a scaled rotational matrix, so it's without loss a multiplication by complex numbers. Let $a$ be the complex number representation of $df$.\\\\
-Thus, we have that
-\[f(z + h) = f(z) + a \cdot h + O(h)\]
-Then we have that
-\[\lim_{h \to 0} \frac{f(z + h) - f(z)}{h} = a\]
-, so the complex derivative exists, so $f$ is holomorphic on $\Omega$.
-\end{proof}
-
-When we say something is differentiable on an non-open set $K$, then this means there exists some open $\Omega \supset K$ such that it is differentiable on it, meaning there's some bigger open set this function is differentiable on.
-
-\begin{theorem}[Cauchy Formula]
-Let $G$ be a bounded open set with boundary $\partial G \in PC^1$. Let $f \in C^1_z(cl(G)) = CR^1(cl(G))$. Then for all $z \in cl(G)$,
-\[f(z) = \frac{1}{2 \pi i} \oint_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
-\end{theorem}
-
-\begin{proof}
-Let $\Omega \supset cl(G)$ be the function $f \in CR^1(\Omega)$. Now consider
-\[g(z) = \frac{f(z)}{z - z_0}\]
-Then we note that $\frac{1}{z - z_0} \in CR^1(\Cbb \setminus \{z_0\})$. Therefore, $g(z) \in CR^1(\Omega \setminus \{z_0\})$.\\\\
-Choose $\epsilon > 0$ small enough such that $D_{z_0, \epsilon}$, the disk of radius $\epsilon$ centered at $z_0$, does not intersect with $\partial G$. Now consier $G_\epsilon \coloneqq G \setminus D_{z_0, \epsilon}$, then
-\[\int_{\partial G_\epsilon} \frac{f(z)}{z - z_0} dz = 0 \forall \textbf{ small enough } \epsilon > 0\]
-Now, we see that
-\[\int_{\partial G_\epsilon} \frac{f(z)}{z - z_0} = \int_{\partial G} \frac{f(z)}{z - z_0} - \int_{\partial D_{z_0, \epsilon}} \frac{f(z)}{z - z_0}\]
-Taking the limit of $\epsilon$ on both sides to $0$, so
-\[0 = \int_{\partial G} \frac{f(z)}{z - z_0} - \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz \]
-\[\int_{\partial G} \frac{f(z)}{z - z_0} = \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz\]
-Since $f(z)$ is differentiable, we can write
-\[f(z) = f(z_0) + f'(z_0) (z - z_0) + O(z - z_0)\]
-So we have that
-\begin{align*}
-  \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz
-  &= \int_{ |z - z_0| = \epsilon} \frac{f(z_0)}{z - z_0} dz + \int_{ |z - z_0| = \epsilon} f'(z_0) dz + \int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz
-\end{align*}
-Parameterize $|z - z_0| = \epsilon$ by $z = z_0 + \epsilon e^{it}, t \in [0, 2\pi]$ and note that
-\[\int_{|z - z_0| = \epsilon} \frac{1}{z - z_0} dz = 2 \pi i\]
-\[\int_{ |z - z_0| = \epsilon} f'(z_0) dz = 0\]
-\[|\int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz| \leq 2 \pi \epsilon \max_{z \in |z - z_0| = \epsilon} |\frac{O(z - z_0)}{z - z_0}|\]
-, which goes to zero as $\epsilon \to 0$. Then we have that
-\begin{align*}
-  \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz
-  &= 2\pi i f(z_0) + \int_{ |z - z_0| = \epsilon} \frac{O(z - z_0)}{z - z_0} dz
-  \lim_{\epsilon \to 0} \int_{\partial D_{z_0, \epsilon}}\frac{f(z)}{z - z_0} dz &= 2\pi i f(z_0) + 0
-\end{align*}
-Thus, we have that
-\[\int_{\partial G} \frac{f(z)}{z - z_0} = 2\pi i f(z_0)\]
-\end{proof}
-
-Now we have that
-\[f(z) = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
-
-We will see that shows that we can take the derivative infinitely many times and that $f(z)$ is analytic.
-
-\newpage
-\section{Lecture 4}
-
-\begin{example}
-Let $\gamma$ be a path from $i$ to $2$, then
-\[\int_\gamma z^5 dz = \frac{1}{6} z^6 |_i^2\]
-\end{example}
-
-
-\begin{definition}
-We say $f$ has anti-derivative (otherwise known as \textbf{primitive}) if $F'(z) = f(z)$.
-\end{definition}
-
-\begin{proposition}
-    If $f$ is primitive, then
-    \[\int_\gamma f(z) dz = F(z_1) - F(z_0)\]
-    , where $z_0$ is the start of $\gamma$ and $z_1$ is the end of $\gamma$. In particular if $z_0 = z_1$,
-    \[\int_\gamma f(z) dz = 0\]
-\end{proposition}
-
-\begin{proof}
-Chain-Rule and Fundamental Theorem of Calculus
-\end{proof}
-
-Recall Cauchy's Integral Formula:
-\[f(z) = \frac{1}{2\pi i} \oint_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
-
-Taking the derivative of $f(z)$ gives
-\[f'(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{1}{(\xi - z)^2} f(\xi) d\xi\]
-
-Taking the derivative again gives:
-\[f''(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{2}{(\xi - z)^3} f(\xi) d\xi\]
-
-Taking the derivative again gives:
-\[f'''(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{2 \cdot 3}{(\xi - z)^4} f(\xi) d\xi\]
-
-Using induction shows that
-\[f^{(n)}(z) = \frac{1}{2 \pi i} \oint_{\partial G} \frac{n!}{(\xi - z)^{n+1}} f(\xi) d\xi\]
-
-This gives us the corollary:
-
-\begin{corollary}
-    If $f$ is holomorphic under the assumption of Cauchy's Integral Formula, then $f$ is infinitely differentiable.
-\end{corollary}
-
-\begin{proof}
-
-We note that for our claims about the derivative to work, we want to show that
-$$\lim_{\delta z \to 0} \int f(\xi) \frac{P(z + \Delta z, \xi)}{\Delta z} d\xi = \int \lim_{\delta z \to 0} f(\xi) \frac{P(z + \Delta z, \xi) - P(z, \xi)}{\Delta z} d\xi$$
-, ie. we can exchange the limit and the integral.
-
-Then we have that
-$\int \lim_{\delta z \to 0} f(\xi) \frac{P(z + \Delta z, \xi) - P(z, \xi)}{\Delta z} d\xi = \int f(\xi) \frac{\partial P}{\partial z}(z, \xi) d\xi$.
-
-We will show that we can exchange the limit and integral using \textbf{Dominated Convergence Theorem}.
-
-We can use DCT because of the following two reasons:
-
-Reason 1
-\begin{lemma}
-$L = \lim_{x \to x_0} f(x)$ exist if and only if for any sequence $\{x_n\}$ converging to $x_0$, 
-\[\lim_{n \to \infty} f(x_n) = L\]
+\begin{lemma}\label{lem::real_analy_fact}
+Facts from Analysis:
+\begin{enumerate}
+    \item For every $r \in \Rbb$, $\sum_{n = 0}^\infty \frac{r^n}{n!}$ converges absolutely
+    \item If $a_n \in \Cbb$ and $\sum_{n = 0}^\infty |a_n|$ converges, then $\sum_{n = 0}^\infty a_n$ converges
+    \item If $L_a = \sum_{n = 0}^\infty a_n, L_b = \sum_{m = 0}^\infty b_m$ converges absolutely, then
+    \[\sum_{n = 0}^\infty \sum_{k = 0}^n a_k b_{n - k}\]
+    converges to
+    \[(\sum_{n = 0}^\infty a_n) \cdot (\sum_{m = 0}^\infty b_m)\]
+\end{enumerate}
+This will helpful in proving some identities.
 \end{lemma}
 
-Reason 2
-\begin{theorem}[Mean Value Estimates]
-$|P(z + \Delta z, \xi) - P(z, \xi)| \leq |\frac{\partial P}{\partial z}(z + \theta \Delta z, \xi)| \cdot |\Delta z|$, where $0 < \theta < 1$.\\\\
-We note that this inequality is actually uniformly bounded
-\[|\frac{\partial P}{\partial z}(z + \theta \Delta z, \xi)| \cdot |\Delta z| \leq M\]
-We also note that $|\partial G| < \infty$, so we can apply the Dominated Convergence Theorem.
-\end{theorem}
-\end{proof}
-
-\begin{theorem}
-If $f \in CR^1(\Omega)$, then $f$ is analytic in $\Omega$.
-\end{theorem}
-
-\begin{theorem}
-Let $\Omega \supset G$, where $\Omega$ is open and $G$ is a bounded open set where $\partial G \in PC^1$, and furthermore that $cl(G) \subset \Omega$. Let $z_0 \in G \subset \Omega$, then
-$$f(z) = \sum_{n = 0}^\infty a_n (z - z_0)^n$$ for all $z$ where $|z - z_0| < dist(z_0, \partial G)$ and
-\[a_n = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{(\xi - z)^{n+1}} d\xi = \frac{f^{(n)}(z_0)}{n!}\]
-\end{theorem}
-
-\begin{remark}
-    In most textbook the neighborhood of power-series is over $|z - z_0| = R$ where $R < dist(z_0, \partial G)$
-\end{remark}
-
 \begin{proof}
-WLOG, we will assume $z_0 = 0$, because we can always shift the coordinate linearly.\\\\
-Now Caucy's Integral Formula says
-\[f(z) = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
-Now we note that
-\[\frac{1}{\xi - z} = \frac{1}{\xi} \frac{1}{1 - \frac{z}{\xi}}\]
-We note that $|\frac{z}{\xi}| < 1$ since $z$ is in the interior but $\xi$ is on the boundary, so
-\[\frac{1}{\xi} \frac{1}{1 - \frac{z}{\xi}} = \frac{1}{\xi} \sum_{n = 0}^\infty \frac{z^n}{\xi^{n}}\]
-So we have that
+For $(1)$, we will use the ratio test. Indeed, consider $a_n = \frac{r^n}{n!}$, then
+\[\lim_{n \to \infty} |\frac{a_{n+1}}{a_n}| = \lim_{n \to \infty} |\frac{r}{n + 1}| = 0 < 1\]
+Thus, the series converges absolutely.\\\\
+For $(2)$, let $b_n = \sum_{i = 1}^n a_i, c_n = \sum_{i = 1}^n |a_i|$. We note that the topology $\Cbb$ is homeomorphic to the Euclidean topology on $\Rbb^2$, so in particular $\Cbb$ is a complete metric space, so a sequence is convergent if and only if it is Cauchy. We know $c_n$ converges, so for every $\epsilon > 0$, there exists some $N_c$ such that for all $i, j > N_c$.
+\[|c_i - c_j| < \epsilon\]
+It remains for us to show that $b_n$ is also Cauchy. Indeed, if $i = j$, then we are done. Without loss, we will then assume $j > i$, then
 \begin{align*}
-     \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi &= \frac{1}{2\pi i} \int_{\partial G} \sum_{n = 0}^\infty \frac{f(z) z^n}{\xi^{n+1}} d\xi\\
-     &= \sum_{n = 0}^\infty z^n (\frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi^{n+1}} d\xi) \tag*{ASSUMING We can switch integral and sum}\\
-     &= \sum_{n = 0}^\infty z^n a_n
+    |b_i - b_j| &= |\sum_{k = i + 1}^j a_k|\\
+    &\leq \sum_{k = i + 1}^j |a_k| \tag*{Triangle's Inequality}\\
+    &= |c_i - c_j|\\
+    &< \epsilon
 \end{align*}
-It remains for us to justify why we can switch this, we can usually use Fubini's Theorem or Dominated Convergence Theorem, but here we will just use a low-tech solution and note that, assuming $z$ is fixed and $\xi \in \partial G$, then
-\[\lim_{N \to \infty} \sum_{n = 0}^N \frac{z^n}{\xi^{n+1}} = \frac{1}{\xi - z}\ \text{converges uniformly} \]
-, because $|\frac{z}{\xi}| \leq \frac{|z|}{dist(z_0, \partial G)} < 1$, so we have this uniform convergence. Thus, we can always switch the integral and the sum.\\\\
-\textbf{How does the WLOG} work, well, rewrite
-\[\frac{1}{\xi - z} = \frac{1}{(\xi - z_0) - (z - z_0)}\]
-, then we can just use the same reasoning as before. Trying to justify this takes a little bit of work.
+Thus, $\{b_n\}$ is Cauchy and converges.\\\\
+For $(3)$, $(\sum_{n = 0}^\infty a_n) \cdot (\sum_{m = 0}^\infty b_m)$ certainly converges to $L_a \cdot L_b$. Now write $(\sum_{n = 0}^\infty a_n) \cdot (\sum_{m = 0}^\infty b_m) = \sum_{n = 0}^\infty \sum_{m = 0}^\infty a_n b_m$, this corresponds exactly to the terms of $\sum_{n = 0}^\infty \sum_{k = 0}^n a_k b_{n - k}$. The exact combinatorics is left as details to the reader.
 \end{proof}
 
 \begin{corollary}
-    Under the same setup, if $f$ is analytic on $z_0$, then it converges in $D_{z, d}$ where $d = dist(z_0, \partial G)$, so the radius of convergence is at least as much as $d$.
-\end{corollary}
-
-We have proved that satisfying Cauchy-Riemann implies analytic, we will now show the converse.
-
-\begin{theorem}[Morera's Theorem]
-If $f \in C^0(\Omega)$ and $\int_{\partial R} f(z) dz = 0$ for all sufficiently small rectnagles $R$ where $cl(R) \subset \Omega$, then $f \in CR^1$.
-\end{theorem}
-
-\begin{proof}
-We will prove this next lecture.
-\end{proof}
-
-\begin{theorem}
-$(\sum_{n = 0}^\infty a_n (z - z_0)^n)' = \sum_{n = 0}^\infty n a_n (z - z_0)^{n-1}$, hence power series are holomorphic, and thus analytic functions are holomorphic.
-\end{theorem}
-
-\begin{proof}
-You can usually do it by taking the partial sum and taking limit, but there's a trick to it!\\\\
-This is a direct corollary of Morera's Theorem.
-\end{proof}
-
-\newpage
-\section{Lecture 5}
-
-\subsection{Morera's Theorem and Analytic Implies Holomorphic}
-
-\noindent We require a rectangle $R$ in the following theorem to be parallel to the $x$ and $y$-axis.
-
-\begin{theorem}[Morera's Theorem]
-    Let $f \in C^0(\Omega)$, suppose for all sufficiently small rectangles $R$ such that $cl(R) \subset \Omega$, we have that
-    \[\int_{\partial R} f dz = 0\ (*)\]
-    , then $f \in CR^1(\Omega)$ and hence holomorphic and analytic.\\\\
-    By \textbf{``sufficiently small"}, we mean that for all $z_0 \in \Omega$, there exists $\epsilon \coloneqq \epsilon(z_0)$ such that, for all rectangles $R$ where $cl(R) \subset D_{z_0, \epsilon}$, the condition in $(*)$ holds.
-\end{theorem}
-
-\begin{proof}
-    We first note that $CR^1$ is a \textbf{local property}, meaning that it suffices for us to check this in a neighborhood of each point. Thus, for some $r > 0$, we can without loss assume $\Omega = D_{z_0, r}$.\\\\
-    Now consider the diagram:
-    \[\fbox{\includegraphics[width=.5\textwidth]{disk5.png}}\]
-    For all $z \in \Omega$, define $F(z) = \int_{z_0}^z f(\xi) d\xi \coloneqq \int_{\gamma_1} f(z) dz = \int_{\gamma_2} f(z) dz$. We note that $F(z)$ is well-defined as Cauchy's Theorem guarantees the path-independence.\\\\
-    \underline{We claim that $F \in CR^1(\Omega)$.} Indeed, tracing $\gamma_1$ and using the Fundamental Theorem of Calculus tells us that
-    \[\frac{\partial F}{\partial x}(z) = f(z)\]
-    Similarly, tracing along $\gamma_2$, we can parameterize $F(z)$ as
-    \[F(z) = \int_{x_0}^x f(s + i y_0) ds + i \int_{y_0}^y f(x + it) dt\]
-    Then it follows again that
-    \[\frac{\partial F}{\partial y}(z) = i f(z)\]
-    We can check that
-    \[\frac{\partial F}{\partial x} + i \frac{\partial F}{\partial y} = f(z) - f(z) = 0\]
-    , thus $F(z) \in CR^1(\Omega)$. Since $F(z)$ follows the Cauchy-Riemann Equations, we also know that
-    \[F'(z) = \frac{1}{2}(\frac{\partial F}{\partial x} - i \frac{\partial F}{\partial y}) = \frac{1}{2}(2f(z)) = f(z)\]
-    Since $F(z)$ is holomorphic, it is infinitely differentiable, so $f(z)$ is also holomorphic, so we are done.
-\end{proof}
-
-\begin{corollary}
-    If $f_n \in C_z^1(\Omega)$ and $\{f_n\}$ converges to $f$ uniformly, then $f \in C_z^1(\Omega)$.
+Let $e^z$ be the complex exponential map, then
+\begin{itemize}
+    \item $e^z$ converges for all $z \in \Cbb$
+    \item $e^{z + w} = e^z \cdot e^w$ for all $z, w \in \Cbb$
+\end{itemize}
 \end{corollary}
 
 \begin{proof}
-    For all sufficiently small rectangle $R$ within $\Omega$, consider
-    \begin{align*}
-        \int_{\partial R} f(z) dz &= \int_{\partial R} \lim_{n \to \infty} f_n dz\\
-        &= \lim_{n \to \infty} \int_{\partial R} f_n dz \tag*{Uniform Convergence}\\
-        &= \lim_{n \to \infty} 0 \tag*{Cauchy's Theorem}\\
-        &= 0
-    \end{align*}
-    Thus, by Morera's Theorem, $f \in C_z^1(\Omega)$.
-\end{proof}
-
-\begin{corollary}
-    If $f_n \in C_z^1(\Omega)$ and $\{f_n\}$ converges to $f$ uniformly, then $\{f_n'(z)\}$ converges to $f'(z)$ uniformly, and hence $\{f_n^{k}(z)\}$ converges to $f^{k}(z)$ uniformly.
-\end{corollary}
-
-\begin{proof}
-It suffices for us to show this for the first derivative. Now for all $z \in \Omega$ and sufficiently small domain $G$, we have that
+For the first, let $a_n = \sum_{k = 1}^n |\frac{z^k}{k!}|$. It suffices for us to prove that $a_n$ converges as absolute convergence implies monotone convergence from Lemma~\ref{lem::real_analy_fact}(2). But we note that 
+\[|\frac{z^k}{k!}| = \frac{|z|^k}{k!}\]
+and $|z|$ is a real number, so Lemma~\ref{lem::real_analy_fact}(1) tells us that $a_n$ converges.\\\\
+For the second, we note that
 \begin{align*}
-    f'(z) &= \frac{1}{2 \pi i} \int_{\partial G} \frac{f(z)}{(\xi - z)^2} d\xi \tag*{Cauchy's Formula for Derivatives}\\
-    &= \frac{1}{2 \pi i} \int_{\partial G} \lim_{n \to \infty} \frac{f_n(z)}{(\xi - z)^2} d\xi\\
-    &= \lim_{n \to \infty} \frac{1}{2 \pi i} \int_{\partial G} \frac{f_n(z)}{(\xi - z)^2} d\xi \tag*{Uniform Convergence}\\
-    &= \lim_{n \to \infty} f_n'(z) \tag*{Cauchy's Formula for Derivatives}
+    e^{z + w} &= \sum_{n = 0}^\infty \frac{(z + w)^n}{n!}\\
+    &= \sum_{n = 0}^\infty \sum_{k = 0}^n {n \choose k} \frac{z^k w^{n-k}}{n!} \tag*{Binomial Theorem}\\
+    &= \sum_{n = 0}^\infty \sum_{k = 0}^n \frac{z^k}{k!} \frac{w^{n-k}}{(n - k)!}\\
+    &= (\sum_{n = 0}^\infty \frac{(z)^n}{n!}) \cdot (\sum_{n = 0}^\infty \frac{(w)^n}{n!}) \tag*{By Lemma~\ref{lem::real_analy_fact}(3)}\\
+    &= e^z \cdot e^w
 \end{align*}
-Thus, we have that $\{f_n'(z)\}$ converges to $f'(z)$. Since the original convergence is uniform, this convergence is also uniform.
 \end{proof}
 
-\begin{theorem}[Meta Theorem]
-    Let $\phi(z, \xi): \Cbb \times X \to \Cbb$ where $X$ is some parameterization space with measure $\mu(\xi)$ that is finite, let
-    $$f(z) = \int \phi(z, \xi) d\mu(\xi)$$
-    Suppose $\phi$ is $CR^1$ in the variable $z$ and $f$ is bounded, then $f(z)$ is analytic.
-\end{theorem}
+\begin{proposition}
+We can also recover $\cos(z)$ and $\sin(z)$ from $e^z$ as
+\[\cos(z) = \frac{e^{iz} + e^{-iz}}{2}, \sin(z) = \frac{e^{iz} - e^{-iz}}{2i}\]
+If $x \in \Rbb$, we also have that
+\[\cos(x) = \Re e^{ix}, \sin(x) = \Im e^{ix}\]
+\end{proposition}
 
-\begin{proof}
-    Since the measure $\mu$ is finite and the function is bounded, we can use Fubini's Theorem and see that, for all sufficiently small rectangles,
-    \begin{align*}
-        \int_R f(z) dz &= \int_R [\int \phi(z, \xi) d\mu(\xi)] dz\\
-        &= \int [\int_R \phi(z, \xi) dz] d\mu(\xi) \tag*{Fubini's Theorem}\\
-        &= \int 0 d\mu(\xi) \tag*{$\phi$ is $CR^1$ in the variable $z$}\\
-        &= 0
-    \end{align*}
+\subsection{Complex Logarithms}
+
+As in the case of $\Rbb$, we want to define $\log(z)$ as an inverse to $e^z$ such that
+\[e^{\log(z)} = z\]
+The problem is that $e^z$ is not actually injective, so there are multiple choices for $\log(z)$. Consequently, this will result in $\log(z)$ not being continuous on all of $\Cbb$.
+
+\begin{question}
+Given $z$, can we find all solutions satifying $e^w = z$?
+\end{question}
+
+\begin{proof}[Answer]
+We will again leverage on Polar Coordinates. Indeed, write $z = re^{i \theta}, w = x + iy$, then we have that
+\[r e^{i \theta} = e^{x + iy} = e^{x} e^{iy}\]
+Thus, $x = \log(r), y = \theta + 2 \pi k$.\\\\
+Thus, $w$ is of the form $w_k = \log(r) + i(\theta + 2 \pi k)$
 \end{proof}
 
-\begin{corollary}
-    Let $f(z) = \sum_{n = 0}^\infty a_n (z - z_0)^n$ defined in $D_{z_0, r}$, then $f \in CR^1(D_{z_0, r}) = C_z^1(D_{z_0, r})$
-\end{corollary}
-
-\begin{proof}
-    Let $z \in D(z_0, r)$, consider $r_1 > 0$ small enough that $cl(D(z, r_1)) \subset D(z_0, r)$, then by Heine-Cantor, we know that the partial sums
-    \[\sum_{k = 0}^N a_k (z - z_0)^k \mapsto \sum_{0}^\infty a_n (z - z_0)^n \text{ converges uniformly in $D(z, r_1)$}\]
-    Each of the partial sum are complex differentiable, thus by Corollary above, we have that $f \in C_z^1(D_{z_0, r})$.
-\end{proof}
-
-\begin{theorem}
-    $CR^1 = C_z^1 = \text{Analytic}$
-\end{theorem}
-
-\begin{proof}
-We have already shown all the directions in previous lectures and this lecture.
-\end{proof}
-
-\subsection{Power Series}
-
-\begin{definition}
-    Let $f(z) = \sum a_k (z - z_0)^k$ be a power series. We define the radius of convergence of $f$ as $R \in [0, \infty]$ such that for all $z$ such that $|z - z_0| < R$, $f(z)$ diverges, and for all $z$ such that $|z - z_0| > R$, $f(z)$ converges.
+\begin{definition}[Complex Logarithm]
+    For $z \in \Cbb \setminus \{0\}$, write $z = re^{i \theta}, \theta \in [-\pi, \pi]$. Then we define
+    \[\log(z) = \log(r e^{i \theta}) \coloneqq \log(r) + i \theta\]
+    $\theta$ is sometimes refered to as the \textbf{principal argument} of $z$ and we denote $Arg(z) = \theta$.
 \end{definition}
 
 \begin{remark}
-    It turns out that
-    \[\frac{1}{R} \coloneqq \lim \sup_{n \to \infty} |a_n|^{1/n}\]
+Note that the complex logarithm $\log(z)$ is not continuous on all of $\Cbb$:
+\[\includegraphics[width=0.5\textwidth]{Figures/complex_log.png}\]
+As you trace around the unit circle, going back to $z = 1$ presents a problem.\\\\
+Therefore, we can only define the complex logarithm up to a \textbf{branch cut} that's a radial line extending out from the origin. We will without loss choose this branch to be $(-\infty, 0]$
 \end{remark}
 
 \begin{proposition}
-    Let $f(z) = \sum a_k (z - z_0)^k$ be a power series with radius of convergence $R$, then $f(z)$ converges uniformly in any smaller disk of radius $r < R$ contained in $D_{z_0, R}$
+$\log(z)$ is holomorphic on $\Cbb \setminus (-\infty, 0]$ and in fact $\frac{d}{dz} \log(w) = \frac{1}{w}$
 \end{proposition}
 
 \begin{proof}
-    We note that $f$ is continuous on $D_{z_0, R}$, and the closure of any smaller disk is also contained in $D_{z_0, R}$, then apply Heine-Cantor.
+One way to do this is to use the Cauchy-Riemann equations in polar coordinates. We will however use the Inverse Function Theorem instead. Indeed, we note that on $\Cbb \setminus (-\infty, 0]$, $z \mapsto e^z$ is a smooth function with non-zero derivatives, so the inverse function theorem tells us that $\log(z)$ is also holomorphic. Furthermore, locally for all $w = e^z \in \Cbb \setminus (-\infty, 0]$,
+\[\frac{d}{dz} \log(w) = \frac{1}{e^z} = \frac{1}{w}\]
 \end{proof}
 
-\begin{corollary}
-    The following three power series:
-    \begin{itemize}
-        \item $\sum_{n = 0}^\infty a_n z^n$
-        \item $\sum_{n = 0}^\infty n a_n z^{n-1}$
-        \item $\sum_{n = 0}^\infty \frac{a_n}{n + 1} z^{n+1}$
-    \end{itemize}
-    all have the same radius of convergence.
-\end{corollary}
-
-\begin{proof}
-    Exercise. Hint: Note that
-    \[\lim_{n \to \infty} n^{1/n} = 1\]
-\end{proof}
-
-\begin{example}
-    For sufficiently small $z \in \Cbb$, consider
-    \[\frac{1}{1 + sin(z)} = 1 - sin(z) + sin^2(z) + ...\]
-    , we can rewrite this into a power-series by noting that
-    \[sin(z) = z - \frac{z^3}{3!} + \frac{z^5}{5!} + ...\]
-\end{example}
-
-\subsection{Liouville's Theorem}
-
-\begin{theorem}
-    Let $f \in Hol(\Cbb)$ be a holomorphic function on $\Cbb$, and for all $z \in \Cbb$ we have that $|f(z)| \leq M$ for some fixed $M \in \Cbb$, then $f(z)$ is identically constant.
-\end{theorem}
-
-\begin{proof}
-Using Cauchy's Formula for Derivatives, we note that for all $z \in \Cbb$, for all $R > 0$,
-\[f'(z) = \frac{1}{2\pi i} \int_{|\xi - z| = R} \frac{f(\xi)}{(\xi - z)^2} d\xi\]
-Thus, we have that
-\begin{align*}
-    |f'(z)| \leq \frac{1}{2\pi} \max_{\xi \in |\xi - z|} |\frac{f(\xi)}{(\xi - z)^2}| \cdot 2 \pi R\\
-    &\leq \frac{1}{2\pi} \frac{M}{R^2} \cdot 2 \pi R \tag*{Since $f$ is bounded}\\
-    &= \frac{M}{R}
-\end{align*}
-Since this inequality holds for all $R > 0$, taking the limit as $R \to 0$, gives us that
-\[|f'(z)| = 0\]
-Hence $f'(z) = 0$, so
-\[\frac{\partial f}{\partial z} = 0, \frac{\partial f}{\partial \overline{z}} = 0\]
-So in other words
-\[f_x - i f_y = 0, f_x + i f_y = 0 \implies f_x = 0, f_y = 0 \implies f(z) \text{ is constant}\]
-\end{proof}
+\noindent Note that we didn't define the Inverse Function Theorem for complex variables, but we treated the map $z \to e^z$ as a function of two variables from $\Rbb^2$ to $\Rbb^2$.
 
 \begin{remark}
-    While our Morera's Theorem applies to only triangles, up to a change of coordinate, the rectangle can really just be anything.
+Let $z \in \Cbb \setminus (-\infty, 0]$, then since $\frac{1}{z}$ is primitive on the path $1$ to $z$, we have that:
+\[\int_1^z \frac{d\xi}{\xi} = \log(z) - \log(1) = \log(z)\]
 \end{remark}
 
+\subsection{Homotopy Invariance of Integral}
+
+Let $f \in \Hol(\Omega)$ and $\gamma: [a, b] \to \Gamma$ is continous and $\Gamma \subset \Omega$, then we can define the integral
+\[\int_\gamma f(z) dz\]
+
+Informally, we can define this because at each point on $\gamma$, we can find some disk to represent $f$ as a power series with a primitive $F$, then we can split $[a, b]$ into a union of (not necessarily uniform) subintervals, then the integral $\gamma$ can be approximated as a sum of the anti-derivatives $F_k$ at each end-points.
+
+We can formally justify this with what's called the Lebesgue's Number Lemma.
+
+\begin{lemma}[Lebesgue's Number Lemma]
+Let $K$ be a compact metric space and let $\{U_a\}$ be an open cover for $K$, then there exists some $\delta > 0$ (we call the \textbf{Lebesgue Number}) such that for all $x \in K$, there exists some $a$ such that $B_{x, \delta} \subset U_a$
+\end{lemma}
+
+\mattie{Work in progress}
+\begin{proof}
+For all $x \in K$, since $\{U_a\}$ is an open cover of $K$, there exists some $a$ such that $x \in U_a$. Since $U_a$ is open, there exists some $r(x) > 0$ small enough such that $B_{x, 2r(x)} \subset U_\alpha$.\\\\
+Note that $\{B_{x, 2r(x)}\}$ running over all $x \in K$ is an open cover of $K$. Since $K$ is compact, we in fact have a finite subcover:
+\[B_{x_1,2r_1}, ..., B_{x_n, 2r_n}\]
+Choose $\delta = \min \{r_i\}$. Now for all $x \in K$, it belongs to one of the $B_{x_k, 2r_k} \subset U_a$.\\\
+Then we claim $x \in B_{x, \delta} \subset B_{x_k, 2r_k} \subset U_a$. To do this, we need to verify $B_{x, \delta} \subset B_{x_k, 2r_k}$. Indeed, for all $y \in B_{x, \delta}$, we have that
+\[d(y, x_k) \leq d(y, x) + d(x, x_k) \leq \delta +  \]
+\end{proof}
+
+To apply this lemma in our context, we take $K = [a, b]$ and for all $s \in [a, b]$, we define $U_s = \gamma^{-1}(D_{\gamma(s), r(s)})$, where $r(s)$ is the radius of convergence of $\gamma(s)$ under the power-series. Then we can apply the Lebesgue's Number Lemma.
+
+\begin{question}
+Is the integral well-defined up to two different splitting?
+\end{question}
+
+Yes, the idea is that given two splitting on the interval, one can join them using a refinement by taking smaller intervaks of both of them and used the associated antiderivative from either original splittings.
+
+\begin{definition}
+    Let $\gamma_0, \gamma_1: [a, b] \to \Omega$ be continuous. We say $\gamma_0$ is \textbf{homotopy equivalent} to $\gamma_1$ if there exists a continuous function $\Gamma: [a, b] \times [0, 1] \to \Omega$ such that $\Gamma(s, 0) = \gamma_0(s)$ and $\gamma(s, 1) = \gamma_1(s)$ for all $s \in [a, b]$.
+\end{definition}
+
+we will also assume that either:
+        \begin{itemize}
+            \item All pathes are closed, for all $t$
+            \[\Gamma(a, t) = \Gamma(b, t)\]
+            \item OR Endpoints are fixed
+            \[\Gamma(a, t) = \gamma_0(a) = \gamma_1(b)\]
+            \[\Gamma(b, t) = \gamma_0(b) = \gamma_1(b)\]
+        \end{itemize}
+
+\begin{theorem}
+If $\gamma_0, \gamma_1$ are homotopy equivalent in $\Omega$ and $f \in Hol(\Omega)$, then
+\[\int_{\gamma_0} f(z) dz = \int_{\gamma_1} f(z) dz\]
+\end{theorem}
+
 \begin{remark}
-    How to check say if $f(z) = |z|^2 = z \overline{z}$ is analytic or not? Well, we see that
-    \[\frac{\partial f}{\partial \overline{z}} = \frac{\partial z}{\partial \overline{z}} \overline{z} + z \frac{\partial \overline{z}}{\partial \overline{z}} = 0 + z(1) \neq 0\]
-    Thus, $f$ is not holomorphic and hence not analytic.\\\\
-    Take another example, say $f(z) = |z| = (z \overline{z})^{1/2}$. This is real valued so we can use power rule and
-    \[\overline{\partial}(f) = \frac{1}{2}(z \overline{z})^{-1/2} z \neq 0\]
+In a simply connected domain, any two pathes are homotopy equivalent. In otherwords, the path of integration is irrelevant.
 \end{remark}
 
 \newpage
 
-\section{Lecture 6}
+\section{Lecture 8}
 
+\subsection{Homotopy Invariance of Integrals - Continued}
 
+\begin{theorem}
+If $\gamma_0, \gamma_1$ are homotopy equivalent in $\Omega$ and $f \in Hol(\Omega)$, then
+\[\int_{\gamma_0} f(z) dz = \int_{\gamma_1} f(z) dz\]
+\end{theorem}
 
+\begin{proof}
+Let $\Gamma$ be the homotopy equivalence function. For all $z_0 \in \Omega$, let $D_{z_0}$ be a disc centered at $z_0$ small enough such that $f$ can be expressed as a power-series on it, define
+\[U_{z_0} = \Gamma^{-1}(D_{z_0})\]
+Then $\{U_{z_0}\}$ will be an open cover of $R \coloneqq [a, b] \times [0, 1]$, which is a compact metric space. Apply Lebesgue's Number Lemma, we find $\delta > 0$ such that, we can split $R$ into smaller rectangles $R_k$ where each $diam(R_k) < \delta$.\\\\
+The Lebesgue Number Lemma tells us that, for each $R_k$, $\Gamma(cl(R_k)) \subset D_{z}$ for some $z$. Since $f$ is primitive on $D_z$, we have that
+\[\int_{\Gamma|_{\partial R_k}} f(z) dz = 0\]
+Putting the small rectangles together (Green's Theorem style), the inner edges cancel out, so we have that
+\[\int_{\Gamma|_{\partial R}} f(z) dz = 0\]
+Now consider the pathes $\ell_1 = \{a\} \times [0, 1]$ and $\ell_2 = \{b\} \times [0, 1]$, we claim that
+\[\int_{\Gamma|_{\ell_1 + \ell_2}} f(z) dz = 0\]
+Indeed, if endpoints are fixed, both paths are constant (stays at same point). If all path are closed, then this is the same path in opposite directions.\\\\
+Thus, we only have to integrate over the horizontal pathes:
+\[\int_{\partial R} f(z) dz = 0 = \int_{\gamma_0} f(z) dz - \int_{\gamma_1} f(z) dz\]
+\end{proof}
+
+\begin{definition}
+    A set $\Omega$ is \textbf{simply connected} if any closed loop in $\Omega$ is homotopy equivalent to the constant path. This is equivalent to saying, for any pathes $\gamma_0, \gamma_1$, $\gamma_0(a) = \gamma_1(a) = z_0$, $\gamma_0(b) = \gamma_1(b) = z_1$, are homotopy equivalent.
+\end{definition}
+
+\begin{remark}
+If $\Omega$ is simply connected domain, then
+\[\int_{z_0}^z_1 f(z) dz\]
+does not depend on the path specified.
+\end{remark}
+
+\begin{definition}
+    Let $\Omega$ be simply connected and $f \in Hol(\Omega)$. Suppose $f(z) \neq 0$ for all $z \in \Omega$.\\\\
+    Fix some $z_0 \in \Omega$, and consider
+    \[a_0 \text{ such that } f(z_0) = e^{a_0}\]
+    We can find $a_0$ as
+    \[Re(a_0) = \log |f(z_0)|, Im(a_0) = arg\ f(z_0)\]
+    Then we define
+    \[\log f(z) \coloneqq a_0 + \int_{z_0}^z \frac{f'(\xi)}{f(\xi)} d\xi\]
+\end{definition}
+
+Show that $\log f(z)$ aligns with the global definition of the complex logarithm.
+
+\begin{proof}
+Exercise. The idea is to denote $\varphi(z) = a_0 + \int_{z_0}^z \frac{f'(\xi)}{f(\xi)} d\xi$ and show that
+\[(f(z) e^{-y(z)})' = 0\]
+and realize that their product must be $1$.
+\end{proof}
+
+\mattie{explain motivation later}
+\begin{definition}
+    What is $f(z)^{\alpha}$? We define
+    \[f(z)^{\alpha} = e^{\alpha \log(f(z))}\]
+    This is defined when $f \in Hol(\Omega)$, $f(z) \neq 0$ on all of $\Omega$, and $\Omega$ is simply connected.
+\end{definition}
+
+In a simply connected domain, the branch of the logarithm, it is enough to be determined by which $a_0$ you choose.
+
+\subsection{Laurent Series}
+
+Suppose $f$ is holomorphic on $\{z : a < |z - z_0| < A\}$, where we require $a \geq 0$ and $A \leq \infty$.
+
+\begin{theorem}
+If $f \in Hol\{z : a < |z - z_0| < A\}$, then $f$ can be represented as
+\[f(z) = \sum_{n \in \Zbb} a_n (z - z_0)^n\]
+, where we have that
+\[a_n = \frac{1}{2\pi i} \int_{|\xi - z_0| = r} f(\xi) (\xi - z_0)^{-(n+1)} d\xi\]
+, where $r$ is between $a < r < A$ (Note that for $\Zbb_+$, this is the same as the Taylor Power Series)
+\end{theorem}
+
+\begin{proof}
+Without loss of generality, we can shift this to $z_0 = 0$.\\\\
+Take $z$ such that $a < |z| < A$ and pick $r, R$ such that
+\[a < r < |z| < R < A\]
+Then consider the set
+\[G \coloneqq \{z: r < |z| < R \}\]
+Then Cauchy's Integral Formula gives
+\begin{align*}
+    f(z) &= \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\\
+    &= \frac{1}{2\pi i} (\int_{|z| = R} \frac{f(\xi)}{\xi - z} d\xi - \int_{|z| = r} \frac{f(\xi)}{\xi - z} d\xi)\\
+    &= \frac{1}{2\pi i} (I_1 - I_2)
+\end{align*}
+For $I_1$, we note that $|z| < |\xi| = R$, so
+\begin{align*}
+    I_1 &= \int_{|z| = R} \frac{f(\xi)}{\xi - z} d\xi\\
+    &= \int_{|z| = R} \frac{f(\xi)}{\xi} \frac{1}{1 - \frac{z}{\xi}} d\xi\\
+    &= \int_{|z| = R} f(\xi) \sum_{k = 0}^\infty \frac{z^k}{\xi^{k+1}}
+\end{align*}
+For $I_2$, we note that $|z| > |\xi| = r$, so
+\begin{align*}
+    I_2 &= \int_{|z| = r} \frac{f(\xi)}{\xi - z} d\xi\\
+    &= \int_{|z| = r} \frac{-f(\xi)}{z} \frac{1}{1 - \frac{\xi}{z}} d\xi\\
+    &= \int_{|z| = r} -f(\xi) \sum_{k = 0}^\infty \frac{\xi^k}{z^{k+1}}\\
+    &= \int_{|z| = r} -f(\xi) \sum_{n = -\infty}^{-1} \frac{z^n}{\xi^{n+1}}\\ \tag*{Change of Variables}
+\end{align*}
+Since both series converge uniformly, we can integrate term by term and use Cauchy's Formula for Derivatives, rewriting both $I_1$ and $I_2$ out in series finishes the proof.
+\end{proof}
+
+Now we will consider a particular case of the Laurent Series!
+
+\begin{definition}
+    Let $f \in Hol(\Omega \setminus \{z_0\})$ where $z_0 \in \Omega$. In this case, we say $f$ has a singularity at $z_0$.\\\\
+    Take $\delta$ small enough and $D_{z_0, \delta} \subset \Omega$, then the Laurent Series tells us
+    \[f(z) = \sum_{n \in \Zbb} a_n (z - z_0)^n\]
+    We say that
+    \begin{itemize}
+        \item $f$ has a \textbf{removable singularity} at $z_0$ if $a_n = 0$ for all $n < 0$. In this case,
+        \[f(z) = \sum_{n \geq 0} a_n (z - z_0)^n, f(z_0) = a_0\]
+        An example of such function would be $f(z) = \frac{sin(z)}{z}$ has removable singularity at $0$
+        \item We say $f$ has a \textbf{pole at $z_0$} if $a_n \neq 0$ for finitely many $n < 0$. We say the \textbf{order of a pole} as
+        \[\max \{n \geq 0: a_{-n} = 0\}\]
+        \item We say that $f$ has an essential singularity if there exists infinitely many $n < 0$ such that $a_n \neq 0$.\\\\
+        For example consider
+        \[f(z) = e^{1/z} = \sum_{n = 0}^\infty \frac{z^{-n}}{n!}\]
+        This has an essential singularity at $z = 0$.
+    \end{itemize}
+    These are the singularities we care about.
+\end{definition}
+
+\newpage
+\section{Lecture 9}
+
+Recall, let $f \in Hol(\Omega \setminus \{z_0\})$, where $z_0 \in \Omega$, we can write $f$ into a Laurent series
+\[f(z) = \sum_{z \in \Zbb} a_n (z - z_0)^n, 0 < |z - z_0| < N\]
+, and we say that $z_0$ is removable if $a_n = 0$ for all $n < 0$.
+
+\begin{theorem}
+$z_0$ is a removable singularity of $f$ if and only if there exists a neighborhood $z_0 \in U$ such that $f$ is bounded in $U \setminus \{z_0\}$.
+\end{theorem}
+
+\begin{proof}
+If $f$ has a removable singularity, we can write it locally as
+\[f(z) = \sum_{n \geq 0} a_n (z - z_0)^n\]
+which has a positive radius of convergence and hence bounded in a neighborhood of $z_0$.\\\\
+Conversely, suppose $f$ is bounded on $0 < |z - z_0| < \delta$. Then for all $n \geq 1$, we note that
+\[a_{-n} = \frac{1}{2\pi i} \int_{|z - z_0| = r} f(z) (z - z_0)^{n-1} dz \]
+As $n-1 \geq 0$ and $f$ is bounded, this integral is also bounded, so
+\[|a_{-n}| \leq \frac{1}{2\pi} M (1) (2\pi r) = Mr\]
+for all $0 < r < \delta$, we can shrink $r$ down and have that $a_{-n} = 0$.
+\end{proof}
+
+\begin{remark}
+If $f(z) = O(\frac{1}{|z - z_0|})$, then $f$ has a removable singularity at $z_0$.
+\end{remark}
+
+We say $f$ has a \textbf{pole at $z_0$} if $a_n \neq 0$ for finitely many $n < 0$. We say the \textbf{order of a pole} as
+        \[\max \{n \geq 0: a_{-n} = 0\}\]
+        
+\begin{theorem}
+$z_0$ is a pole if and only if $\lim_{z \to z_0} |f(z)| = \infty$
+\end{theorem}
+
+\begin{proof}
+Suppose $z_0$ is a pole of order $m$, then we can write
+\[f(z) = \frac{g(z)}{(z - z_0)^m}, g(z_0) \neq 0\]
+Hence we have that
+\[\lim_{z \to z_0} |f(z)| = \lim_{z \to z_0} |\frac{g(z)}{(z - z_0)^m}| = \infty\]
+Conversely, suppose $\lim_{z \to z_0} |f(z)| = \infty$, then we can find some $r > 0$ such that $|f(z)| > 1$ for all $z$ in $0 < |z - z_0| < r$.\\\\
+Now consider $h(z) = \frac{1}{f(z)}$ on $D_{z_0, r} \setminus \{z_0\}$, then $h(z) \in Hol(D_{z_0, r} \setminus \{z_0\})$ and $\lim_{z \to z_0} h(z) = 0$ - so we can extend $h$ to the whole disk. Therefore it has to be the case that $|h(z)| < 1$, then by the previous theorem, this means $z_0$ is a removable singularity for $h$, so in fact $h$ is holomorphic on the whole disk.\\\\
+Since $h(z_0) = 0$, we can find the smallest $m$ such that $h(z) = (z - z_0)^m h_0(z)$ but $h_0(z_0) \neq 0$. Now consider $g = \frac{1}{h}$, then we have that
+\[f(z) = \frac{g(z)}{(z - z_0)^m}\]
+Thus, $z_0$ is a pole of order $m$.
+\end{proof}
+
+We say that $f$ has an essential singularity if there exists infinitely many $n < 0$ such that $a_n \neq 0$.
+
+\begin{theorem}[Casorati-Weierstrass Theorem]
+If $f$ has an essential singularity at $z_0$, then for any neighborhood $U$ of $z_0$, $U \subset \Omega$, $f(U)$ is \textbf{dense} in $\Cbb$ (in other words, for all $w \in \Cbb$, there exists a sequence of $z_n$ such that $f(z_n) \to w$ as $z_n \to z_0$)
+\end{theorem}
+
+\begin{proof}
+We will prove this using contradiction. Suppose there exists some neighborhood $U$ of $z_0$ such that $f(U)$ is not dense. Then there exists some $a \in \Cbb$ and $r > 0$ such that $D_{a, r} \cap f(U) = \emptyset$.\\\\
+Now define $g(z) = \frac{1}{f(z) - a}$. Then clearly $g \in Hol(U)$ as the denominator is never $0$. We also have that $|g| < \frac{1}{|f(z) - a|} < \frac{1}{r}$. Moreover, we note that $g(z) \neq 0$ in $U \setminus \{z_0\}$ because $f$ is bounded?????. While $g(z_0)$ could be $0$, we will choose the smallest $m$ such that $g(z) = (z - z_0)^m g_0(z)$ and $g_0(z_0) \neq 0$.\\\\
+Thus, $g_0(z) \neq 0$ on $U$. But we have that
+\[f(z) = \frac{1}{g(z)} + a = \frac{1}{(z - z_0)^m g_0(z)} + a\]
+, so $f$ has a removable singularity or some pole at $z_0$, hence a contradiction.
+\end{proof}
+
+\begin{definition}
+    Suppose $f$ has a singularity at $z_0$ and write
+    \[f(z) = \sum_{n \in \Zbb} a_n (z - z_0)^n\]
+    Then we define the \textbf{residue of $f$ at $z_0$} as $a_{-1}$ and denote is as $Res_{z_0}(f)$ or $res(f, z_0)$
+\end{definition}
+
+\begin{remark}
+If $z_0$ is a pole of order $1$, then
+\[res(f, z_0) = \lim_{z \to z_0} (z - z_0)f(z)\]
+\end{remark}
+
+\begin{theorem}[Cauchy's Residue Theorem]
+Let $G$ be a bounded domain with $\partial G \in PC^1$ and $\overline{G} \subset \Omega$. Let $z_1, ..., z_n \in G$ and $f \in Hol(\Omega \setminus \{z_1, ..., z_n\})$, then
+\[\int_{\partial G} f(z) dz = 2\pi i \sum_{k = 1}^n Res(f, z_k)\]
+\end{theorem}
+
+\begin{proof}
+Let $D_k$ be small disks around each $z_k$ and consider $\Tilde{G} = G \setminus \bigcup D_k$. Note that $f(z)$ is holomorphic on $\Tilde{G}$, so
+\[\partial_{\partial \Tilde{G}} f(z) dz = 0\]
+On the other hand, we also have that $\partial \Tilde{G} = \partial G - \bigcup \partial D_k$, so in other words
+\[\int_{\partial G} f(z) dz = \sum_k \int_{\partial D_k} f(z) dz\]
+Write $f$ as a Laurent Series, then every term except for the $-1$ term is primitive and thus evaluate to $0$, so we are left with:
+\[\int_{\partial G} f(z) dz = 2\pi i \sum_{k = 1}^n Res(f, z_k)\]
+\end{proof}
 
 \end{document}

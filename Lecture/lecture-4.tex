@@ -1,0 +1,131 @@
+\section{Lecture 4}
+
+\subsection{Holomorphic Implies Infinitely Differentiable}
+
+\begin{example}
+Let $\gamma$ be a path from $i$ to $2$, then
+\[\int_\gamma z^5 dz = \frac{1}{6} z^6 |_i^2\]
+\end{example}
+
+\begin{definition}
+We say $f$ has anti-derivative (otherwise known as \textbf{primitive}) if $F'(z) = f(z)$.
+\end{definition}
+
+\begin{proposition}
+    If $f$ is primitive, then
+    \[\int_\gamma f(z) dz = F(z_1) - F(z_0)\]
+    , where $z_0$ is the start of $\gamma$ and $z_1$ is the end of $\gamma$. In particular if $z_0 = z_1$,
+    \[\int_\gamma f(z) dz = 0\]
+\end{proposition}
+
+\begin{proof}
+Chain-Rule and Fundamental Theorem of Calculus
+\end{proof}
+
+Recall Cauchy's Integral Formula:
+\[f(z) = \frac{1}{2\pi i} \oint_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
+
+Taking the derivative of $f(z)$ gives
+\[f'(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{1}{(\xi - z)^2} f(\xi) d\xi\]
+
+Taking the derivative again gives:
+\[f''(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{2}{(\xi - z)^3} f(\xi) d\xi\]
+
+Taking the derivative again gives:
+\[f'''(z) = \frac{1}{2\pi i}  \oint_{\partial G} \frac{2 \cdot 3}{(\xi - z)^4} f(\xi) d\xi\]
+
+Using induction shows that
+\[f^{(n)}(z) = \frac{1}{2 \pi i} \oint_{\partial G} \frac{n!}{(\xi - z)^{n+1}} f(\xi) d\xi\]
+
+This gives us the corollary:
+
+\begin{corollary}
+    If $f$ is holomorphic under the assumption of Cauchy's Integral Formula, then $f$ is infinitely differentiable.
+\end{corollary}
+
+\begin{proof}
+
+We note that for our claims about the derivative to work, we want to show that
+$$\lim_{\delta z \to 0} \int f(\xi) \frac{P(z + \Delta z, \xi)}{\Delta z} d\xi = \int \lim_{\delta z \to 0} f(\xi) \frac{P(z + \Delta z, \xi) - P(z, \xi)}{\Delta z} d\xi$$
+, ie. we can exchange the limit and the integral.
+
+Then we have that
+$\int \lim_{\delta z \to 0} f(\xi) \frac{P(z + \Delta z, \xi) - P(z, \xi)}{\Delta z} d\xi = \int f(\xi) \frac{\partial P}{\partial z}(z, \xi) d\xi$.
+
+We will show that we can exchange the limit and integral using \textbf{Dominated Convergence Theorem}.
+
+We can use DCT because of the following two reasons:
+
+Reason 1
+\begin{lemma}
+$L = \lim_{x \to x_0} f(x)$ exist if and only if for any sequence $\{x_n\}$ converging to $x_0$, 
+\[\lim_{n \to \infty} f(x_n) = L\]
+\end{lemma}
+
+Reason 2
+\begin{theorem}[Mean Value Estimates]
+$|P(z + \Delta z, \xi) - P(z, \xi)| \leq |\frac{\partial P}{\partial z}(z + \theta \Delta z, \xi)| \cdot |\Delta z|$, where $0 < \theta < 1$.\\\\
+We note that this inequality is actually uniformly bounded
+\[|\frac{\partial P}{\partial z}(z + \theta \Delta z, \xi)| \cdot |\Delta z| \leq M\]
+We also note that $|\partial G| < \infty$, so we can apply the Dominated Convergence Theorem.
+\end{theorem}
+\end{proof}
+
+\begin{theorem}
+If $f \in CR^1(\Omega)$, then $f$ is analytic in $\Omega$.
+\end{theorem}
+
+\begin{theorem}
+Let $\Omega \supset G$, where $\Omega$ is open and $G$ is a bounded open set where $\partial G \in PC^1$, and furthermore that $cl(G) \subset \Omega$. Let $z_0 \in G \subset \Omega$, then
+$$f(z) = \sum_{n = 0}^\infty a_n (z - z_0)^n$$ for all $z$ where $|z - z_0| < dist(z_0, \partial G)$ and
+\[a_n = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{(\xi - z)^{n+1}} d\xi = \frac{f^{(n)}(z_0)}{n!}\]
+\end{theorem}
+
+\begin{remark}
+    In most textbook the neighborhood of power-series is over $|z - z_0| = R$ where $R < dist(z_0, \partial G)$
+\end{remark}
+
+\begin{proof}
+WLOG, we will assume $z_0 = 0$, because we can always shift the coordinate linearly.\\\\
+Now Caucy's Integral Formula says
+\[f(z) = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
+Now we note that
+\[\frac{1}{\xi - z} = \frac{1}{\xi} \frac{1}{1 - \frac{z}{\xi}}\]
+We note that $|\frac{z}{\xi}| < 1$ since $z$ is in the interior but $\xi$ is on the boundary, so
+\[\frac{1}{\xi} \frac{1}{1 - \frac{z}{\xi}} = \frac{1}{\xi} \sum_{n = 0}^\infty \frac{z^n}{\xi^{n}}\]
+So we have that
+\begin{align*}
+     \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi &= \frac{1}{2\pi i} \int_{\partial G} \sum_{n = 0}^\infty \frac{f(z) z^n}{\xi^{n+1}} d\xi\\
+     &= \sum_{n = 0}^\infty z^n (\frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi^{n+1}} d\xi) \tag*{ASSUMING We can switch integral and sum}\\
+     &= \sum_{n = 0}^\infty z^n a_n
+\end{align*}
+It remains for us to justify why we can switch this, we can usually use Fubini's Theorem or Dominated Convergence Theorem, but here we will just use a low-tech solution and note that, assuming $z$ is fixed and $\xi \in \partial G$, then
+\[\lim_{N \to \infty} \sum_{n = 0}^N \frac{z^n}{\xi^{n+1}} = \frac{1}{\xi - z}\ \text{converges uniformly} \]
+, because $|\frac{z}{\xi}| \leq \frac{|z|}{dist(z_0, \partial G)} < 1$, so we have this uniform convergence. Thus, we can always switch the integral and the sum.\\\\
+\textbf{How does the WLOG} work, well, rewrite
+\[\frac{1}{\xi - z} = \frac{1}{(\xi - z_0) - (z - z_0)}\]
+, then we can just use the same reasoning as before. Trying to justify this takes a little bit of work.
+\end{proof}
+
+\begin{corollary}
+    Under the same setup, if $f$ is analytic on $z_0$, then it converges in $D_{z, d}$ where $d = dist(z_0, \partial G)$, so the radius of convergence is at least as much as $d$.
+\end{corollary}
+
+We have proved that satisfying Cauchy-Riemann implies analytic, we will now show the converse.
+
+\begin{theorem}[Morera's Theorem]
+If $f \in C^0(\Omega)$ and $\int_{\partial R} f(z) dz = 0$ for all sufficiently small rectnagles $R$ where $cl(R) \subset \Omega$, then $f \in CR^1$.
+\end{theorem}
+
+\begin{proof}
+We will prove this next lecture.
+\end{proof}
+
+\begin{theorem}
+$(\sum_{n = 0}^\infty a_n (z - z_0)^n)' = \sum_{n = 0}^\infty n a_n (z - z_0)^{n-1}$, hence power series are holomorphic, and thus analytic functions are holomorphic.
+\end{theorem}
+
+\begin{proof}
+You can usually do it by taking the partial sum and taking limit, but there's a trick to it!\\\\
+This is a direct corollary of Morera's Theorem.
+\end{proof}

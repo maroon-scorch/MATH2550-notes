@@ -1,0 +1,120 @@
+\section{Lecture 2}
+
+\subsection{Differentiability}
+
+\begin{definition}
+Let $\Omega$ be an open subset of $\Cbb$, we say a function $f: \Omega \to \Cbb$ is analytic on $\Cbb$ if for any $z_0 \in \Omega$, there exists a neighborhood $U$ where $z_0 \in U \subset \Omega$, such that
+\[f(z) = \sum_{k = 0}^\infty a_k (z - z_0)^k, \forall z \in U\]
+Note that without loss of generality, we can assume $U = D_{z_0, \delta} = \{z: |z - z_0| < \delta\}$.
+\end{definition}
+
+\begin{remark}
+    If we take $\Omega \subset \Rbb$, then we say $f: \Omega \to \Rbb$ is real-analytic if for all $x_0 \in \Omega$ locally
+    \[f(x) = \sum a)k (x - x_0)^k\]
+    If we take $\Omega \subset \Rbb^2$, then we say $f: \Omega \to \Rbb$ is real-analytic if for all $(x_0, y_0) \in \Omega$, there exist neighborhood $U$ containing $(x_0, y_0)$ such that
+    \[f(x, y) = \sum_{k = 0}^\infty \sum_{n = 0}^\infty a_{n, k} (x - x_0)^n (y - y_0)^k\]
+    \textbf{Note that real analytic function, when viewed as complex function, is not analytic!}
+\end{remark}
+
+The real miracle in the complex analysis is as follows:
+
+If we consider real functions, then we have that
+\[C_1 \supsetneq C_2 \supsetneq ... \supsetneq C^\infty \supsetneq \text{Real-Analytic Functions}\]
+
+However, it turns out that in the Complex Case, complex differentiable functions are in fact analytic, so
+\[C_1 = C_2 = ... = C^\infty = \text{Complex-Analytic Functions}\]
+
+\mattie{Unless stated otherwise, we assume $\Omega$ to be open?}
+
+\begin{definition}
+Let $f: \Omega \subset \Cbb \to \Cbb$ be a complex-valued function. We say $f$ is \textbf{complex-differentiable} at $z \in \Omega$, if the limit exists
+\[f'(z) \coloneqq \lim_{\Delta z \to 0} \frac{f(z + \Delta z) - f(z)}{\Delta z}\]
+$f$ is sometimes also called \textbf{holomorphic} at $z$.
+\end{definition}
+
+\begin{definition}
+We denote $C^1_z(\Omega)$ as the set of functions $f$ where $f(z)$ is differentiable on all of $\Omega$ and the map $z \mapsto f'(z)$ is continuous (continuous derivative).
+\end{definition}
+
+\subsection{Cauchy-Riemann Equations}
+
+Consider $h_1$ be the direction parallel to the real axis and $h_2$ be the direction parallel to the imaginary axis, then
+\[\lim_{h_1 \to 0} \frac{f(z + h_1) - f(z)}{z} = \frac{\partial f}{\partial x} = f'(z) = \frac{1}{i} \frac{\partial f}{\partial y} = \lim_{h_2 \to 0} \frac{f(z + h_2) - f(z)}{z}\]
+
+So in particular, we have that
+\[\frac{\partial f}{\partial x} = -i \frac{\partial f}{\partial y}\]
+
+This is known as the \textbf{Cauchy-Riemann Equation}.
+
+\begin{remark}
+    Write $f = u(x, y) + i v(x, y)$ where $u, v: \Rbb^2 \to \Rbb$, then the Cauchy-Riemann Equation is equivalent to
+    \[\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}\]
+\end{remark}
+
+\begin{definition}[Complex Differentials]
+We define
+\[\frac{\partial}{\partial z} = \frac{1}{2}(\frac{\partial}{\partial x} - i \frac{\partial}{\partial y})\]
+\[\frac{\partial}{\partial \overline{z}} = \frac{1}{2}(\frac{\partial}{\partial x} + i \frac{\partial}{\partial y})\]
+For ease of notations, we will denote
+\[\partial \coloneqq \frac{\partial}{\partial z}, \overline{\partial} \coloneqq \frac{\partial}{\partial \overline{z}}\]
+\end{definition}
+
+\begin{remark}
+In particular, this means that
+\[\frac{\partial f}{\partial \overline{z}} = \frac{1}{2}(\frac{\partial f}{\partial x} + i \frac{\partial f}{\partial y})\]
+    The definition above means that the Cauchy-Riemann Equations is equivalent to $\frac{\partial f}{\partial \overline{z}} = 0$
+\end{remark}
+
+\begin{proposition}
+    Let $f, g$ be complex dfferentiable functions, then
+    \[\partial(f g) = (\partial f) g + f (\partial g)\]
+\end{proposition}
+
+\begin{remark}
+    The $\frac{1}{2}$ coefficient for $\partial, \overline{\partial}$ is a \textbf{correcting} coefficient so that
+    \[\partial z = 1, \partial \overline{z} = 0\]
+    \[\partial z^n = n z^{n-1}\]
+    \[\overline{\partial} z = 0, \overline{\partial} \overline{z} = 1\]
+    \[\overline{\partial} \overline{z}^n = n \overline{z}^{n-1}\]
+\end{remark}
+
+\subsection{Complex Integrals and Cauchy's Integral Theorem}
+
+From Calculus, for a differentiable function $f: \Rbb^2 \to \Rbb^2$, then
+\[df = \frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy\]
+Viewing $f$ instead as a complex function, after some algebraic manipulations, you can show that
+\[df = \frac{\partial f}{\partial z} dz + \frac{\partial f}{\partial \overline{z}} d\overline{z}\]
+, where $dz = dx + idy$ and $d\overline{z} = x - iy$.
+
+\begin{definition}
+A $C^1$-path is $\gamma: [a, b] \to \Cbb$ where $\gamma \in C^1([a, b])$. If $\gamma$ is furthermore injective and $\gamma'(t) \neq 0$ on $[a, b]$, then $\gamma([a, b])$ is a $C^1$-curve. (We require these two extra conditions to avoid spikes on the path)
+\end{definition}
+
+\begin{definition}
+Let $\Gamma = \gamma([a, b])$ be a $C^1$-curve, then
+\[\int_\Gamma f(z) dz = \int_a^b f(\gamma(t)) \gamma'(t) dt\]
+\end{definition}
+
+\begin{theorem}[First Cauchy's Theorem]
+Let $f \in C^1_z(\Omega)$, let $G$ be a bounded open set such that $cl(G) \subset \Omega$, and the boundary of $G$ is $C^1$ or piece-wise $C^1$ (we will denote this as $PC^1$), then
+\[\int_{\partial G} f(z) dz = 0\]
+\end{theorem}
+
+\begin{theorem}[Stokes's Theorem]
+Let $G$ be a manifold with $\partial G \in C^1, w \in C^1$
+\[\int_{\partial G} w = \int_G d \omega\]
+\end{theorem}
+
+\begin{proof}[Proof of FIrst Cauchy's Theorem]
+In this case, $G$ is just some subset of $\Cbb$ and we define $\omega \coloneqq f(z) dz$, then we note that
+\begin{align*}
+    dw &= df \wedge dz\\
+    &= (\frac{\partial f}{\partial z} dz + \frac{\partial f}{\partial \overline{z}} d\overline{z}) \wedge dz\\
+    &= (\frac{\partial f}{\partial z} dz) \wedge dz \tag*{Cauchy-Riemann Equation}\\
+    &= \frac{\partial f}{\partial z} (dz \wedge dz)\\
+    &= \frac{\partial f}{\partial z} (0)\\
+    &= 0
+\end{align*}
+Then Stokes' Theorem tells us that
+\[\int_{\partial G} w = \int_G d \omega = \int_G 0 = 0\]
+\end{proof}
