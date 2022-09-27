@@ -1,0 +1,86 @@
+\section{Lecture 9}
+
+\subsection{Classification of Singularities}
+
+Recall, let $f \in Hol(\Omega \setminus \{z_0\})$, where $z_0 \in \Omega$, we can write $f$ into a Laurent series
+\[f(z) = \sum_{z \in \Zbb} a_n (z - z_0)^n, 0 < |z - z_0| < N\]
+, and we say that $z_0$ is removable if $a_n = 0$ for all $n < 0$.
+
+\begin{theorem}
+$z_0$ is a removable singularity of $f$ if and only if there exists a neighborhood $z_0 \in U$ such that $f$ is bounded in $U \setminus \{z_0\}$.
+\end{theorem}
+
+\begin{proof}
+If $f$ has a removable singularity, we can write it locally as
+\[f(z) = \sum_{n \geq 0} a_n (z - z_0)^n\]
+which has a positive radius of convergence and hence bounded in a neighborhood of $z_0$.\\\\
+Conversely, suppose $f$ is bounded on $0 < |z - z_0| < \delta$. Then for all $n \geq 1$, we note that
+\[a_{-n} = \frac{1}{2\pi i} \int_{|z - z_0| = r} f(z) (z - z_0)^{n-1} dz \]
+As $n-1 \geq 0$ and $f$ is bounded, this integral is also bounded, so
+\[|a_{-n}| \leq \frac{1}{2\pi} M (1) (2\pi r) = Mr\]
+for all $0 < r < \delta$, we can shrink $r$ down and have that $a_{-n} = 0$.
+\end{proof}
+
+\begin{remark}
+If $f(z) = O(\frac{1}{|z - z_0|})$, then $f$ has a removable singularity at $z_0$.
+\end{remark}
+
+We say $f$ has a \textbf{pole at $z_0$} if $a_n \neq 0$ for finitely many $n < 0$. We say the \textbf{order of a pole} as
+        \[\max \{n \geq 0: a_{-n} = 0\}\]
+        
+\begin{theorem}
+$z_0$ is a pole if and only if $\lim_{z \to z_0} |f(z)| = \infty$
+\end{theorem}
+
+\begin{proof}
+Suppose $z_0$ is a pole of order $m$, then we can write
+\[f(z) = \frac{g(z)}{(z - z_0)^m}, g(z_0) \neq 0\]
+Hence we have that
+\[\lim_{z \to z_0} |f(z)| = \lim_{z \to z_0} |\frac{g(z)}{(z - z_0)^m}| = \infty\]
+Conversely, suppose $\lim_{z \to z_0} |f(z)| = \infty$, then we can find some $r > 0$ such that $|f(z)| > 1$ for all $z$ in $0 < |z - z_0| < r$.\\\\
+Now consider $h(z) = \frac{1}{f(z)}$ on $D_{z_0, r} \setminus \{z_0\}$, then $h(z) \in Hol(D_{z_0, r} \setminus \{z_0\})$ and $\lim_{z \to z_0} h(z) = 0$ - so we can extend $h$ to the whole disk. Therefore it has to be the case that $|h(z)| < 1$, then by the previous theorem, this means $z_0$ is a removable singularity for $h$, so in fact $h$ is holomorphic on the whole disk.\\\\
+Since $h(z_0) = 0$, we can find the smallest $m$ such that $h(z) = (z - z_0)^m h_0(z)$ but $h_0(z_0) \neq 0$. Now consider $g = \frac{1}{h}$, then we have that
+\[f(z) = \frac{g(z)}{(z - z_0)^m}\]
+Thus, $z_0$ is a pole of order $m$.
+\end{proof}
+
+We say that $f$ has an essential singularity if there exists infinitely many $n < 0$ such that $a_n \neq 0$.
+
+\begin{theorem}[Casorati-Weierstrass Theorem]
+If $f$ has an essential singularity at $z_0$, then for any neighborhood $U$ of $z_0$, $U \subset \Omega$, $f(U)$ is \textbf{dense} in $\Cbb$ (in other words, for all $w \in \Cbb$, there exists a sequence of $z_n$ such that $f(z_n) \to w$ as $z_n \to z_0$)
+\end{theorem}
+
+\begin{proof}
+We will prove this using contradiction. Suppose there exists some neighborhood $U$ of $z_0$ such that $f(U)$ is not dense. Then there exists some $a \in \Cbb$ and $r > 0$ such that $D_{a, r} \cap f(U) = \emptyset$.\\\\
+Now define $g(z) = \frac{1}{f(z) - a}$. Then clearly $g \in Hol(U)$ as the denominator is never $0$. We also have that $|g| < \frac{1}{|f(z) - a|} < \frac{1}{r}$. Moreover, we note that $g(z) \neq 0$ in $U \setminus \{z_0\}$ because $f$ is bounded?????. While $g(z_0)$ could be $0$, we will choose the smallest $m$ such that $g(z) = (z - z_0)^m g_0(z)$ and $g_0(z_0) \neq 0$.\\\\
+Thus, $g_0(z) \neq 0$ on $U$. But we have that
+\[f(z) = \frac{1}{g(z)} + a = \frac{1}{(z - z_0)^m g_0(z)} + a\]
+, so $f$ has a removable singularity or some pole at $z_0$, hence a contradiction.
+\end{proof}
+
+\begin{definition}
+    Suppose $f$ has a singularity at $z_0$ and write
+    \[f(z) = \sum_{n \in \Zbb} a_n (z - z_0)^n\]
+    Then we define the \textbf{residue of $f$ at $z_0$} as $a_{-1}$ and denote is as $Res_{z_0}(f)$ or $res(f, z_0)$
+\end{definition}
+
+\begin{remark}
+If $z_0$ is a pole of order $1$, then
+\[res(f, z_0) = \lim_{z \to z_0} (z - z_0)f(z)\]
+\end{remark}
+
+\subsection{Cauchy's Residue Theorem}
+
+\begin{theorem}[Cauchy's Residue Theorem]
+Let $G$ be a bounded domain with $\partial G \in PC^1$ and $\overline{G} \subset \Omega$. Let $z_1, ..., z_n \in G$ and $f \in Hol(\Omega \setminus \{z_1, ..., z_n\})$, then
+\[\int_{\partial G} f(z) dz = 2\pi i \sum_{k = 1}^n Res(f, z_k)\]
+\end{theorem}
+
+\begin{proof}
+Let $D_k$ be small disks around each $z_k$ and consider $\Tilde{G} = G \setminus \bigcup D_k$. Note that $f(z)$ is holomorphic on $\Tilde{G}$, so
+\[\partial_{\partial \Tilde{G}} f(z) dz = 0\]
+On the other hand, we also have that $\partial \Tilde{G} = \partial G - \bigcup \partial D_k$, so in other words
+\[\int_{\partial G} f(z) dz = \sum_k \int_{\partial D_k} f(z) dz\]
+Write $f$ as a Laurent Series, then every term except for the $-1$ term is primitive and thus evaluate to $0$, so we are left with:
+\[\int_{\partial G} f(z) dz = 2\pi i \sum_{k = 1}^n Res(f, z_k)\]
+\end{proof}
