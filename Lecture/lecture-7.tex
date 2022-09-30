@@ -115,11 +115,14 @@ $\log(z)$ is holomorphic on $\Cbb \setminus (-\infty, 0]$ and in fact $\frac{d}{
 \end{proposition}
 
 \begin{proof}
-One way to do this is to use the Cauchy-Riemann equations in polar coordinates. We will however use the Inverse Function Theorem instead. Indeed, we note that on $\Cbb \setminus (-\infty, 0]$, $z \mapsto e^z$ is a smooth function with non-zero derivatives, so the inverse function theorem tells us that $\log(z)$ is also holomorphic. Furthermore, locally for all $w = e^z \in \Cbb \setminus (-\infty, 0]$,
-\[\frac{d}{dz} \log(w) = \frac{1}{e^z} = \frac{1}{w}\]
+One way to do this is to use the Cauchy-Riemann equations in polar coordinates. We will however use the Inverse Function Theorem instead. Indeed, we note that on $\Cbb \setminus (-\infty, 0]$, $z \mapsto e^z$, when viewed as a function from $\Rbb^2$ to $\Rbb^2$, is a smooth function whose derivative is exactly
+\[(e^z)' = e^x \begin{pmatrix} cos(y) & -sin(y)\\ sin(y) & cos(y) \end{pmatrix}\]
+, which satisfies the matrix representation of complex numbers (hence we can extend the argument to holomorphic functions). Thus, the inverse function theorem tells us that $g(z) = \log(z)$ is also holomorphic and that
+\[g'(f(x)) = (f'(x))^{-1}\]
+This equation tells us that, locally for all $w = e^z \in \Cbb \setminus (-\infty, 0]$,
+\[\frac{d}{dz} \log(w) = e^{-x}\begin{pmatrix} cos(y) & sin(y)\\ -sin(y) & cos(y) \end{pmatrix} = (e^{z})^{-1} = \frac{1}{w}\]
+Note that the branch cut does not prevent the existence of a local inverse, but it does prevent the existence of a global inverse on all of $\Cbb$.
 \end{proof}
-
-\noindent Note that we didn't define the Inverse Function Theorem for complex variables, but we treated the map $z \to e^z$ as a function of two variables from $\Rbb^2$ to $\Rbb^2$.
 
 \begin{remark}
 Let $z \in \Cbb \setminus (-\infty, 0]$, then since $\frac{1}{z}$ is primitive on the path $1$ to $z$, we have that:
@@ -128,7 +131,7 @@ Let $z \in \Cbb \setminus (-\infty, 0]$, then since $\frac{1}{z}$ is primitive o
 
 \subsection{Homotopy Invariance of Integral}
 
-Let $f \in \Hol(\Omega)$ and $\gamma: [a, b] \to \Gamma$ is continous and $\Gamma \subset \Omega$, then we can define the integral
+Let $f \in Hol(\Omega)$ and $\gamma: [a, b] \to \Gamma$ is continous and $\Gamma \subset \Omega$, then we can define the integral
 \[\int_\gamma f(z) dz\]
 
 Informally, we can define this because at each point on $\gamma$, we can find some disk to represent $f$ as a power series with a primitive $F$, then we can split $[a, b]$ into a union of (not necessarily uniform) subintervals, then the integral $\gamma$ can be approximated as a sum of the anti-derivatives $F_k$ at each end-points.
@@ -139,14 +142,14 @@ We can formally justify this with what's called the Lebesgue's Number Lemma.
 Let $K$ be a compact metric space and let $\{U_a\}$ be an open cover for $K$, then there exists some $\delta > 0$ (we call the \textbf{Lebesgue Number}) such that for all $x \in K$, there exists some $a$ such that $B_{x, \delta} \subset U_a$
 \end{lemma}
 
-\mattie{Work in progress}
 \begin{proof}
 For all $x \in K$, since $\{U_a\}$ is an open cover of $K$, there exists some $a$ such that $x \in U_a$. Since $U_a$ is open, there exists some $r(x) > 0$ small enough such that $B_{x, 2r(x)} \subset U_\alpha$.\\\\
-Note that $\{B_{x, 2r(x)}\}$ running over all $x \in K$ is an open cover of $K$. Since $K$ is compact, we in fact have a finite subcover:
-\[B_{x_1,2r_1}, ..., B_{x_n, 2r_n}\]
-Choose $\delta = \min \{r_i\}$. Now for all $x \in K$, it belongs to one of the $B_{x_k, 2r_k} \subset U_a$.\\\
+Note that $\{B_{x, r(x)}\}$ running over all $x \in K$ is an open cover of $K$. Since $K$ is compact, we in fact have a finite subcover:
+\[B_{x_1, r_1}, ..., B_{x_n, r_n}\]
+Choose $\delta = \min \{r_i\}$. Now for all $x \in K$, it belongs to one of the $B_{x_k, r_k} \subset U_a$.\\\
 Then we claim $x \in B_{x, \delta} \subset B_{x_k, 2r_k} \subset U_a$. To do this, we need to verify $B_{x, \delta} \subset B_{x_k, 2r_k}$. Indeed, for all $y \in B_{x, \delta}$, we have that
-\[d(y, x_k) \leq d(y, x) + d(x, x_k) \leq \delta +  \]
+\[d(y, x_k) \leq d(y, x) + d(x, x_k) < \delta + r_k \leq 2r_k\]
+This concludes the proof.
 \end{proof}
 
 To apply this lemma in our context, we take $K = [a, b]$ and for all $s \in [a, b]$, we define $U_s = \gamma^{-1}(D_{\gamma(s), r(s)})$, where $r(s)$ is the radius of convergence of $\gamma(s)$ under the power-series. Then we can apply the Lebesgue's Number Lemma.
@@ -155,13 +158,23 @@ To apply this lemma in our context, we take $K = [a, b]$ and for all $s \in [a, 
 Is the integral well-defined up to two different splitting?
 \end{question}
 
-Yes, the idea is that given two splitting on the interval, one can join them using a refinement by taking smaller intervaks of both of them and used the associated antiderivative from either original splittings.
+\begin{proof}[Answer]
+Yes, the idea is that given two splitting on the interval, one can join them using a refinement by taking smaller intervaks of both of them and used the associated anti-derivative from either original splittings. To be more rigorous, let $\{I_k\}$ and $\{J_n\}$ be two different splittings of the interval $[0, 1]$. Now define
+\[I_{k, n} \coloneqq I_k \cap J_n\]
+Then we note that, by definition, the integral over the splitting $I_{k, n}$ would be of the form
+\begin{align*}
+    \sum \int_{I_{k, n}} f(z) dz &= \sum_{k} \sum_{n} \int_{I_{k, n}} f(z) dz\\
+    &= \sum_k [\sum_{n} \int_{I_{k, n}} f(z) dz]\\
+    &= \sum_k \int_{I_k} f(z) dz
+\end{align*}
+Similarly, we can also show that
+\[\sum \int_{I_{k, n}} f(z) dz = \sum_n \int_{J_n} f(z) dz\]
+Thus, the two splittings yield the same integral.
+\end{proof}
 
 \begin{definition}
-    Let $\gamma_0, \gamma_1: [a, b] \to \Omega$ be continuous. We say $\gamma_0$ is \textbf{homotopy equivalent} to $\gamma_1$ if there exists a continuous function $\Gamma: [a, b] \times [0, 1] \to \Omega$ such that $\Gamma(s, 0) = \gamma_0(s)$ and $\gamma(s, 1) = \gamma_1(s)$ for all $s \in [a, b]$.
-\end{definition}
-
-we will also assume that either:
+    Let $\gamma_0, \gamma_1: [a, b] \to \Omega$ be continuous. We say $\gamma_0$ is \textbf{homotopy equivalent} to $\gamma_1$ if there exists a continuous function $\Gamma: [a, b] \times [0, 1] \to \Omega$ such that $\Gamma(s, 0) = \gamma_0(s)$ and $\gamma(s, 1) = \gamma_1(s)$ for all $s \in [a, b]$.\\
+    We will also assume that either:
         \begin{itemize}
             \item All pathes are closed, for all $t$
             \[\Gamma(a, t) = \Gamma(b, t)\]
@@ -169,6 +182,7 @@ we will also assume that either:
             \[\Gamma(a, t) = \gamma_0(a) = \gamma_1(b)\]
             \[\Gamma(b, t) = \gamma_0(b) = \gamma_1(b)\]
         \end{itemize}
+\end{definition}
 
 \begin{theorem}
 If $\gamma_0, \gamma_1$ are homotopy equivalent in $\Omega$ and $f \in Hol(\Omega)$, then

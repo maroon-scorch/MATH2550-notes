@@ -22,7 +22,7 @@ for all $0 < r < \delta$, we can shrink $r$ down and have that $a_{-n} = 0$.
 \end{proof}
 
 \begin{remark}
-If $f(z) = O(\frac{1}{|z - z_0|})$, then $f$ has a removable singularity at $z_0$.
+If $f(z) = o(\frac{1}{|z - z_0|})$, then $f$ has a removable singularity at $z_0$.
 \end{remark}
 
 We say $f$ has a \textbf{pole at $z_0$} if $a_n \neq 0$ for finitely many $n < 0$. We say the \textbf{order of a pole} as
@@ -52,7 +52,7 @@ If $f$ has an essential singularity at $z_0$, then for any neighborhood $U$ of $
 
 \begin{proof}
 We will prove this using contradiction. Suppose there exists some neighborhood $U$ of $z_0$ such that $f(U)$ is not dense. Then there exists some $a \in \Cbb$ and $r > 0$ such that $D_{a, r} \cap f(U) = \emptyset$.\\\\
-Now define $g(z) = \frac{1}{f(z) - a}$. Then clearly $g \in Hol(U)$ as the denominator is never $0$. We also have that $|g| < \frac{1}{|f(z) - a|} < \frac{1}{r}$. Moreover, we note that $g(z) \neq 0$ in $U \setminus \{z_0\}$ because $f$ is bounded?????. While $g(z_0)$ could be $0$, we will choose the smallest $m$ such that $g(z) = (z - z_0)^m g_0(z)$ and $g_0(z_0) \neq 0$.\\\\
+Now define $g(z) = \frac{1}{f(z) - a}$. Then clearly $g \in Hol(U)$ as the denominator is never $0$. We also have that $|g| < \frac{1}{|f(z) - a|} < \frac{1}{r}$. Moreover, we note that $g(z) \neq 0$ in $U \setminus \{z_0\}$ because $f$ is bounded. While $g(z_0)$ could be $0$, we will choose the smallest $m$ such that $g(z) = (z - z_0)^m g_0(z)$ and $g_0(z_0) \neq 0$.\\\\
 Thus, $g_0(z) \neq 0$ on $U$. But we have that
 \[f(z) = \frac{1}{g(z)} + a = \frac{1}{(z - z_0)^m g_0(z)} + a\]
 , so $f$ has a removable singularity or some pole at $z_0$, hence a contradiction.
