@@ -39,7 +39,7 @@ We denote $C^1_z(\Omega)$ as the set of functions $f$ where $f(z)$ is differenti
 \subsection{Cauchy-Riemann Equations}
 
 Consider $h_1$ be the direction parallel to the real axis and $h_2$ be the direction parallel to the imaginary axis, then
-\[\lim_{h_1 \to 0} \frac{f(z + h_1) - f(z)}{z} = \frac{\partial f}{\partial x} = f'(z) = \frac{1}{i} \frac{\partial f}{\partial y} = \lim_{h_2 \to 0} \frac{f(z + h_2) - f(z)}{z}\]
+\[\lim_{h_1 \to 0} \frac{f(z + h_1) - f(z)}{h_1} = \frac{\partial f}{\partial x} = f'(z) = \frac{1}{i} \frac{\partial f}{\partial y} = \lim_{h_2 \to 0} \frac{f(z + h_2) - f(z)}{h_2}\]
 
 So in particular, we have that
 \[\frac{\partial f}{\partial x} = -i \frac{\partial f}{\partial y}\]
@@ -101,7 +101,7 @@ Let $f \in C^1_z(\Omega)$, let $G$ be a bounded open set such that $cl(G) \subse
 \end{theorem}
 
 \begin{theorem}[Stokes's Theorem]
-Let $G$ be a manifold with $\partial G \in C^1, w \in C^1$
+Let $G$ be an oriented smooth $n$-dimensional manifold with boundary and $\omega$ is a compactly support $(n-1)$-form on $G$, then
 \[\int_{\partial G} w = \int_G d \omega\]
 \end{theorem}
 
