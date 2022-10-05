@@ -14,7 +14,7 @@
 \maketitle
 These are lecture notes from \textbf{MATH 2250: Complex Function Theory} with Professor \href{https://sites.google.com/a/brown.edu/sergei-treil-homepage/home}{Sergei Treil} at Brown University for the Fall 2022 semester, with some supplemental materials written by the note-taker herself. The most up-to-date version of the notes are maintained in the note \href{https://github.com/maroon-scorch/MATH2550-notes}{repository}.\\
 
-These notes are taken by \href{https://github.com/maroon-scorch}{Mattie Ji} with gracious help and input from the instructor of this course. If you find any mistakes in these notes, please feel free to direct them via email or pull request.\\
+These notes are taken by \href{https://github.com/maroon-scorch}{Mattie Ji} with gracious help and input from the instructor of this course. If you find any mistakes in these notes, please feel free to direct them via email to me or send a pull request on GitHub.\\
 
 The notes are last updated \today.\\
 
@@ -33,5 +33,122 @@ Technically, this is a course on ``functions of ONE complex variable".
 \include{Lecture/lecture-9.tex}
 \include{Lecture/lecture-10.tex}
 \include{Lecture/lecture-11.tex}
+\include{Lecture/lecture-12.tex}
+
+\section{Lecture 12}
+\subsection{Remark: Normal Convergence}
+
+Note that the following facts holds on just in $\Cbb$, but in $\Rbb^n$ in general. Recall the two definitions of normal convergence:
+
+\begin{definition}[Equivalent Definitions of Normal Convergence]
+Let $\{f_n\}$ be a sequence of functions, we say $f_n \to f$ converes normally in $G$ if:
+\begin{itemize}
+    \item (a) for all compact $K \subset G$, $f_n$ converges to $f$ on $K$ uniformly.
+    \item or, (b) if for all disc $D$ such that $cl(D) \subset \Omega$, $f_n$ converges to $f$ on $D$ uniformly.
+\end{itemize}
+The two definitions are in fact equivalent.
+\end{definition}
+
+\begin{proof}
+$(a) \implies (b)$ is obvious. Now, for $(b) \implies (a)$, suppose $K \subset \Omega$ is compact, then for all $z \in K$, we can choose $D_z$ be an open disk centered at $z$ small enough that $cl(D_z) \subset \Omega$.\\\\
+Then the collection $\{D_z\}_{z \in K}$ form a clear open cover of $K$, so we can find a finite subcover, $D_{z_1}, ..., D_{z_n}$. $f$ converges uniformly on each $cl(D_{z_i})$, so $f$ converges uniformly on $\bigcup_{k = 1}^n D_{z_i}$, which covers $K$.
+\end{proof}
+
+How do we in general check for normal convergence? It seems like we will have to check uncountably many disks!
+
+\begin{proposition}[Strong Covering Property]
+Consider the sequence $\{K_n\}_{n = 1}^\infty \subset \Omega$ such that for all compact $K \subset \Omega$, there exists some $N$ such that $K \subset \bigcup_{n = 1}^N K_n$.\\\\
+%Note that this coniditon implies that the union of the $\{K_n\}$ is
+Then, $f_n$ converges to $f$ uniformly on all compact sets $K \subset \Omega$ if and only if $f_n$ converges to $f$ uniformly on each $K_n$.
+\end{proposition}
+
+\begin{proof}
+The forward direction is obvious. Conversely, for any compact set $K$, find $N \in \Nbb$ such that $K \subset \bigcup_{n = 1}^N K_n$. Then the uniform convergence on each $K_n$ implies uniform convergence on all finite unions on all of $\bigcup_{n = 1}^N K_n$, hence the uniform convergence is held on $K$.
+\end{proof}
+
+\begin{remark}
+In practice, for open subset $\Omega \subset \Rbb^d$, we would define each $K_n$ as
+\[K_n \coloneqq \{x \in \Omega\ |\ dist(x, \Omega^c) > \frac{1}{n}, |x| \leq n\}\]
+\mattie{Ask about this}
+\end{remark}
+
+\begin{definition}
+We say the collection $\{K_n\}_{n = 1}^\infty$ is a \textbf{compact exhaustion} of $\Omega$ if
+\[K_n \subset int(K_{n+1}) \text{ and } \bigcup_{n = 1}^\infty K_n = \Omega\]
+, note that the latter implies for any compact $K \subset \Omega$, there exist $N \in \Nbb$ such that $K \subset \bigcup_{n = 1}^N K_n$
+\end{definition}
+
+\subsection{Seminorms of Holomorphic Function}
+
+\begin{definition}
+Let $Hol(\Omega)$ be the set of all holomorphic functions on $\Omega$, given $f \in \Omega$, we define the norm
+\[||f||_{C(K_n)} = |\sup_{z \in K_n} f(z)|\]
+When $K_n$ are points, this is called a semi-norm.
+\mattie{i think}
+\end{definition}
+
+\begin{proposition}
+If $K_n$ has the strong covering property, then $f_n$ converges to $f$ on compact sets uniformly if and only if $||f_n - f||_{C(K_n)} \to 0$ as $j \to \infty$.
+\end{proposition}
+
+\begin{remark}
+An important object of study in functional analysis are what's called \textbf{Frechet Spaces}, whose topology is given by countably many semi-norms.
+\end{remark}
+
+\begin{definition}
+Let $f, g \in Hol(\Omega)$, we can define a metric on $Hol(\Omega)$ as
+\[p(f, g) = \sum_{n = 1}^\infty \frac{1}{2^n} \frac{||f - g||_{C(K_n)}}{1 + ||f - g||_{C(K_n)}}\]
+One can verify that this is indeed a metric (more details in Conway's Book)
+\end{definition}
+
+\begin{proposition}
+$f_n$ converges to $f$ uniformly on compact sets if and only if $p(f_n, f) = 0$ as $n \to \infty$.
+\end{proposition}
+
+\begin{remark}
+In practice, no one would actually compute the norm or fixes a compact exhuastion. However, there are great theoretical values in this metric as $(Hol(\Omega), p)$ is actually a complete metric space!
+\end{remark}
+
+\subsection{Open Mapping Theorem and Inverse Function Theorem}
+
+Suppose $f \in Hol(z)$ (non-constant), $z_0 \in \Omega$, $f(z_0) = w_0$. Let $G$ be a bounded domain with $z_0 \in G$ and $\partial G \in PC^1$.\\\\
+Furthermore, for all $z \in \partial G$, suppose we have $|f(z) - w_0| \geq \delta > 0$.\\
+
+Does such $G$ always exist? Yes!
+
+This is because the zeroes of the function $f(z) - w_0$ are isolated (as $f(z)$ is non-constant). Therefore, $f(z) - w_0$ has no zeroes in $cl(D_{z_0, r}) \setminus \{z_0\}$ for a sufficiently small $r$.\\
+
+Let $w \in \Cbb$ such that $|w - w_0| < \delta$, and let $m$ be the multiplicity of the zero $z_0$ of $f(z) - w_0$
+
+\begin{lemma}
+Fix $w$ as above, the fiber $f^{-1}(w)$ has $m$ points counting multiplicity in $G$, meaning that the function $g(z) = f(z) - w$ has zeroes $z_1, ..., z_m$ (counting multiplicity)
+\end{lemma}
+
+\begin{proof}
+We will apply Rouche's Theorem on this. Indeed, let $g_0(z) = f(z) - w_0$, then we note that
+\[g(z) = f(z) - w = [f(z) - w_0] + [w - w_0]\]
+By our setup above, we know that $|f - w_0| \geq \delta$ and $|w - w_0| < \delta$. So Rouche's Theorem tells us that both $f(z) - w_0$ and $g(z) = [f(z) - w_0] + [w - w_0]$ have the same number of zeroes, counting multiplicity.\\\\
+$m$ was defined to be exactly the multiplicity of $z_0$ at $f(z) - w_0$, as we chosen $G$ small enough that $f(z) - w_0$ has no other zeroes within. 
+\end{proof}
+
+\begin{corollary}[Open Mapping Theorem]
+If $f \in Hol(\Omega)$ be a non-constant function, then $f$ is an open map, meaning that for all open sets $U \subset \Omega$, $f(U)$ is open.
+\end{corollary}
+
+\begin{proof}
+$U$ is an open set, so we can without loss restrict $f$ from $\Omega$ to $u$.\\\\
+Let $w_0 \in f(U)$, we want to show that there exist some open set $V \subset f(U)$ that contains $w_0$.\\\\
+Now, let's say $w_0 = f(z_0)$, let $w \in \Cbb$ such that $|w - w_0| < \delta$, then the Lemma above shows that $f^{-1}(w)$ has $m$ points counting multiplicity in $G \subset \Omega$, which we constructed to be $D_{z_0, r}$.\\\\
+In other words, there exists $D_{z_0, r} \subset U$ such that $w_0 \in D_{w_0, \delta} \subset f(D_{z_0, r}) \subset U$, which implies that $f(U)$ is open.
+\end{proof}
+
+\begin{theorem}[Inverse Mapping Theorem]
+Let $f \in Hol(\Omega)$, $z_0 \in \Omega$, and $f(z_0) = w_0$ but $f'(z_0) \neq 0$ (so the zero is simple). Let $G \subset \Omega$ be an open bounded set that contains $z_0$ with piecewise $C^1$ boundary.\\\\
+Now suppose that, for all $z \in \partial G$, $|f(z) - w_0| \geq \delta$, then for all $w$ such that $|w - w_0|$, there exists some unique function $z$ such that $z = f^{-1}(w)$ and
+\[f^{-1}(w) = \frac{1}{2\pi i} \int_{\partial G} \frac{\xi f'(\xi)}{\xi - w} d\xi\]
+\end{theorem}
+
+
+
 
 \end{document}
