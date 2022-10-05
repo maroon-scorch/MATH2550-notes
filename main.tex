@@ -136,10 +136,14 @@ If $f \in Hol(\Omega)$ be a non-constant function, then $f$ is an open map, mean
 \end{corollary}
 
 \begin{proof}
-$U$ is an open set, so we can without loss restrict $f$ from $\Omega$ to $u$.\\\\
+The argument here will run similarly to how we had above.\\\\
 Let $w_0 \in f(U)$, we want to show that there exist some open set $V \subset f(U)$ that contains $w_0$.\\\\
-Now, let's say $w_0 = f(z_0)$, let $w \in \Cbb$ such that $|w - w_0| < \delta$, then the Lemma above shows that $f^{-1}(w)$ has $m$ points counting multiplicity in $G \subset \Omega$, which we constructed to be $D_{z_0, r}$.\\\\
-In other words, there exists $D_{z_0, r} \subset U$ such that $w_0 \in D_{w_0, \delta} \subset f(D_{z_0, r}) \subset U$, which implies that $f(U)$ is open.
+Since $w_0 \in f(U)$, we know there exist some point $z_0 \in U$ such that $f(z_0) = w_0$. Since $U$ is open, we can find some radius $\epsilon > 0$ small enough that $cl(D_{z_0, \epsilon}) \subset U$.\\\\
+Now consider the function $g(z) = f(z) - w_0$. Since $g$ is holomorphic and non-constant, the uniqueness theorem for analytic function tells us that the zeros of $g(z)$ are isolated. Hence, we can choose $\epsilon > 0$ small enough that without loss $g(z)$ only has the root $z_0$ in $cl(D_{z_0, \epsilon})$.\\\\
+Since $\partial D_{z_0, \epsilon}$ is compact, and $|g(z)|$ is continuous and positive, the extreme value theorem shows that there exist some minimum value $\delta > 0$ such that $\delta$ is the minimum of $|g(z)|$ for $z$ on the boundary.\\\\
+Now consider the disk $D_{w_0, \delta}$. For any $w \in D_{w_0, \delta}$, by Rouche's Theorem, write $g(z) = f(z) - w = [f(z) - w_0] + [w - w_0]$, then we note that $|g(z)| \geq \delta > |w - w_0|$, then this means that $f(z) - w_0$ and $g(z)$ have the same number of zeroes in the disk $D_{z_0, \epsilon}$.\\\\
+In particular, this means that there exist some $z \in D_{z_0, \epsilon}$ such that $f(z) = w$. So in other words, $w \in f(U)$.\\\\
+Hence, $D_{w_0, \delta} \subset f(U)$. In other words, $w_0 \in D_{w_0, \delta} \subset f(D_{z_0, r}) \subset U$, which implies that $f(U)$ is open.
 \end{proof}
 
 \begin{theorem}[Inverse Mapping Theorem]
