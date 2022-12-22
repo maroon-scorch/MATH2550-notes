@@ -35,24 +35,24 @@ The notes are last updated \today.
 \include{Lecture/lecture-13.tex}
 \include{Lecture/lecture-14.tex}
 
-% \section{Lecture 15 - 10/12/2022}
+\section{Lecture 15 - 10/12/2022}
 
-% \subsection{Jump Theorem for Cauchy Integrals}
-% Let $\gamma \in PC^1$ with image $\Gamma := \gamma([a, b]) \subset \Cbb$, and let $f(z)$ be a continuous function on $\Gamma$.
+\subsection{Jump Theorem for Cauchy Integrals}
+Let $\gamma \in PC^1$ with image $\Gamma := \gamma([a, b]) \subset \Cbb$, and let $f(z)$ be a continuous function on $\Gamma$.
 
-% \begin{definition}
-% The \textbf{Cauchy Integral} of $f(z)$ along $\gamma$ is the function
-% \[F(\xi) \coloneqq \frac{1}{2\pi i} \int_\gamma \frac{f(z)}{z - \xi} dz, \forall \xi \in \Cbb \setminus \Gamma\]
-% Note that as we take $\xi$ to infinity, $F(\xi) = 0$. Furthermore, $F(\xi)$ is analytic on $\Cbb \setminus \Gamma$ since it could be represented in power series by geometric expansion.
-% \end{definition}
+\begin{definition}
+The \textbf{Cauchy Integral} of $f(z)$ along $\gamma$ is the function
+\[F(\xi) \coloneqq \frac{1}{2\pi i} \int_\gamma \frac{f(z)}{z - \xi} dz, \forall \xi \in \Cbb \setminus \Gamma\]
+Note that as we take $\xi$ to infinity, $F(\xi) = 0$. Furthermore, $F(\xi)$ is analytic on $\Cbb \setminus \Gamma$ since it could be represented in power series by geometric expansion.
+\end{definition}
 
-% \begin{example}
-% If $\gamma$ is a closed loop and $f(z)$ is identically $1$, then the Cauchy integral of $f(z)$ around $\gamma$ is exactly the winding number $F(\xi) = w(\gamma, \xi)$ of $\gamma$ around $\xi$, which is either $1$ if the point is inside or $0$ if the point is outside.
-% \end{example}
+\begin{example}
+If $\gamma$ is a closed loop and $f(z)$ is identically $1$, then the Cauchy integral of $f(z)$ around $\gamma$ is exactly the winding number $F(\xi) = w(\gamma, \xi)$ of $\gamma$ around $\xi$, which is either $1$ if the point is inside or $0$ if the point is outside.
+\end{example}
 
-% \begin{theorem}[Plemelj-Sokhotsky Theorem]
-% Let $\gamma$ 
-% \end{theorem}
+\begin{theorem}[Plemelj-Sokhotsky Theorem]
+Let $\gamma$ 
+\end{theorem}
 
 \section{Lecture - 10/31/2022}
 
@@ -136,6 +136,396 @@ Since $\mathcal{O}_k$ is connected and $A$ is a non-empty clopen subset of $\mat
     Note that a nearly identical argument shows that Runge's Theorem holds for proper rational functions too.
 \end{remark}
 
+\section{Lecture - 11/14/2022}
 
+\subsection{Harmonicity}
+
+In this lecture, we will continue finishing the proof that $\text{wMVP}_2 \implies $ Harmonic. First, we will prove the following theorem that will be vital in showing this implication:
+
+\begin{theorem}[Global Maximum Principle]
+Suppose $u \in \text{wMVP}_2(\Omega) \cap C(\Omega)$, where $\Omega$ is a domain. If $u$ has a local minimum at $z_0 \in \Omega$, then $u(z) \equiv u(z_0)$ is identifically constant.
+\end{theorem}
+
+\begin{proof}
+    We will prove this using a continuous induction! Indeed, let
+    \[A \coloneqq \{z \in \Omega\ |\ u(z) = u(z_0)\} = u^{-1}(\{u(z_0)\})\]
+    Clearly $z_0 \in A$ and $A$ is closed. Now to show that $A$ is open, let $z \in A$.\\\\
+    Since $z \in A$, we know that $u(z) = u(z_0) \geq u(\xi)$ for all $\xi \in \Omega$, hence $u$ has a global (so local) maximum at $z$.\\\\
+    Then, by the Local Maximum Principle, there exists some $r > 0$ such that $u(\xi) = u(z)$ for all $\xi \in D_{z, r} \subset A$. So $A$ is open.\\\\
+    Since $\Omega$ is connected, we conclude that $A = \Omega$
+\end{proof}
+
+\begin{theorem}
+    Let $\Omega$ be a domain, suppose $u \in \text{wMVP}_2(\Omega) \cap C(\Omega)$, then $u \in \text{Harm}(\Omega)$. 
+\end{theorem}
+
+\begin{proof}
+    It suffices for us to verify this on disks $D_{z_0, R}$ such that $cl(D_{z_0, R}) \subset \Omega$. Indeed, let $\varphi$ be the function
+    \[\varphi \coloneqq u - v\]
+    , where $v \in \text{Harm}(D_{z_0, R}) \cap C(\overline{D_{z_0, R}}^{cl})$ such that
+    \[v|_{\partial D_{z_0, R}} = u|_{\partial D_{z_0, R}}\]
+    We can construct $v$ by taking boundary values of $u$ and take its Poisson extension on $D_{z_0, R}$. We claim that it is actually the case that $\varphi \equiv 0$.\\\\
+    First we note that
+    \[\pm \varphi \in \text{wMVP}_2(D_{z_0, R}) \cap C(\overline{D_{z_0, R}}^{cl})\]
+    \[\pm \varphi \in \text{wMVI}_2(D_{z_0, R})\]
+    Let $M$ be the maximum (this exists as the closure of the disk is compact),
+    \[M \coloneqq \max_{z \in \overline{D_{z_0, R}}^{cl}} \varphi(z)\]
+    Suppose $M > 0$, then $M$ is not attained at the boundary because $\varphi$ is identically $0$ on the boundary, but this means that $M$ is attained at $z_1 \in D_{z_0, R}$. By the Gloval Maximum Principle, $\varphi(z) \equiv M$ on $D_{z_0, R}$. Then by continuity this means that $\varphi$ attains $M$ on the boundary, which is a contradiction!\\\\
+    If we replace $\varphi$ by $-\varphi$, we also find that $M$ cannot be negative.\\\\
+    But this means that $M = 0$, so the Global Maximum Principle tells us that $\varphi$ is identically $0$, so we are done.
+\end{proof}
+
+\subsection{Reflection Principles}
+
+There're some particularly useful corollaries of the theorem, known as the reflection principle!
+
+\begin{corollary}[Reflection Principle for Harmonic Functions]
+    Let $\Omega = \Omega^*$, where $\Omega^*$ denote the complex conjugation of $\Omega$. In other words, $\Omega$ is a \textbf{symmetric domain}.\\\\
+    Define $\Omega^+ \coloneqq \Omega \cap \Cbb_+ = \{z \in \Omega: Im(z) > 0\}$ and $\Omega^- \coloneqq \Omega \cap \Cbb_-$ similarly, let $u \in \text{Harm}(\Omega^+)$ such that for all $\xi \in \Rbb \cap \Omega)$, $\lim_{z \to \xi} u(z) = 0$, then the following function
+    \[\Tilde{u}(z) \coloneqq \begin{cases}
+    u(z),\ z \in \Omega^+\\
+    -u(\overline{z}),\ z \in \Omega^-\\
+    0,\ z \in \Rbb \cap \Omega
+    \end{cases}\]
+    Then, $\Tilde{u} \in \text{Harm}(\Omega)$
+\end{corollary}
+
+\begin{proof}
+It suffices for us to show that $\Tilde{u}$ is continuous and $\text{wMVP}$ (doesn't matter if it's $1$ or $2$) over $\Omega$, then our prior theorems imply that $\Tilde{u}$ is harmonic over $\Omega$.\\\\
+Clearly, $\Tilde{u} \in C(\Omega)$ by the Glueing Lemma.\\\\
+Now for $\text{wMVP}$, if $z_0 \in \Omega^+ \cup \Omega^-$, then $\text{wMVP}$ holds by harmonicity of $u$ and $-u$. Now, if $z_0 \in \Rbb \cap \Omega$, then we note that
+\[\frac{1}{\pi r^2} \int_{D_{z_0, r}} \Tilde{u(z)} dA(z) = 0\]
+by symmetry, so $\Tilde{u}$ is $\textbf{wMVP}$ on $z_0$.
+\end{proof}
+
+Our reflection principle can also be shown for analytic functions!
+
+\begin{theorem}[Reflection Principle for Analytic Functions]
+    Define $\Omega = \Omega^*$, $\Omega^+$, and $\Omega^-$ as before, and suppose $f \in \text{Hol}(\Omega^+)$ such that for all $\xi \in \Rbb \cap \Omega$,
+    \[f(\xi) \coloneqq \lim_{z \to \xi} f(z) \in \Rbb\]
+    Then the following function
+    \[\Tilde{f}(z) \coloneqq \begin{cases}
+    f(z),\ z \in \Omega^+\\
+    \overline{f(\overline{z})},\ z \in \Omega^-\\
+    f(z),\ z \in \Rbb \cap \Omega
+    \end{cases}\]
+    , then $\Tilde{f} \in \text{Hol}(\Omega)$
+\end{theorem}
+
+\begin{proof}
+    We can show this using Morera's Theorem. In fact, recall in a previous homework exercise, we had that:
+\[\noindent\fbox{%
+    \parbox{\textwidth}{%
+\begin{exercise}
+        Let $L$ be a line in the complex plane. Suppose $f(z)$ is a continuous complex-valued function on a domain $D$ that is analytic on $D \setminus L$. Show that $f(z)$ is analytic on $D$.
+    \end{exercise}
+    }%
+}\]
+\end{proof}
+
+\begin{remark}
+    The conclusion of the reflection principle for analytic functions is still true if we only assume that
+    \[\lim_{z \to \xi} Im(f(z)) = 0\]
+    We can also replace the line in both reflection principles with a circle! For harmonic functions, this is because harmonic maps are invariant under conformal maps.
+\end{remark}
+
+While reflection about lines and circles are all global extensions, we also have a notion of local extensions in what's known as \textbf{analytic curves}
+
+\begin{definition}
+    $\gamma$ is an \textbf{analytic curve} if locally it is a continuous image of a diameter of a disc, ie:
+     \[\fbox{\includegraphics[width=.8\textwidth]{Figures/curve.png}}\]
+     For all $z_0 \in \Gamma$, there exist some neighborhood $N$ around $z_0$ and $(D_{x_0, r}, f)$ such that $f$ maps the diameter of $D_{x_0, r}$ to $N \cap \gamma$.
+\end{definition}
+
+\begin{example}
+    The ellipse $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ is an analytic curve.
+\end{example}
+
+The main idea behind reflection across analytic curves is as follows:\\\\
+Suppose $\Omega$ is some domain where $\partial \Omega$ is an analytic curve:
+\[\fbox{\includegraphics[width=.8\textwidth]{Figures/extension.png}}\]
+The symmetry in the disk induces a symmetry near $\partial \Omega$, so we can extend it locally and use the reflection principle.
+
+\begin{proposition}
+Harmonic functions are real-analytic, meaning that the function is locally representable in power series as
+\[(x - x_0)^n \cdot (y - y_0)^m\]
+Or equivalently as power-series:
+\[(z - z_0)^k (\overline{z - z_0})^\ell\]
+\end{proposition}
+
+\begin{proof}
+    Recall the Poisson Formula lets you write a harmonic function $u(z)$ as
+    \[u(z) = \int_{\mathbb{T}} f(\xi) \frac{d\xi}{2\pi} + \sum_{k > 0} z^k \int f(\xi) \overline{\xi}^k \frac{|d\xi|}{2\pi} + \sum_{k > 0} \overline{z}^k \int f(\xi) \xi^k \frac{|d\xi|}{2\pi}\]
+    Applying a change of coordinates, we can reconstruct the power series based on harmonic values od disks.
+\end{proof}
+
+\section{Lecture - 11/16/2022}
+
+\subsection{Harmonic Conjugates}
+
+\begin{definition}
+    Let $\Omega$ be a domain and real-valued $u \in \text{Harm}(\Omega)$, suppose there exist real-valued $v \in \text{Harm}(\Omega)$ such that
+    \[u + iv \in \text{Hol}(\Omega)\]
+    then $v$ is called the \textbf{harmonic conjugate} of $u$ and we denote $\Tilde{u} \coloneqq v$. In particular, note that $\Tilde{v} = -u$. Note that all complex conjugates of $u$ \underline{differ by a constant}.
+\end{definition}
+
+\begin{theorem}
+    If $\Omega$ is a simply connected domain, then harmonic conjugates always exist.
+\end{theorem}
+
+\begin{proof}
+    Let $u \in \text{Harm}(\Omega)$, then by the Cauchy-Riemann Equation, it suffices to find $v \in \text{Harm}(\Omega)$ satisfying:
+    \[\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \frac{\partial u}{\partial y} = -\frac{\partial u}{\partial x}\]
+    Or equivalently that
+    \[dv = \frac{\partial v}{\partial x} dx + \frac{\partial v}{\partial y} dy = - \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy\]
+    Now fix $z_0 \in \Omega$, then we claim that
+    \[v(\xi) = a + \int_{z_0}^\xi - \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy\]
+    is our desired function. Note that $v$ is well-defined since $\Omega$ is simply connected. Now clearly $u + iv$ is holomorphic, so it remains for us to show that $v$ is harmonic:
+    \begin{align*}
+        d(dv) &= d(- \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy)\\
+        &= -\frac{\partial^2 u}{\partial y^2} dy \wedge dx + \frac{\partial^2 u}{\partial x^2} dx \wedge dy\\
+        &= (\Delta u) dx \wedge dy\\
+        &= 0 \tag*{$u$ is harmonic}
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    The assumption that $\Omega$ is simply connected is essential. Consider the following example:
+    \[u(z) = \ln |z| \text{ on } r < |z| < R\]
+    We claim that $u$ does not have any harmonic conjugates.
+\end{remark}
+
+\begin{proof}
+Suppose a conjugate $v$ does exist, then
+\[dv = - \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy\]
+Let $r'$ be between $r$ and $R$ and $C_{r'}$ be the circle centered at origin of radius $r'$, since $C_{r'}$ is a closed loop, endpoints match, so
+\[\int_{C_{r'}} - \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy = 0\]
+However, evaluating the integral explicitly gives us that 
+\[- \frac{\partial u}{\partial y} dx + \frac{\partial u}{\partial x} dy \neq 0\]
+\end{proof}
+
+\begin{question}
+    Let $\Dbb$ be the unit disk. Suppose $u \in \text{Harm}(\Dbb) \cap C(\overline{\Dbb}^{cl})$, then we know $u$ contains a harmonic conjugate $v$. How can we describe $u + iv$ explicitly?
+\end{question}
+
+\begin{proof}[Idea]
+The idea is to find $S(z) \in \text{Hol}(\Dbb)$ such that
+\[P(z) = \text{Re}(S(z))\]
+, where $P(z)$ is the Poisson Formula. Then we have that
+\[f(z) = \int_{\Tbb} S(z \overline{\xi}) u(\xi) \frac{|d\xi|}{2\pi}\]
+Note that $f$ is analytic by Morera's Theorem and
+\[\text{Re}(f(z)) = \int_{\Tbb} P(z \overline{\xi}) u(\xi) \frac{|d\xi|}{2\pi} = u(\xi)\]
+So, how do we find this desired $S(z)$? Recall that
+\[P(z) = 1 + \sum_{k \geq 1} z^k + \sum_{k \geq 1} \overline{z}^k\]
+Then choosing
+\begin{align*}
+    S(z) &\coloneqq 1 + 2 \sum_{k \geq 1} z^k\\
+    &= 1 + \frac{2z}{1 - z} \tag*{Domain of $S(z)$ is $\Dbb$}\\
+    &= \frac{1 + z}{1 - z}
+\end{align*}
+will suffice. $S(z)$ is sometimes called the \textbf{Schwartz Kernel}.\\\\
+Now let $Q(z) = \text{Im}(S(z))$, then
+\[v(z) = \text{Im}(f(z)) = \int_{\Tbb} Q(z \xi) u(\xi) \frac{|d\xi|}{2\pi}\]
+So we have that
+\begin{align*}
+    f(z) &= u(z) + i v(z)\\
+    &= \int_{\Tbb} u(\xi) \frac{1 + z \overline{\xi}}{1 - z \overline{\xi}} \frac{|d\xi|}{2\pi}\\
+    &= \int_{\Tbb} u(\xi) \frac{\xi + z}{\xi - z} \frac{|d\xi|}{2\pi}
+\end{align*}
+\end{proof}
+
+\subsection{Reflection Principle for Analytic Functions}
+
+Let $\Omega = \Omega^*$ be a symmetric domain and $f \in \text{Hol}(\Omega^+)$ such that
+\[\lim_{z \to \xi} \text{Im}(f(z)) = 0,\ \forall \xi \in \Rbb \cap \Omega\]
+(recall previously we assumed that the limit to the real part exists) 
+
+Let $f = u + iv$. Recall the reflection principle allowed us to extend $v$ harmonically to
+\[\Tilde{v}(z) = \begin{cases}
+    v(z),\ z \in \Omega^+\\
+    0,\ z \in \Rbb \cap \Omega\\
+    -u(\overline{z}),\ z \in \Omega^-
+\end{cases}\]
+
+We can extend u to $\Tilde{u}$ on $\Omega \setminus \Rbb$ as
+\[\Tilde{u}(z) = \begin{cases}
+    u(z),\ z \in \Omega^+\\
+    u(\overline{z}),\ z \in \Omega^-
+\end{cases}\]
+
+Altogether, this extends $f$ to a function $\Tilde{f} \in \text{Hol}(\Omega \setminus \Rbb)$.\\
+
+For a particular $\xi_0 \in \Rbb$, consider the diagram:
+\[\fbox{\includegraphics[width=.8\textwidth]{Figures/reflection_pricp.png}}\]
+
+Let $u, v$ be harmonic on the upper-half disk as before, and let $\Tilde{v}$ be the extension of $v$ and $v'$ be the harmonic conjugate, then
+\[-v' + i\Tilde{v} \in \text{Hol}(D_{\xi_0, r})\]
+
+We can choose $v'$ to be symmetric ($v'(z) = v'(\overline{z})$ (Follows from the Schwartz Kernel Formula), then it follows that
+\[-v'(z) = u(z) + C, \forall z \in D_{\xi_0, r}^+\]
+
+\subsection{Liouville's Theorem for Harmonic Functions}
+
+\begin{theorem}[Liouville's Theorem for Harmonic Functions]
+    Let $u \in \text{Harm}(\Cbb)$, if for all $z \in \Cbb$, $|u(z)| \leq C < \infty$, then $u(z)$ is identically constant.
+\end{theorem}
+
+The proof of this theorem relies on the following lemma:
+
+\begin{theorem}[Harnack's Inequality]
+    If $u \in \text{Harm}(D_{0, R})$ and $u \geq 0$ is non-negative, then for any $|z| \leq r < R$,
+    \[\frac{R - r}{R + r} u(0) \leq u(z) \leq \frac{R + r}{R - r} u(0)\]
+\end{theorem}
+
+\begin{proof}[Proof of Harnack's Inequality]
+    If $R = 1$, then consider $u \in \text{Harm}(\Dbb) \cap C(\overline{D}^{cl})$, then we can write
+    \[u(z) = \int_{\Tbb} \frac{1 - |z \overline{\xi}|^2}{|1 - z \xi|^2} u(\xi) \frac{|d\xi|}{2\pi}\]
+    , where we know that $\xi$ takes values from $\Tbb$ the unit circle, so
+    \begin{align*}
+        \frac{1 - |z \overline{\xi}|^2}{|1 - z \xi|^2} &\leq \frac{(1 - |z|)(1 + |z|)}{(1 - |z|)^2}\\
+        &= \frac{1 + |z|}{1 - |z|}\\
+        &\leq \frac{1 + r}{1 - r} \tag*{Since $|z|$ is monotonic}
+        \frac{1 - |z \overline{\xi}|^2}{|1 - z \xi|^2} &\geq \frac{(1 - |z|)(1 + |z|)}{(1 + |z|)^2}\\
+        &= \frac{1 - |z|}{1 + |z|}\\
+        &\geq \frac{1 - r}{1 + r} \tag*{Since $|z|$ is monotonic}
+    \end{align*}
+    So we have the inequality
+    \[\frac{R - 1}{R + 1} u(0) \leq u(z) \leq \frac{R + 1}{R - 1} u(0)\]
+    Now for a general $R$, consider
+    \[u_a(z) = u(az), a < R\]
+    Then we will eventually get the inequality that
+    \[\frac{a - r}{a + r} u(0) \leq u(z) \leq \frac{a + r}{a - r} u(0)\]
+    Then we can take the limit as $a \to R$.
+\end{proof}
+
+Now we are ready to prove Liouville's Theorem for Harmonic Functions:
+
+\begin{proof}
+    Let $|z| \leq r$, we can without loss replace $u$ by $u + C$ so that $u$ is non-negative (we can do this because $u$ is bounded). So Harnack's Inequality gives us that
+    \[\frac{R - r}{R + r} u(0) \leq u(z) \leq \frac{R + r}{R - r} u(0)\]
+    Taking $r \to \infty$ on both sides gives us that
+    \[u(0) \leq u(z) \leq u(0),\ \forall z \in \Cbb\]
+\end{proof}
+
+\section{Lecture - 12/5/2022}
+
+\subsection{Common Mistakes on Midterm}
+
+You are allowed to resubmit for the midterm! Please either send an email with the resubmitted programs or send a regrade request on Gradescope. Midterm Resubmission to due this Friday by \textbf{midnight}.\\
+
+There were two common mistakes a lot of people had on the midterm:
+\begin{enumerate}
+    \item \textbf{Hyperbolic Disks: } There were some confusions on finding the Euclidean center of the disk. The idea is to first solve the question in the case where the hyperbolic center is $a = 0$:
+    \[\fbox{\includegraphics[width=.5\textwidth]{Figures/hyperbolic.png}}\]
+    When $a = 0$, we have that
+    \[\rho = \ln (\frac{1 + r}{1 - r})\]
+    , and the Euclidean center coincide with the hyperbolic center. Now consider when $a = z_0$, then the following Mobius Transformation:
+    \[z \mapsto \frac{z - z_0}{1 - \overline{z_0}z}\]
+    maps hyperbolic disk to hyperbolic disk at the center. But note that $z_0$ is not the Euclidean center of its disks!\\\\
+    It remains for us to find the Euclidean center of the disk, there are two ways to do this:
+    \begin{itemize}
+        \item Find $2$ points on the diameter opposite to each other
+        \item Linear Fractional Transformation preserves symmetry, so Euclidean centers are symmetric to $\infty$, then we can find the inverse image of infinity, abd this map goes to $\frac{1}{\overline{z_0}}$
+    \end{itemize}
+    \item $f^N\ $ analytic \implies $f$ analytic: The common approach is first fix $z_0$ and write
+    \[f(z)^N - f(z_0)^N = (f(z) - f(z_0)) \cdot (....)\]
+    Then the claim is that if $f(z_0) \neq 0$, then $f(z)^N - f(z_0)^N$ be differentiable gives differentiability on $f(z) - f(z_0)$.\\\\
+    In the case where $f(z_0) = 0$, we prove that the roots of $f$ are isolated and are in fact removable singularities.\\\\
+    \textbf{There's another approach to this: }
+    Let $U$ be some domain around $z_0$ small enough, then the $N$-th root of $z_0$ creates exactly $N$ regions whose $N$-th power goes to $U$:
+    \[\fbox{\includegraphics[width=.5\textwidth]{Figures/root.png}}\]
+    In other words, if $g(z) = f(z)^N$, there exist analytic branches of $f(z) = g(z)^{1/N}$. We then claim that $f(z)$ must be in exactly ONE of these branches!\\\\
+    This claim follows from the fact that each branch is connected, $f$ is continuous, and the continuous image of $f$ has to be connected.
+\end{enumerate}
+
+\subsection{Analytic Continuation}
+
+Previously we have seen that functions like $\sqrt{1 - z^2}, \log(z)$ are not well-defined on the complex plane, as they are multi-valued functions. However, there's a way to make them well-defined by representing them on \textbf{Riemann surfaces} instead.\\
+
+One notion to introduce Riemann Surfaces uses the idea of Analytic Continuation.\\
+
+There's a naive approach to analytic continuation. Let $f \in Hol(\Omega)$ and consider some $z_0 \in \Omega$ as follows:
+\[\fbox{\includegraphics[width=.6\textwidth]{Figures/chain_circles.png}}\]
+The idea is if the local power series at $z_0$ has radius of convergence greater than $d(z_0, \partial \Omega)$, then we could extend $f$ out of $\Omega$. If we can repeatedly do this, we can construct a chain of balls out of the boundary.\\
+
+However, there are two problems with this approach:
+\begin{enumerate}
+    \item You are not always guaranteed that you can construct this chain of balls.
+    \item Sometimes your extension may not match up with one another. For example take $f = \sqrt{z}$ with $\Omega$ being on the right half-plane:
+    \[\fbox{\includegraphics[width=.6\textwidth]{Figures/chain_root.png}}\]
+    If you take a chain of circles going from the clock-wise and counter-clockwise direction, they WILL not give the same value when they meet.
+\end{enumerate}
+
+Therefore, we need a more standard way to discuss analytic continuation, and this leads to the idea of analytic continuation along a path.
+
+\begin{definition}[Analytic Continuation Along a Path]
+    Let $\gamma: [a, b] \to \Cbb$ be a path, we say that an \textbf{analytic continuation exists along $\gamma$} if there exist a family of $(f_s, U_s)$, $s \in [a, b]$ such that
+    \[\gamma(s) \in U_s, f_s \in \text{Hol}(U_s)\]
+    and for all $t_0 \in [a, b]$, there exist $\delta > 0$ such that
+    \[|t - t_0| < \delta \implies \begin{cases}
+    1.\ U_t \cap U_{t_0} \neq \emptyset\\
+    2.\ f_t \equiv f_{t_0} \text{ on } U_t \cap U_{t_0}
+    \end{cases}\]
+\end{definition}
+
+\begin{remark}
+    In practice, once we have the family of functions, we will simplify $f_t$ as
+    \[f_t(z) = \sum_0^\infty a_k(t) (z - \gamma(t))^k\]
+    as a power series and take $U_t$ as a disk instead.
+\end{remark}
+
+\begin{proposition}
+    Let $\gamma: [a, b] \to \Cbb$ be a path, an \textbf{analytic continuation exists along $\gamma$} if and only if there exists a finite division of $[a, b]$ into intervals $I_1, ..., I_n$ and family $(f_i, U_i)_{i = 1}^n$ such that
+    \begin{itemize}
+        \item $\gamma(I_k) \subseteq U_k$
+        \item $U_k \cap U_{k+1} \neq \emptyset$
+        \item $f_k \equiv f_{k+1}$ on $U_k \cap U_{k+1}$
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    Converse is straight-forward, for all $t \in [a, b]$, just choose $g_t$ to be $f_k$ if $t \in I_k$, then we have $(g_t, U_t)$ to be a valid family.\\\\
+    For the forward, direction, consider $U_t$ for each $t \in [a, b]$ and
+    \[\bigcup_{t \in [a, b]} \gamma^{-1}(U_t) \text{ is a cover of } [a, b]\]
+    Then the Lebesgue Number's Lemma implies that there exists some $\alpha > 0$ such that for any $E \subseteq [a, b]$ where $diam(E) < \alpha$, there exist $U_t$ such that $E \subset \varphi^{-1}(U_t)$.\\\\
+    Then we split intervals of $[a, b]$ to intervals $I_1, ..., I_n$ each less than $\alpha$ in length. Then for $I_k = [a_{k-1}, a_k]$ we have that $I_k \subseteq \gamma^{-1}(U_{t_k})$, hence $\gamma(I_k) \subseteq U_{t_k}$.\\\\
+    Then the family $(f_{t_k}, U_{t_k})$ is our desired finite division.
+\end{proof}
+
+\begin{proposition}
+    Analytic Continuation along a path is independent of the choice of splitting. In other words, the analytic continuation is unique.
+\end{proposition}
+
+\begin{proof}
+    This follows from the Uniquenss Theorem of analytic functions. Suppose we have a finite splitting ${I_k}, {J_j}$ of $[a, b]$, then we can consider the splitting $\{I_k \cap I_j\}$ of $[a, b]$. This is a finer splitting than both given, then we apply the Uniqueness Theorem.
+\end{proof}
+
+\begin{definition}[Germs of Analytic Functions]
+    Let $z_0 \in \Cbb$, then this consider the set of the form:
+    \[S = \{(f, U)\ |\ \text{$f \in \text{Hol}(U)$, $U$ is a neighborhod of $z_0$}\}\]
+    We can define an equivalence relation as follows, where $(f, U) \sim (g, V)$ if there exists some neighborhood $W \subseteq U \cap V$ containing $z_0$ such that $f \equiv g$ on $W$.\\\\
+    This equivalence class is called the \textbf{germ of analytic functions at $z_0$}, which we denote an element of this class as $[f]_{z_0}$ and call it the \textbf{germ of $f$ at $z_0$}.
+\end{definition}
+
+\begin{remark}
+    If $U, V$ are connected and convex domains, we can without loss take $W = U \cap V$. Analytic continuation being unique is essentially saying that our germs coincides along the path.
+\end{remark}
+
+\subsection{Monodromy's Theorem}
+\begin{theorem}[Monodromy's Theorem]
+    Suppose $\gamma_0, \gamma_1: [a, b] \to \Cbb$ are homotopy pathes with same start and end points, meaning there exist a continuous function $\Gamma(t, s): [a, b] \to [0, 1] \to \Cbb$ such that
+    \[\Gamma(t, 0) = \gamma_0(t), \Gamma(t, 1) = \gamma_1(t), \Gamma(a, s) = z_0, \Gamma(b, s) = z_1\]
+    Define $\gamma_s(t) \coloneqq \Gamma(t, s)$ for all $s \in [a, b]$. Suppose there exists analytic continuation along all of $\gamma_s(t)$ for some analytic function $f$, then the analytic continuation of $[f]_{\gamma_s(b)}$ is independent on $s$!
+\end{theorem}
+
+\begin{proof}[Idea]
+    If two analytic continuations are ``close enough", they are the same.
+\end{proof}
+
+\begin{example}
+    Take $f = \sqrt{z}$ on the principle branch, consider the two following ways to draw pathes from $\gamma_0(a) = 1$ to $\gamma_0(b) = -1$:
+    \[\fbox{\includegraphics[width=.6\textwidth]{Figures/sqrt_root.png}}\]
+    The pathes in the top figure are homotopy equivalent, the pathes in the bottom figure are not.
+\end{example}
 
 \end{document}
