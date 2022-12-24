@@ -1,0 +1,82 @@
+\section{Lecture 38 - 12/7/2022}
+
+\subsection{Sheaf of germs of analytic functions}
+
+Recall in last lecture, we set up the discussion of germs in the following context:
+\[\noindent\fbox{%
+    \parbox{\textwidth}{%
+    Fix $z_0 \in \Cbb$, then this consider the set of the form:
+    \[S = \{(f, U)\ |\ \text{$f \in \text{Hol}(U)$, $U$ is a neighborhod of $z_0$}\}\]
+    We can define an equivalence relation as follows, where $(f, U) \sim (g, V)$ if there exists some neighborhood $W \subseteq U \cap V$ containing $z_0$ such that $f \equiv g$ on $W$.\\\\
+    This equivalence class is called the \textbf{germ of analytic functions at $z_0$}, which we denote an element of this class as $(f, {z_0})$ and call it the \textbf{germ of $f$ at $z_0$}.
+    }%
+}\]
+
+A question arises from this is - what happens when we consider the set of all germs of analytic functions?
+
+\begin{definition}
+    We denote $\sigma(\Cbb)$ as the set of all germs of analytic functions $(f, z_0)$ for all $z_0 \in \Cbb$. We can define a topology on $\sigma(\Cbb)$ as follows:
+    \begin{itemize}
+        \item For all $(f, z_0) = [f, z_0, U] \in \sigma(\Cbb)$. For any $V \subseteq U$, we denote
+        \[\Tilde{V} \coloneqq \{[f, z, U]: z \in V\}\]
+        Then the base at $(f, z_0)$ is the collection of following open sets:
+        \[\{\Tilde{V}\ |\ V \text{ is an element of the base of Euclidean topology of $\Cbb$ on $z_0$}\}\]
+        \item Repeating this for all $(f, z_0) \in \sigma(\Cbb)$ and unioning all the collections forms a topological basis of $\sigma(\Cbb)$!
+    \end{itemize}
+    Equivalently, a subset $\Omega \subset \sigma(\Cbb)$ is open if for all $[f, z_0, U] \in \Omega$, we have that for all $z \in U$, $[f, z, U] \in \Omega$.\\\\
+    We call $\sigma(\Cbb)$ equipped with this topological structure - \textbf{the sheaf of germs of analytic functions}.
+\end{definition}
+
+\begin{remark}
+    Consider the projection map $\pi: \sigma(\Cbb) \to \Cbb$ such that
+    \[\pi([f, z, U]) = z\]
+    This is locally a biholomorphism to $\Dbb$ on any given $\Tilde{V}$ containing $[f, z, U]$. The resulting topology on $\sigma(\Cbb)$ is Hausdorff and Locally Euclidean, but it is clearly not 2nd countable, as there are uncountably many choices of disks of different radius centered at $z_0$.
+\end{remark}
+
+\subsection{Riemann Surface of a Germ}
+
+\begin{definition}
+    The Riemann Surface of a germ $[f, z_0, U]$ is the connected component of $\sigma(\Cbb)$ containing $[f, z_0, U]$. Note that since connected implies path-connected in a locally Euclidean space, we can equivalently define this to be the path component of $\sigma(\Cbb)$ containing $[f, z_0, U]$.
+\end{definition}
+
+What is the analytic continuation in the context of Riemann Surfaces? Recall our definition of analytic continuation in the usual context:
+\[\noindent\fbox{%
+    \parbox{\textwidth}{%
+    Let $\gamma: [a, b] \to \Cbb$ be a path, we say that an \textbf{analytic continuation exists along $\gamma$} if there exist a family of $(f_s, U_s)$, $s \in [a, b]$ such that
+    \[\gamma(s) \in U_s, f_s \in \text{Hol}(U_s)\]
+    and for all $t_0 \in [a, b]$, there exist $\delta > 0$ such that
+    \[|t - t_0| < \delta \implies \begin{cases}
+    1.\ U_t \cap U_{t_0} \neq \emptyset\\
+    2.\ f_t \equiv f_{t_0} \text{ on } U_t \cap U_{t_0}
+    \end{cases}\]
+    }%
+}\]
+
+Consider $\gamma: [a, b] \to \Cbb$ for some $\gamma(a) = z_0$, then consider a lift $\Tilde{\gamma}: [a, b] \to \sigma(\Cbb)$ such that the following diagram commutes:
+\[\begin{tikzcd}
+	{\sigma(\mathbb{C})} && {\mathbb{C}} \\
+	\\
+	{[a, b]}
+	\arrow["{\exists ! \tilde{\gamma}}", from=3-1, to=1-1]
+	\arrow["\pi", from=1-1, to=1-3]
+	\arrow["\gamma"', from=3-1, to=1-3]
+\end{tikzcd}\]
+where we essentially want
+\[\pi(\Tilde{\gamma}(t)) = \gamma(t),\ \forall t \in [a, b]\]
+
+Then \ul{\textbf{our lift $\Tilde{\gamma}$ encodes the family of functions required in the definition of analytic continuation along a path!}}
+
+If we fix what $\Tilde{\gamma}(a) = (f, z_0, U)$ is, then this is the analytic continuation with respect to the germ $(f, z_0)$!
+
+\begin{theorem}
+    Every path $\gamma$'s lift $\Tilde{\gamma}$ to $\sigma(\Cbb)$, such that $\Tilde{\gamma}(a) = (f, z_0, U)$ is fixed, (if it exists) is unique.
+\end{theorem}
+
+\begin{proof}
+    Suppose there exists $\gamma', \gamma'': [a, b] \to \sigma(\Cbb)$ that are both possible lifts. Consider the set
+    \[S = \{t \in [a, b]\ |\ \gamma'(t) = \gamma''(t)\}\]
+     By definition we have that $\gamma'(a) = \gamma''(a)$, so $a \in S$.\\\\
+     Now for any $t \in S$, then recall $\pi$ is a local biholomorphism (and is in particular locally bijective), so locally around $\gamma'(t) = \gamma''(t)$, there exists some neighborhood $(t - \epsilon, t + \epsilon)$ such that $\gamma' \equiv \gamma''$. Thus, $(t - \epsilon, t + \epsilon) \subseteq S$. Hence $S$ is open.\\\\
+     Now, for any $t \notin S$, the fact that $\pi$ is a local biholomorphism (in particular $\pi$ would be a $2$-to-$1$ here) means that there's a neighborhood of $t$ such that $\gamma'$ and $\gamma''$ cannot agree on. Hence $S^c$ is open, so $S$ is closed.\\\\
+     Since $S$ is non-empty, open and closed, and $S \subseteq [a, b]$, we have that $S = [a, b]$.
+\end{proof}
