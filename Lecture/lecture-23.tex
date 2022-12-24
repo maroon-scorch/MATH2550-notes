@@ -1,0 +1,81 @@
+\section{Lecture 23 - 10/31/2022}
+
+\subsection{Runge's Theorem}
+
+In this lecture, we will prove Runge's Theorem. (Fun Fact: The Runge–Kutta methods in Numerical Analysis comes from the same mathematician Carl Runge)
+
+\begin{theorem}[Runge's Theorem]
+    Let $K$ be compact, $f \in Hol(K)$ (recall this means that there exists some open $\Omega$ containing $K$ where $f \in Hol(\Omega)$), then
+    \begin{enumerate}
+        \item There exist a sequence of rational functions $\{f_n\}_{n = 1}^\infty$ with poles NOT in $K$ such that $\{f_n\}$ converges to $f$ uniformly on $K$
+        \item Let $\{\mathcal{O}_k\}$ be connected components of $\Cbb \setminus K$ (Note that the collection $\{\mathcal{O}_k\}$ is countable by separability and denseness of $\Rbb^2$), fix $z_k \in \mathcal{O}_k$ for each k, then one can choose the rational $\{f_n\}_{n = 1}^\infty$ as before such that they only have poles at $z_k$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    We will first prove $(1)$:\\\\
+    \[\noindent\fbox{%
+    \parbox{\textwidth}{%
+    \underline{Idea: } The idea is to find some bounded open $G$ with $\partial G \in PC^1$ such that
+    \[K \subseteq G \subseteq cl(G) \subsetq \Omega\]
+    Then using Cauchy's Integral Formula:
+    \[f(z) = \frac{1}{2\pi i} \int_{\partial G} \frac{f(\xi)}{\xi - z} d\xi\]
+    We can actually approximate the integral using Riemann Sums to get
+    \[f(z) \sim \sum \frac{f(\xi_k)}{\xi_k - z} (\xi_k - \xi_{k-1})\]
+    , which would be get us a rational approximation, but showing the uniform convergence is a bit tedious. We will however generalize this idea topologically, as shown below.
+    }%
+}\]
+   Let $\gamma = \partial G$, we want to divide $\gamma$ into finitely many non-overlapping (intersect at most at vertices) arcs $\{\gamma_k\}$ such that each $\gamma_k$ is contained in $D_{\lambda_k, \delta_k}$ such that $D_{\lambda_k, 2 \delta_k} \subseteq \Cbb \setminus K$. There are two ways to find the $\delta$ we want: 
+\begin{enumerate}
+    \item In practice, recall we usually construct our desired $G$ using rectangular grids, so its boundary is just some straight-lines. Then, fix $\delta < dist(\gamma, K)/2$, then we can split each interval to be less than $\delta$
+    \item Using some abuse of notation, write $\gamma: [a, b] \\to \Omega$, then we can cover the image of $\gamma$ by open disks $D_{z, \delta}$ using the Lebesgue Number Lemma, which will also give our desired result.
+\end{enumerate}
+Now, using the arcs $\{\gamma_k\}$, we have that
+\[\frac{1}{2\pi i} \int_\gamma \frac{f(\xi)}{\xi - z} d\xi = \sum_{1}^N \frac{1}{2\pi i} \int_{\gamma_k} \frac{f(\xi)}{\xi - z} dz\]
+, where for simplicity we will write $\varphi_k(z) = \frac{1}{2\pi i} \int_{\gamma_k} \frac{f(\xi)}{\xi - z} dz$, so we have that
+\[f(z) = \sum_1^N \varphi_k(z)\]
+Note that $\varphi_k(z)$ is analytic for $|z - \lambda_k| > \varphi_k$ and furthermore that $\varphi_k(z) \to 0$ as $z \to \infty$. Thus, we can write each $\varphi_k(z)$ as the Laurent Series
+\[\varphi_k(z) = \sum_{j \geq 1} a_j^k (z - \lambda_k)^{-j}\]
+, which converges uniformly on compact subsets on $(D_{\lambda_k, \delta_k})^c$, and hence on $K$.\\\\
+Now take $\epsilon > 0$, we can approximate each $\varphi_k$ by finite sum
+\[\sum_{j = 1}^{N_k} a^k_j (z - \lambda_k)^{-j}\]
+, up to $\epsilon/N$. Hence we have that
+\begin{align*}
+    |f(z) - \sum_{k = 1}^N \sum_{j = 1}^{N_k} a_j^k (z - \lambda_k)^{-j}| < \epsilon
+\end{align*}
+The inner function $\sum_{k = 1}^N \sum_{j = 1}^{N_k} a_j^k (z - \lambda_k)^{-j}|$ is rational, he nce we have a rational approximation that converges uniformly. This concludes the proof of $(1)$.\\\\
+We will now proce $(2)$:
+    \[\noindent\fbox{%
+    \parbox{\textwidth}{%
+    \underline{Idea: } Consider $z_k, \lambda \in \mathcal{O}_k$, ie. that they belong in the same connected component. Let $f$ be some rational function with pole at $z_k$, then our goal is to show that there's a rational approximation of $f$ with poles on $\lambda$, using a continuous induction.
+    }%
+}\]
+We will first introduce a short lemma:
+\begin{lemma}
+    Let $\mathcal{O}$ be open and connected, let $K$ be a compact subset of $\Cbb \setminus \mathcal{O}$. Suppose $a \in \mathcal{O}$, $\lambda \in \Cbb$ such that
+    \[|a - \lambda| < dist(a, \Cbb \setminus \mathcal{O})\]
+    , then any rational (resp. proper rational) function with pole at $\lambda$ can be approximated by rational (resp. proper rational) functions uniformly with pole at $a$.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma]
+    The proof for proper rational function follows similarly to the case of rational functions. Let $\delta$ be some number between
+    \[|a - \lambda| < \delta < dist(a, \Cbb \setminus \mathcal{O})\]
+    , and suppose $f$ is a rational function with pole at $\lambda$.\\\\
+    In particular, $f$ is analytic at $z: |z - a| > \delta$, hence $f$ can be written as
+    \[\sum_{k \in \Zbb} a_k (z - a)^k\]
+    , which converges uniformly on compact subsets of $\{z: |z - a| > \delta\}$. Since $K$ is a compact subset of $\{z: |z - a| > \delta\}$, we have a uniform convergence on $K$.
+    \end{proof}
+Now back to our setup, let $z_k \in \mathcal{O}_k$. Define
+\[A \coloneqq \{\lambda \in \mathcal{O}_k | \text{ any rational function with pole at $\lambda$ can be approximated by functions with poles at $z_k$}\}\]
+Clearly $z_k \in A$. Now, we claim $A$ is open. Indeed, for any $a \in A$, we know there exist $\delta > 0$, such that for all $|\lambda - a| < \delta$, any rational function with pole at $\lambda$ can be approximated by finite sum $\sum \frac{c_k}{(z - a)^k}$. Then we know that
+\[|f_{\text{pole at $\lambda$}} - f_{\text{pole at $a$}}| < \frac{\epsilon}{2}\ \text{, by Lemma}\]
+\[|f_{\text{pole at $z_k$}} - f_{\text{pole at $a$}}| < \frac{\epsilon}{2}\ \text{, by Definition of A}\]
+Hence, 
+\[|f_{\text{pole at $z_k$}} - f_{\text{pole at $\lambda$}}| < \epsilon\]
+Now we claim that $A$ is also closed. Indeed, let $\lambda \notin A$ and take $\delta < \frac{dist(\lambda, \mathcal{O}^c}){4}$, then for all $a$ such that $|a - \lambda| < \delta$, $D_{a, \delta} \subseteq \mathcal{O}_k$. Now suppose for contradiction that $a \in A$, then our Lemma implies that $\lambda \in A$, which is false. Hence $a \notin A$. Thus, $A$ is closed.\\\\
+Since $\mathcal{O}_k$ is connected and $A$ is a non-empty clopen subset of $\mathcal{O}_k$, we have that $A = \mathcal{O}_k$.
+\end{proof}
+
+\begin{remark}
+    Note that a nearly identical argument shows that Runge's Theorem holds for proper rational functions too.
+\end{remark}
