@@ -1,0 +1,197 @@
+\section{Lecture 16 - 10/14/2022}
+\subsection{Conformal automorphisms of the complex plane and the Riemann sphere}
+
+\begin{theorem}
+    Let $f: \Cbb \to \Cbb$, $f$ is a conformal map if and only if $f(z) = az + b$, $a \neq 0$. In other words, the conformal automorphisms of $\Cbb$ are all affine transformations.
+\end{theorem}
+
+\begin{proof}
+    Note that $f$ is an entire function, so we can represent $f$ as a power series globally, hence
+    \[f(z) = \sum_{k = 0}^\infty a_k z^k,\ \forall z \in \Cbb\]
+    Then consider
+    \[g(z) \coloneqq f(\frac{1}{z}) = \sum_{k = 0}^\infty a_k z^{-k}, \forall z \in \Cbb \setminus \{0\}\]
+    In other words, $g(z)$ has a singularity at $0$. The question is then - \textbf{what type of singularity is it?}.\\\\
+    We first claim this is NOT an essential singularity. Indeed, suppose it is, then by Casorati–Weierstrass theorem, for any neighborhood $U$ of $0$, then $g(U)$ is dense in $\Cbb$.\\\\
+    Let $U = D_{0, 1/3}$ be the open disk centered at $0$ of radius $1/3$, then $g(D_{0, 1/3})$ is dense. Hence, for any open set $V$, $g(D_{0, 1/3}) \cap V \neq \emptyset$. Now consider $V = g(D_{1, 1/3})$, then we have that
+    \[g(D_{0, 1/3}) \cap g(D_{1, 1/3}) \neq \emptyset\]
+    In other words, there exist some $z_1 \in D_{0, 1/3}$ and $z_2 \in D_{1, 1/3}$ such that
+    \[g(z_1) = g(z_2)\]
+    But we know that $f$ is conformal, so it has to be injective, hence $g$ also has to be injective, so we have the contradiction.\\\\
+    Thus, $z = 0$ is either a pole or a removable singularity, so we can write
+    \[g(z) = \sum_{k = 0}^m a_k z^{-k}, \text{ the rest of $a_i$ is $0$}\]
+    Hence we have that
+    \[f(z) = \sum_{k = 0}^m a_k z^k,\ m > 0\]
+    ($m > 0$ because $m = 0$ implies $f$ is a constant function) Hence, $f(z)$ is a complex polynomial.\\\\
+    If $\text{deg}(f) > 1$, then $f(z)$ cannot be a bijection. If $f(z)$ has at least two distinct roots, we are done, otherwise, suppose $f(z)$ has the same roots $r$, then we write
+    \[f(z) = b (z - r)^m\ m > 1\]
+    $f(z)$ is injective if and only if $z^m$ is injective on the complex plane, but we do have distinct roots of unity for $z^m - 1$.\\\\
+    Hence we conclude that
+    \[f(z) = az + b, a \neq 0\]
+    Converse is not hard to check.
+\end{proof}
+
+Now we will move our discussion from the complex plane to the Riemann Sphere! This is an example of what's known as Riemann surfaces:
+
+\begin{definition}[Riemann Surface]
+    A Riemman surface is a $2d$-dimensional manifold $M$ with a complex structure. In other words, $M$ is a second countable, Hausdorff Space, with a coordinate atlas $\{(U_\alpha, \varphi_\alpha)\}$ such that
+    \[\varphi_\alpha: U_\alpha \to \text{an open subset of $\Cbb$ - is biholomorphic}\]
+    and $\varphi_\alpha \circ \varphi_\beta^{-1}$ is a biholomorphic map.
+\end{definition}
+
+\begin{example}
+    Consider the Riemann Sphere $\hat{\Cbb} = \Cbb \cup \{\infty\}$ and the maps:
+    \[\varphi_1: \hat{\Cbb} \setminus \{\infty\} \to \Cbb, \varphi_1(z) = z\]
+    \[\varphi_2: \hat{\Cbb} \setminus \{0\} \to \Cbb, \varphi_1(z) = \frac{1}{z}\]
+    This turns the Riemann sphere into a Riemann surface.
+\end{example}
+
+\begin{definition}
+    We call a map $f: \hat{\Cbb} \to \hat{\Cbb}$ of the form
+    \[f(z) = \frac{az + b}{cz + d},\ a, b, c, d \in \Cbb\]
+    such that $\begin{vmatrix} a & b\\ c & d\end{vmatrix} \neq 0$ a \textbf{linear fractional transformation (LFT)}.
+\end{definition}
+
+\begin{theorem}
+    Let $f: \hat{\Cbb} \to \hat{\Cbb}$, then $f$ is conformal if and only if
+    \[f(z) = \frac{az + b}{cz + d},\ a, b, c, d \in \Cbb\]
+    such that $\begin{vmatrix} a & b\\ c & d\end{vmatrix} \neq 0$.
+\end{theorem}
+
+\begin{proof}
+    Suppose $f$ is conformal, we will consider a few cases.\\\\
+    \begin{itemize}
+        \item If $f(\infty) = \infty$, then $f(\Cbb) = \Cbb$, so $f(z) = az + b$ which is a linear fractional transformation by considering $c = 0, d = 1$.
+        \item If $f(\infty) = w_0 \in \Cbb$, then consider
+        \[g(z) \coloneqq \frac{1}{f(z) - w_0}\]
+        In this case we note that
+        \[g(\infty) = \infty\]
+        and $g$ is conformal, hence $g(z) = az + b$. Now the question is to solve
+        \[\frac{1}{f(z) - w_0} = az + b\]
+        So we get that
+        \[f(z) = \frac{1}{az + b} + w_0 = \frac{1 + (az + b) \cdot w_0}{az + b}\]
+        which is a valid Linear fractional transformation.
+    \end{itemize}
+    We can check that any LFT with determinant $0$ cannot be conformal (it fails injectivity). Converse is also not hard to check.
+\end{proof}
+
+\begin{proposition}
+    Let $f, g$ be Linear Fractional Transformations, then $f \circ g$ is a Linear Fractional Transformation.
+\end{proposition}
+
+\begin{proof}
+    We can prove this by doing a simple algebra exercise. Alternatively, we also note that the composition of conformal automorphisms are also conformal automorphisms, so the Theorem implies $f \circ g$ is a linear fractional transformation.
+\end{proof}
+
+\subsection{Homogeneous coordinates and LFTs}
+
+Consider the space $\Cbb^2 \setminus \{\Vec{0}\}$, then this is a collection of vectors $(z_1, z_2)$ excluding $(0, 0)$. We say that
+\[(z_1, z_2) \sim (w_1, w_2) if \exists a \in \Cbb \setminus \{0\}, a(z_1, z_2) = (w_1, w_2)\]
+Now consider the quotient space obtained by this:
+\[\frac{\Cbb^2 \setminus \{\hat{0}\}}{\sim}\]
+This is actually isomorphic to the Riemann Sphere $\hat{\Cbb}$!\\
+
+This gives an alternative representation of $\hat{\Cbb}$. In particular, if $z_2 \neq 0$, we can identify
+\[(z_1, z_2) \iff \frac{z_1}{z_2} \in \Cbb\]
+If $z_2 = 0$, then $z_1 \neq 0$, then $(z_1, z_2)$ corresponds to $\infty \in \hat{\Cbb}$.\\
+
+This is an example of a \textbf{projective line}, so we alternatively denote this construction as $\Cbb \mathbb{P}^1$, and
+\[\hat{\Cbb} = \Cbb \mathbb{P}^1\]
+
+Now consider $f(z) = \frac{az + b}{cz + d}$ on $\Cbb \mathbb{P}^1$. Write $z = z_1/z_2$. Then, this actually corresponds to
+\[\begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix} \begin{pmatrix}
+    z_1 \\ z_2
+\end{pmatrix} = \begin{pmatrix}
+    a z_1 + b z_2 \\ c z_1 + d z_2
+\end{pmatrix}\]
+which corresponds to the fraction
+\[\frac{a z_1 + b z_2}{c z_1 + d z_2} = \frac{a z_1 + b z_2}{c z_1 + d z_2} \cdot \frac{1/z_2}{1/z_2} = \frac{az + b}{cz + d}\]
+
+We will not use this representation much, but it is used a lot in other areas of mathematics.
+
+\begin{definition}
+    A generalized circle in $\Cbb (\text{or} \hat{\Cbb})$ is either a cirlce in $\Cbb$ or a line (this is a circle if you add $\infty$ to it).
+\end{definition}
+
+\begin{theorem}\label{thm::lft-circle}
+    Linear Fractional Transformation maps a generalized circle to a generalized circle.
+\end{theorem}
+
+\begin{proof}[Naive Proof Sketch]
+    The naive proof is that any Linear Fraction Transformation is some composition of the following:
+    \begin{itemize}
+        \item $z \mapsto z + a$ (Translation)
+        \item $z \mapsto bz$
+        \item $z \mapsto \frac{1}{z}$
+    \end{itemize}
+    We can prove that all $3$ types of transformation here map a generalized circle to a generalized circle. Specifically, the first two maps lines to lines and circles to circles, the only difficult part is the last map, which comes down to an exercise in Analytic Geometry.
+\end{proof}
+
+We will instead prove this using an alternative method.
+
+\begin{proposition}
+        Let $z_2, z_3, z_4 \in \hat{\Cbb}$ be distinct points, then there exists unique a Linear Fraction Transformation $S = S_{z_2, z_3, z_4}$ such that
+        \[S(z_2) = 1, S(z_3) = 0, S(z_4) = \infty\]
+\end{proposition}
+
+\begin{proof}
+    Suppose $z_2, z_3, z_4 \in \Cbb$ (no infinity), then choose
+    \[S_{z_2, z_3, z_4}(z) = \frac{z - z_3}{z - z_4} \cdot \frac{z_2 - z_4}{z_2 - z_4}\]
+    We note that if one of them is infinity, define
+    \[S_{\infty, z_3, z_4}(z) = \frac{z - z_3}{z - z_4}\]
+    \[S_{z_2, \infty, z_4}(z) = \frac{z_2 - z_4}{z - z_4}\]
+    \[S_{z_2, z_3, \infty}(z) = \frac{z - z_3}{z_2 - z_3}\]
+    For uniqueness, suppose there two LFTs $S, T$ with the property given then $S^{-1} \circ T$ is a linear fractional transformation such that
+    \[S^{-1} \circ T(z_1) = z_1, S^{-1} \circ T(z_2) = z_2, S^{-1} \circ T(z_3) = z_3\]
+    We note that it's a well-known fact (which we will not prove) in Complex Analysis that any LFT with more than $2$ fixed points is the identity, so we have that $S = T$.
+\end{proof}
+
+\begin{remark}
+    Note that, since every Linear Fractional Transformation is bijective, this means that every Linear Fractional Transformation is of the form $S_{z_2, z_3, z_4}$ for some $z_2, z_3, z_4 \in \Cbb$, and we are saying the determination is unique. Hence there's roughly $\Cbb^3$ choices of a $LFT$.
+\end{remark}
+
+\begin{definition}
+    Let $z_1 \notin \{z_2, z_3, z_4\}$, then we call the Cross Ratio of $z_1, z_2, z_3, z_4$ as:
+    \[(z_1 : z_2 : z_3 : z_4) \coloneqq S_{z_2, z_3, z_4}(z_1) = \frac{z_1 - z_3}{z_1 - z_4} \cdot \frac{z_2 - z_4}{z_2 - z_4}\]
+\end{definition}
+
+\begin{theorem}
+    If $T$ is a LFT, then
+    \[(z_1: z_2: z_3: z_4) = (Tz_1: Tz_2: Tz_3: Tz_4)\]
+\end{theorem}
+
+\begin{proof}
+    Indeed, let $S \coloneqq S_{z_2, z_3, z_4}$, then we see that
+    \[S \circ T^{-1}(T z_2) = S(z_2) = 1\]
+    \[S \circ T^{-1}(T z_3) = S(z_3) = 0\]
+    \[S \circ T^{-1}(T z_4) = S(z_4) = \infty\]
+    Hence that we have by uniqueness that $ST^{-1} = S_{Tz_2, Tz_3, Tz_4}$. Then we have that
+    \begin{align*}
+        (Tz_1 : Tz_2 : Tz_3 : Tz_4) &= S_{Tz_2, Tz_3, Tz_4}(Tz_1)\\
+        &= ST^{-1}(Tz_1)\\
+        &= S(z_1)\\
+        &= (z_1: z_2: z_3: z_4)
+    \end{align*}
+\end{proof}
+
+\begin{theorem}\label{thm::lt-circle}
+    If $S$ is a Linear Fractional Transformation, then the
+    \[\{z: S(z) \in \Rbb\}\]
+    is a generalized circle.
+\end{theorem}
+
+\begin{proof}
+    We will prove this the next lecture!
+\end{proof}
+
+It follows as an immediate corollary that
+\begin{corollary}
+    The set $\{z: (z: z_2 : z_3: z_4) \in \Rbb\}$ is a generalized circle. Conversely, if $C$ is a generalized circle, then pick $z_2, z_3, z_4 \in T$
+    \[C = \{z \in \Cbb: (z: z_2: z_3: z_4) \in \Rbb\}\]
+\end{corollary}
+
+\begin{proof}
+    The forward direction is clearly from Theorem~\ref{thm::lt-circle}. We will also prove the converse next lecture.
+\end{proof}

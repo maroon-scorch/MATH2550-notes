@@ -1,0 +1,83 @@
+\section{Lecture 17 - 10/17/2022}
+\subsection{LFTs perserve Genralized Circles}
+
+\begin{theorem}
+    Let $z_2, z_3, z_4 \in \hat{\Cbb}$ be distinct, then
+    \[\{z \in \Cbb | S_{z_2, z_3, z_4}(z) \in \Rbb\}\]
+    is a generalized circle going through $z_2$, $z_3$, and $z_4$.
+\end{theorem}
+
+\begin{proof}
+    Write $S$ as $S_{z_2, z_3, z_4}$, then since $S$ is a LFT, we have that
+    \[S(z) = \frac{az + b}{cz + d}\]
+    We first note the set is clearly non-empty as it contains $z_2, z_3, z_4$.\\\\
+    Then we note that
+    \begin{align*}
+        S(z) \in \Rbb &\iff \frac{az + b}{cz + d} = \overline{(\frac{az + b}{cz + d})} \tag*{$z \in \Cbb$ is real iff it's fixed under conjugation}\\
+        &\iff \frac{az + b}{cz + d} = \frac{\overline{a}\overline{z} + \overline{b}}{\overline{c}\overline{z} + \overline{d}}\\
+        &\iff (az + b)\overline{(cz + d)} = \overline{(az + b)}(cz + d)\\
+        &\iff (a\overline{c} - \overline{a}c) \cdot |z|^2 + (a\overline{d} -\overline{b}c)z + (b\overline{c} - \overline{a}d)\overline{z} + (b\overline{d} - \overline{b}d) = 0\\
+        &\iff -i\cdot [(a\overline{c} - \overline{a}c) \cdot |z|^2 + (a\overline{d} -\overline{b}c)z + (b\overline{c} - \overline{a}d)\overline{z} + (b\overline{d} - \overline{b}d)] = 0
+    \end{align*}
+    We note that both
+    \[ -i\cdot [a\overline{c} - \overline{a}c] \text{ and } -i\cdot [b\overline{d} - \overline{b}d]\]
+    are fixed under conjugation and hence are real numbers, we will write them as $B$ and $C$, and we see that
+    \[-i \cdot [a\overline{d} -\overline{b}c] \text{ and } -i \cdot [b\overline{c} - \overline{a}d]\]
+    are complex conjugates of one another, we will write them as $\overline{W}$ and $W$ respectively.\\\\
+    So we have that the equation \[S(z) = 0\] is exactly the equation
+    \[B |z|^2 + \overline{W} z + W \overline{z} + C = 0\]
+    If $B = 0$, then this is the equation of a line. Otherwise, if $B \neq 0$, we can divide the equation by $B$ and have
+    \[|z|^2 + \frac{\overline{W}}{B} z + \frac{W}{B} \overline{z} + C = 0\]
+    $\frac{W}{B}$ and $\overline{W}/B$ are still conjugates of each other, so we can write them as $\overline{A}$ and $A$ respectively, so
+    \[|z|^2 + \overline{A} z + A \overline{z} + C = 0\]
+    Then we see that
+    \[|z|^2 + \overline{A} z + A \overline{z} + C = 0 \iff |z + A|^2 = |A|^2 - C\]
+    which is the equation of a circle containing $z_1, z_2, z_3$. Hence the entire set would have to occupy the circle.
+\end{proof}
+
+Now we will prove that LFTs perserve generalized circles!
+
+\begin{proof}[Proof of Theorem~\ref{thm::lft-circle}]
+    Let $f$ be a LFT and $T$ be a generalized circle, choose any distinct $z_2, z_3, z_4 \in T$, then we have that
+    \[T = \{z \in \Cbb\ |\ (z: z_2: z_3: z_4) \in \Rbb\}\]
+    Applying $f$ gives
+    \[f(T) = \{w = f(z)\ |\ (z: z_2: z_3: z_4) \in \Rbb\}\]
+    \[= \{w = f(z)\ |\ (f(z): f(z_2): f(z_3): f(z_4)) \in \Rbb\}\]
+    \[= \{w \in f(T)\ |\ (w: f(z_2): f(z_3): f(z_4)) \in \Rbb\}\]
+    which we proved is a circle above going through $f(z_2), f(z_3), f(z_4)$.
+\end{proof}
+
+\subsection{Symmetry of Generalized Circles}
+
+We note the symmetric point of $z$ as $z^*$
+
+\begin{definition}
+    For any $z_2, z_3, z_4 \in \Cbb$, let $z \in \Cbb$ be a point other than the first three, then the reflection of $z$ - $z^*$ - across the circle is the unique point satisfying:
+    \[(z^*: z_2: z_3: z_4) = \overline{(z: z_2: z_3: z_4)}\]
+\end{definition}
+
+\begin{example}
+    When the circle is $S^1$, 
+    \begin{align*}
+        (z^*: z_2: z_3: z_4) &= \overline{(z: z_2: z_3: z_4)}\\
+        &= (\overline{z}: \overline{z_2}: \overline{z_3}: \overline{z_4})\\
+        &= (1/\overline{z} : 1/\overline{z_2} : 1/\overline{z_3} : 1/\overline{z_4})\\
+        &= (1/\overline{z} : z_2 : z_3 : z_4)\\
+    \end{align*}
+    Hence $z^* = \frac{1}{\overline{z}}$. (For general circle of radius $R$ at the origin, $z^* = \frac{R^2}{\overline{z}}$).
+\end{example}
+
+\begin{theorem}
+    Let $z, z^*$ be symmetric points with respect to a generalized circle $C$ going through $z_2, z_3, z_4$, and let $f$ be a LFT, then $f(z)$ and $f(w)$ are symmetric with respect to $f(C)$.
+\end{theorem}
+
+\begin{proof}
+    It suffices for us to show that
+    \[(f(z^*) : f(z_2) : f(z_3) : f(z_4)) = \overline{(f(z) : f(z_2) : f(z_3) : f(z_4))}\]
+    Indeed, since LFT's perserve cross ratio, we have that
+    \begin{align*}
+        (f(z^*) : f(z_2) : f(z_3) : f(z_4)) &= (z^* : z_2 : z_3 : z_4)\\
+        &= \overline{(z : z_2 : z_3 : z_4)} \tag*{Since $z$ and $z^*$ are symmetric}\\
+        &= \overline{(f(z) : f(z_2) : f(z_3) : f(z_4))}
+    \end{align*}
+\end{proof}

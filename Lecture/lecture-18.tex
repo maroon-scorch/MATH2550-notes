@@ -1,0 +1,88 @@
+\section{Lecture 18 - 10/19/2022}
+
+\subsection{Schwarz Lemma}
+
+\begin{lemma}[Maximum Modulus Principle]
+    Let $\Omega$ be a domain $f \in \text{Hol}(\Omega)$, $z_0 \in \Omega$, if $|f|$ obtains a local maximum or minimum at $z_0$, then $f(z)$ is identically constant.
+\end{lemma}
+
+\begin{proof}
+    Suppose $f$ is non-constant and attains some maximum at $z_0$. Choose some $r > 0$ chosen such that $\overline{D_{z_0, r}}^{cl}$ is contained in the neighborhood given by the local maximum, then by the Open Mapping Theorem $f(D_{z_0, r})$ is open in $\Cbb$.\\\\
+    Now since $f(z_0) \in f(D_{z_0, r})$, we know that it is contained in some disk $D_{z, \epsilon} \subseteq f(D_{z_0, r})$, then consider the radial line drawn from the origin to $z_0$, then this radial line must intersect points of $D_{z, \epsilon}$ after it intersects $f(z_0)$, but this would imply that there exist $w \in D_{z, \epsilon}$ such that $|w| > |f(z_0)|$. Since $w \in f(D_{z_0, r})$, this means there exist some $\xi \in D_{z_0, r}$ such that $f(\xi) = w$ so
+    \[|f(\xi)| = |w| > |f(z_0)|\]
+    Hence we have a contradiction.\\\\
+    For the case of minimum at $z_0$, we can obtain the same exactly argument to $1/f$ and then $z_0$ becomes a local maximum of $1/f$, which is identically constant by our prior argument.
+\end{proof}
+
+\begin{corollary}
+    If $\Omega$ is a bounded domain and $f \in \text{Hol}(\Omega) \cap C^0(\overline{\Omega}^{cl})$, then $|f|$ attains its maximum on $\partial \Omega$.
+\end{corollary}
+
+\begin{proof}
+    Since $f$ is continuous on $\overline{\Omega}^{cl}$ (which is compact), $|f|$ attains a maximum value, then we apply the Maximum Modulus Principle.
+\end{proof}
+
+\begin{lemma}[Schwarz Lemma]
+    Let $f \in \text{Hol}(\Dbb)$ such that $|f(z)| \leq 1$ for all $z \in \Dbb$ and $f(0) = 0$, then
+    \[|f'(0)| \leq 1 \text{ and } |f(z)| \leq |z|\]
+    Moreover, if either $|f'(0)| = 1$ or $|f(z_0)| = |z_0|$ for some non-zero $z_0$, then
+    \[f(z) = \alpha z, \ |alpha| = 1\]
+\end{lemma}
+
+\begin{proof}
+    The idea is that, if we assume $f$ is continuous on $\partial \Dbb$, then we can extend such that $|f(z)| \leq 1$ on $\partial \Dbb$, then clearly $|\frac{f(z)}{|z|}| = |f(z)| \leq 1$ on $\partial \Dbb$.\\\\
+    Now we note $f(z)/z$ as a removable singularity at $z = 0$, hence it is holomorphic on all of $\partial \Dbb$, since holomorphic function on bounded domains only obtain their maximums at the boundary, we have that $|\frac{f(z)}{|z|}| \leq 1$ on $\Dbb$, then
+    \[|f(z)| \leq |z| \text{ on $\Dbb$}\]
+     This also implies that $f'(0) \leq 1$. If not then
+    \[\lim_{z \to 0} |\frac{f(z)}{z}| = |f'(0)| > 1\]
+    But we have that 
+    \[|f(z)/z| \leq 1 \forall z \in \Dbb\]
+    It remains for us to show that this extension always exists! Indeed, consider $r < 1$, then the same argument as before implies that
+    \[|\frac{f(z)}{z}| \leq \frac{1}{r} \text{ for all $z$ such that $|z| \leq r$}\]
+    If we take the limit as $r$ goes to $1$, we will have the desired inequality.\\\\
+    Now if $|f(z_0)| = |z_0|$ for some non-zero $|z_0|$, then $|\frac{f(z_0)}{z_0}| = 1$, then the Maximum Modulus Principle tells us that $f(z)/z = \alpha$ for some $|\alpha| = 1$, hence we have that
+    \[f(z) = \alpha z\]
+    If instead $|f'(0)| = 1$, then define $z g(z) = f(z)$, then we have that $g(0) = \lim_{z \to 0} \frac{f(z)}{z} = f'(0)$, so $g(0)$ obtains a maximum at $0$, so we again use the Maximum Modulus Principle.
+\end{proof}
+
+\subsection{Conformal Automorphisms of the Unit Disk}
+
+\begin{theorem}
+    Let $f: \mathbb{D} \to \mathbb{D}$, then $f$ is conformal if and only if $f$ is of the form
+    \[f(z) = \alpha \cdot \frac{z - z_0}{1 - \overline{z_0} z},\ |\alpha| = 1, z_0 \in \mathbb{D}\]
+\end{theorem}
+
+\begin{proof}
+    Converse is quick to check. For the forward direction, we will first check this for all $\varphi: \Dbb \to \Dbb$ such that $\varphi(0) = 0$. Indeed, since the range of $\varphi$ is restricted to the unit disk, Schwartz's Lemma tells us that
+    \begin{itemize}
+        \item $\varphi'(0) = a$ for some $|a| \leq 1$
+    \end{itemize}
+    Now let $\psi: \Dbb \to \Dbb$ be the inverse of $\varphi$, then the inverse function theorem tells us that
+    \[\psi'(0) = \frac{1}{a}\]
+    And the Schwartz's Lemma tells us that:
+    \begin{itemize}
+        \item $|\psi'(0)| = |\frac{1}{a}| \leq 1$
+    \end{itemize}
+    Since $|a| \leq 1$ and $|1/a| \leq 1$, we have that $|a| = 1$, so Schwartz's Lemma tells us that
+    \[\varphi(z) \equiv \alpha z, \text{ for some $|\alpha| = 1$}\]
+    Now suppose instead we have some $z_0 \in \Cbb$ such that $\varphi(z_0) = 0$, then we can construct a Linear Fraction Transformation $\psi: \Dbb \to \Dbb$ that sends $z_0$ to $0$, then $\varphi \circ \psi^{-1}$ sends $0$ to $0$ and is equivalent to $\alpha z$, so we have that
+    \[\varphi \equiv (z \mapsto \alpha z) \circ \psi\]
+    Since the composition of LFTs are LFTs, $\varphi$ is an LFT.\\\\
+     Since $\varphi$ is bijective, there exist some $z_0 \in \mathbb{D}$ such that $f(z_0) = 0$.\\\\
+    Then the symmetric point to $z_0$ - $\frac{1}{\overline{z_0}}$ - is mapped to infinity by $\varphi$ since $\varphi$ perserves symmetry and $\varphi(z_0) = 0$ (the symmetric point of $0$ is $\infty$). In other words, $\varphi$ has a singularity at $z = \frac{1}{\overline{z_0}}$.\\\\
+    In other words, $\varphi$ maps $z_0$ to $0$ and $\frac{1}{\overline{z_0}}$ to $\infty$, so we can write
+    \[\varphi(z) = c \cdot \frac{z - z_0}{z - 1/\overline{z_0}}\]
+    For some constant $c$. What is $c$? Well, take $z = \frac{z_0}{|z_0|}$, then
+    \[|\varphi(\frac{z_0}{|z_0|})| = |\frac{|z_0| - 1}{1 - |z_0|}| = 1\]
+    Hence we have that
+    \[|c| \cdot |z_0| = 1\]
+    So we have that
+    \[\varphi(z) = \alpha \cdot \frac{z - z_0}{1 - \overline{z_0} z},\ |\alpha| = 1\]
+\end{proof}
+
+\begin{example}
+    Let $C_+ \coloneqq \{z \in \Cbb : Im(z) > 0\}$ be the upper half complex plane. What are all the conformal maps from $C_+$ to $\Dbb$?\\\\
+    Well, take $f$ to be a conformal map, then there exist some $z_0 \in C_+$ such that $f(z_0) = 0$, then since $f$ perserves symmetry, the symmetric point of $z_0$ w.r.t $C_+$ - which is $\overline{z_0}$ - is mapped to infinity, hence we conjecture
+    \[\varphi(z) = \alpha \cdot \frac{z - z_0}{z - \overline{z_0}},\ |\alpha| = 1\]
+    It turns out that these are the only conformal maps by Schwartz's Lemma.
+\end{example}
