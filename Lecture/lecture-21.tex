@@ -1,0 +1,123 @@
+\section{Lecture 21 - 10/26/2022}
+
+This lecture referenced notes by \url{https://math.berkeley.edu/~vvdatar/m185f16/notes/Riemann_Mapping.pdf}.
+
+\subsection{Proof of the Riemann Mapping Theorem}
+
+\begin{definition}
+    A function $f: \Omega \to \Cbb$ is \textbf{univalent} if $f$ is holomorphic and injective.
+\end{definition}
+
+\begin{theorem}[Hurwitz's Theorem on limit of univalent functions]
+    Let $f_n: \Omega \to \Cbb$ be a sequence of univalent functions that converges normally to some function $f$, then $f$ is either injective or constant.
+\end{theorem}
+
+\begin{proof}
+    This is a corollary of the standard Hurwitz's Theorem, which we will recall:
+    \[\noindent\fbox{%
+    \parbox{\textwidth}{%
+Suppose $\{f_n\}$ is a sequence of holomorphic functions on $\Omega$ that converges uniformly to $f$ that is not the constant zero function. if $f$ has a zero of order $m$ at some root $z_0$, then there exists some $N$ such that for all $n > N$, $f_n$ has a zero of order $m$ at $z_0$
+    }%
+}\]
+Now back to our question, if $f$ is constant, then we are done. Otherwise, suppose $f$ is non-constant, then we wish to show that $f$ is injective.\\\\
+Indeed, if $f$ not injective, then there exists $z_1 \neq z_2 \in \Omega$ such that
+\[f(z_1) = f(z_2)\]
+Now consider $g = f - f(z_1)$, this is the normal limit of univalent functions $f_n - f(z_1)$ (as each $f_n$ is univalent), then $g$ has a zero of order at least $1$ at $z = z_1$ and another zero of order at least $1$ at $z = z_2$, then by Hurtwitz's Theorem, for sufficiently large $N$, for all $n > N$, $f_n(z_1) = f_n(z_2)$, so $f_n$ is not injective, hence we have a contradiction. 
+\end{proof}
+
+\begin{lemma}
+    Let $\Omega \subseteq \Cbb$ such that $\hat{\Cbb} \setminus \Omega$ is connected, then for all closed paths $\gamma$ in $\Omega$ and for all $a \notin \Omega$, the winding number $\text{wind}(\gamma, a) = 0$.
+\end{lemma}
+
+\begin{proof}
+    This statement is equivalent to the fact that $\Omega$ is simply connected! The winding number is a homotopy invariant, so in particular we can deformation retract every closed curse $\gamma$ to some constant curve, which has winding number $0$ for all $a \notin \Omega$.
+\end{proof}
+
+\begin{definition}
+    Let $G \subseteq \hat{\Cbb}$ be a domain, we say $G$ has the \textbf{zero index property} if $\text{wind}(\gamma, a) = 0$ for all $\gamma$ in $G$ and $a \notin G$.
+\end{definition}
+
+\begin{remark}
+        If $G$ has the zero index property, then $\int_\gamma F(z) dz$ for all closed paths $\gamma$ and $F \in \text{Hol}(G)$. Thus, there exists a branch of logairthms on $G$. All simply connected domains have the zero index property.
+\end{remark}
+
+Now we are ready to prove the Riemann Mapping Theorem.
+
+\begin{theorem}[Riemann Mapping Theorem]
+    If $\Omega \subsetneq \Cbb$ is a simply connected domain and $z_0 \in \Omega$, then there exists a unique conformal map $f: \Omega \to \Dbb$ such that
+    \[f(z_0) = 0,\ f'(z_0) > 0\]
+\end{theorem}
+
+\begin{proof}
+    We will split the proof into uniqueness and existence:
+    \begin{enumerate}
+        \item \textbf{Uniqueness: } Suppose there exists two conformal maps $f, g: \Omega \to \Dbb$ such that
+        \[f(z_0) = g(z_0) = 0, f'(z_0) > 0, g'(z_0) > 1\]
+        Consider $\varphi = f \circ g^{-1}: \Dbb \to \Dbb$, we have that
+        \[\varphi(0) = f \circ g^{-1}(z_0) = f(z_0) = 0\]
+        And by the Chain Rule and the Inverse Function Theorem:
+        \[\varphi'(0) = \frac{f'(z_0)}{g'(z_0)} > 0\]
+        Thus, by Schwartz's Lemma, we have that $\varphi(z) = \alpha z$ for some $|\alpha| = 1$, but the derivative of $\varphi$ at $z = 0$ must be positive and real, so $\alpha = 1$.\\\\
+        Thus, $f \circ g^{-1}$ is the identity map, so $f = g$.
+        \item \textbf{Existence: } Fix some $z_0 \in \Omega$, and define $\mathcal{F}$ as
+        \[\mathcal{F}\coloneqq \{f \in \text{Hol}(\mathcal{F})\ |\ \text{$f$ is univalent, }f(z_0) = 0,\ f'(z_0) > 0\}\]
+        We claim that \ul{\textbf{$\mathcal{F}$ is a normal family}}. Indeed, for any compact subset $K \subseteq \Omega$, for all $f \in \mathcal{F}$, we know that
+        \[f(K) \subseteq f(\Omega) \subseteq \Dbb\]
+        Since $\Dbb$ is bounded uniformly by $1$, we have that $|f(z)| < 1$ for all $ z\in K$. Hence $\mathcal{F}$ is a normal family!.\\\\
+        Now we claim that \ul{\textbf{the following supremum is finite}}
+        \[M \coloneqq \sup_{g \in \mathcal{F}} g'(z_0)\]
+        Indeed, take some disk $D_{z_0, r}$ such that its closure is contained in $\Omega$. We note that by Cauchy's Formula for Derivatives:
+        \begin{align*}
+            |g'(z_0)| &= |\frac{1}{2\pi i} \int_{|z - z_0| = r} \frac{g(z)}{(z - z_0)^2} dz|\\
+            &\leq \frac{1}{2\pi} \cdot 2 \pi r \cdot \frac{\sup_{|z - z_0| = r} |g(z)|}{r^2}
+        \end{align*}
+        Since $cl(D_{z_0, r})$ is compact, we know $\sup_{|z - z_0| = r} |g(z)|$ is bounded, hence $|g'(z_0)|$ is bounded. Thus, the set $\{g'(z_0)\ |\ g \in \mathcal{F}\}$ has an upperbound, so its supremum exists.\\\\
+        We will export the proof that $\mathcal{F} \neq \emptyset$ as a proposition following this. If $\mathcal{F} \neq \emptyset$, then we claim that \ul{\textbf{the function $f \in \mathcal{F}$ maximizing $f'(z_0)$ is a conformal map}}! Indeed, consider the sequence (this exists as we took $M$ to be the supremum):
+        \[f_n \in \mathcal{F}\ |\ f_n'(z_0) \geq M - 2^{-n}\}\]
+        By \textbf{Montel's Theorem}, this sequence has a convergence subsequence $f_{n_k}$ to the limit say $f$. Then we also clearly have that $f'(z_0) = M > 0$, $f(z_0) = 0$, and that $|f(z)| \leq 1$ for all $z \in \Omega$. We know by \textbf{Hurwitz's Theorem on limit of univalent functions}, $f$ is necessarily also a univalent function.\\\\
+        We also need to \textbf{show that $f(\Omega) = \Omega$}. Indeed, suppose not, then we pick some element $a \in \Dbb \setminus f(\Omega)$, then we want to constrcut some $g \in \mathcal{F}$ such that $|g'(z_0)| > |f'(z_0)|$.\\\\
+        Indeed, consider
+        \[\psi_{a}(z) = \frac{a - z}{1 - \overline{a}z}, g_1(z) = \sqrt{\psi_a \circ f(z)}\]
+        We note that the square root on $g_1$ always has a holomorphic branch as $\psi \circ F(z)$ = 0 only if $f$ is surjective on $a$, and that $\Omega$ is simply connected. So we define $g_1$ as the branch
+        \[g_1(z) = e^{1/2 \cdot \log[\psi_a \circ f(z)]}\]
+        Now consider
+        \[g(z) \coloneqq \psi_{g_1(z_0)} \circ g_1(z)\]
+        We see that $g$ is univalent as both $\psi$ and $g_1$ are univalent, moreover
+        \[g(z_0) = \psi_{g_1(z_0)}(g_1(z_0)) = 0\]
+        It remains for us to show that $|g'(z_0)| > |f'(z_0)|$. Indeed, we note that
+        \[f = \psi_a^{-1} \circ s \circ \psi_{g(z_0)}^{-1} \circ g\]
+        where $s: z \mapsto z^2$ is the squaring function. We will denote $\phi \coloneqq \psi_a^{-1} \circ s \circ \psi_{g(z_0)}^{-1}$ and note that this is a function from $\Dbb \to \Dbb$. Furthermore
+        \[\phi(0) = \psi_a^{-1}(s(g(z_0)) = \psi_a^{-1}(\psi_a(f(z_0))) = f(z_0) = 0\]
+        Hence, by Schwarz's Lemma, we have that $|\phi(z)| \leq |z|$ and $|\phi'(0)| \leq 1$.\\\\
+        We claim that $|\phi'(0)| < 1$. Indeed, if $|\phi'(0)| = 1$, then Schwarz's Lemma says $\phi(z) = \alpha z$ is univalent, but this would imply $s$ is univalent, so we have a contradiction.\\\\
+        Thus, by Chain Rule
+        \[f'(z_0) = \phi'(g(z_0)) \cdot g'(z_0) = \phi'(0) \cdot g'(z_0)\]
+        Hence
+        \[|f'(z_0)| \leq |\phi'(0)| \cdot |g'(z_0)| < |g'(z_0)|\]
+        (Note we can WLOG scale $g$ by an appropriate constant of modulus $1$ such that $g'(z_0)$ is real, so $g \in \mathcal{F}$).
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    $\mathcal{F} \neq \emptyset$
+\end{proposition}
+
+\begin{proof}
+    \ul{\textbf{It remains for us to show that $\mathcal{F}$ exists}}. Note that for this family to exist, it \textbf{suffices for us to find any univalent function $f: \Omega \to \Cbb$} such that $f(z_0) = 0$. This is because $\alpha f'(z_0) \neq 0$ as $f$ is already univalent, and we can multiply $f$ by an appropriate constant of modulus $1$ such that $\alpha f \in \mathcal{F}$.\\\\
+    If $\Omega$ is bounded, then choose $\epsilon > 0$ small enough that $f(z) = \epsilon (z - z_0)$ has image contained in $\Dbb$. Then $f(z_0) = 0$ and $f'(z_0) = \epsilon > 0$, so we are done.\\\\
+    If $\Omega$ is unbounded but not dense in $\Cbb$, there exists some $a \in \Cbb$ such that there exist some $r > 0$ such that $D_{a, r} \cap \Omega = \Omega$. Now consider the function
+    \[\varphi(z) = \frac{1}{z - a}\]
+    This is univalent on any domain not containing $a$ and $\varphi(\Omega) \subseteq D_{0, 1/r}$ is bounded, so we can scale appropriately.\\\\
+    Finally, we have the most general case of $\Omega$ - that it is just simply connected, we still know that $\hat{\Cbb} \setminus \Omega$ is connected. We can assume that both $0 \notin \Omega$ and $\infty \in \Omega$ (for any $a \notin \Omega$ and $b \in \Omega$, take the conformal map $\varphi(z) = \frac{z - a}{z - b}$. If $b = \infty$, take $\varphi(z) = z - a$).\\\\
+    Now since $\Omega$ is simply connected and does not contain $0$, there exists a branch of $\log(z)$ in $\Omega$. Now consider
+    \[\varphi: \Omega \to \Cbb,\ z \mapsto e^{0.5\log(z)}\]
+    We claim this is injective and hence univalent. Indeed, suppose there exist $z_1, z_2$ such that $\varphi(z_1) = \varphi(z_2) = w$. Then $z_1 = w^2 = z_2$.\\\\
+    Now we claim that if $w \in \varphi(\Omega)$, then $-w \notin \varphi(\Omega)$. Indeed, if they both exist, then there exists distinct $z_1, z_2 \in \Omega$ such that $w = \varphi(z_1), -w = \varphi(z_2)$. Then we again have that
+    \[z_1 = w^2 = (-w)^2 = z_2\]
+    So we have a contradiction.\\\\
+    Thus, we have that if a disk $D_{a, r}$ is contained in $\varphi(\Omega)$, then $-D_{a, r} \cap \varphi(\Omega) = \emptyset$. Hence, $\varphi(\Omega)$ is not dense, so we have reduced this to the previous case.
+\end{proof}
+
+\begin{remark}
+    What happens if we take $\Omega = \Cbb$? We claim that such function cannot exist! Indeed, suppose there exist a conformal map $f: \Cbb \to \Dbb$, then by Liouville's Theorem, $f$ is a bounded entire function and is thus constant, so we have a contradiction.
+\end{remark}

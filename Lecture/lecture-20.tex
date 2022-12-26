@@ -1,0 +1,148 @@
+\section{Lecture 20 - 10/24/2022}
+
+\subsection{Why is the radius a geodesic?}
+
+\begin{proposition}
+    Let $r < 1$, the radius $[0, r]$ is the geodesic from $z = 0$ to $z = r$ in $\Dbb$ under the hyperbolic geometry.
+\end{proposition}
+
+\begin{proof}
+     Let $\gamma: [a, b] \to \Dbb$ be an arbitrary path such that $\gamma(a) = 0, \gamma(b) = r$. Write $\gamma(t) = (x(t), y(t))$, then we note that
+     \begin{align*}
+         \text{Length}(\gamma) &= 2 \cdot \int_a^b \frac{\sqrt{x'(t)^2 + y'(t)^2}}{1 - (x(t)^2 + y(t)^2)} dt\\
+         &\geq 2 \cdot \int_a^b \frac{|x'(t)|}{1 - (x(t)^2 + y(t)^2)} dt\\
+         &\geq 2 \cdot \int_a^b \frac{|x'(t)|}{1 - x(t)^2} dt \tag*{Since $x(t)^2 + y(t)^2 < 1$, denominator is larger here}\\
+         &\geq |2 \cdot \int_a^b \frac{x'(t)}{1 - x(t)^2} dt|\\
+         &= |2 \cdot \int_0^r \frac{dx}{1 - x^2}| \tag*{$x = x(t), dx = x'(t) dt$}\\
+         &= \ln(\frac{1 + r}{1 - r})
+     \end{align*}
+\end{proof}
+
+\subsection{Riemann Mapping Theorem on the Riemann Sphere}
+
+We will now state a stronger version of the Riemann Mapping Theorem than the one we encountered before. We will prove in the next lecture!
+
+\begin{theorem}[RMT on the Riemann Sphere]
+    Suppose $\Omega \subset \hat{\Cbb}$ is open and connected such that $\hat{\Cbb} \setminus \Omega$ is connected and non-trivial ($\hat{\Cbb} \setminus \Omega$ is not a singleton set). Let $z_0 \in \Omega$, then there exists a unique conformal map $f: \Omega \to \Dbb$ such that
+    \[f(z_0) = 0,\ f'(z_0) \in \Rbb,\ f'(z_0) > 0\]
+\end{theorem}
+
+\begin{remark}
+    If $\Omega = \Dbb$, the first condition implies $f(z) = \alpha z$ by Schwartz's Lemma for some $|\alpha| = 1$, and the second and third condition implies $\alpha = 1$.
+\end{remark}
+
+\subsection{Normal Families and Montel's Theorem}
+
+\begin{definition}
+    Let $\Omega$ be open (not necessarily connected), then $\mathcal{F} \subset \text{Hol}(\Omega)$ is a \textbf{familiy of holomorphic function} on $\Omega$. We say $\mathcal{F}$ is a \textbf{normal family} if for all compact $K \subseteq \Omega$, there exists some real constant $C_K < \infty$ such that
+    \[|f(z)| < C_K,\ \forall f \in \mathcal{F},\ \forall z \in K\]
+\end{definition}
+
+\begin{theorem}[Montel's Theorem]
+    If $\mathcal{F} \subseteq \text{Hol}(\Omega)$ is normal, then for any sequence of functions $\{f_n\}$ in $\mathcal{F}$, there exists a subsequence $\{f_{n_k}\}$ that converges normally to some $f_0 \in \text{Hol}(\Omega)$. Note that $f_0$ need not be in $\mathcal{F}$.
+\end{theorem}
+
+\begin{definition}
+    If $X$ is a metric space, then $A \subseteq X$ is \textbf{totally bounded} if for all $\epsilon > 0$, there exists a finite $\epsilon$-net (disks of radius $\epsilon$) that covers $A$.
+\end{definition}
+
+\begin{proposition}
+    If $X = \Rbb^n$, then $A \subseteq X$ is totally bounded if and only if it is bounded.
+\end{proposition}
+
+\begin{proof}
+    Suppose $A$ is totally bounded, there exists balls $B_{x_i, \epsilon}$ from $i = 1, ..., N$ such that $A \subseteq \bigcup_{i = 1}^N B_{x_i, \epsilon}$. Let $B = \bigcup_{i = 1}^N B_{x_i, \epsilon}$, it suffices for us to show that $B$ is bounded.\\\\
+    if $N = 1$, we are done. If $N > 1$, then consider
+    \[R = \max_{1 \leq i \leq N} d(x_1, x_i)\]
+    Now for any $x \in B$, we know $x \in B_{x_i, \epsilon}$ for some $i$, then
+    \begin{align*}
+        d(x_1, x) &\leq d(x, x_i) + d(x_i, x_1) \tag*{Triangle's Inequality}\\
+        &\leq r + R
+    \end{align*}
+    Thus, $A$ is bounded.\\\\
+    Suppose $A$ is bounded, then there exist some $r > 0$ such that $A \subseteq D_{x, r}$ for some open ball centered at $x$ of radius $r$. It suffices for us to show that $D_{x, r}$ is totally bounded. Indeed, for any $\epsilon > 0$, we can paritition $D_{x, r}$ into a finite union of $B_{x_i, \epsilon}$ because $D_{x, r}$ has finite volume, and each $B_{x_i, \epsilon}$ has finite volume, so
+    \[\frac{\text{vol}(D_{x, r})}{\text{vol}(B_{x_i, \epsilon})} < \infty\]
+\end{proof}
+
+Note that the forward direction above never used anything special about $X$ being a Euclidean space, so in a metric space in general, totally bounded implies bounded. The converse is however not true:
+
+\begin{example}
+    Let $X = \Zbb$ be endowed with the discrete metric, ie. $d(x, y) = 1$ if $x = y$ and $d(x, y) = 0$ if $x \neq y$. Then $X$ is certainly bounded, as the ball $B_{0, 1.1}$ centered at $0$ of radius $1.1$ contains $\Zbb$. However, $X$ is certainly not totally bounded, as any $\epsilon$-net of $X$ with $0 < \epsilon < 1$ cannot be finite.
+\end{example}
+
+\begin{lemma}
+    A metric space $X$ is compact if and only if it is complete and totally bounded.
+\end{lemma}
+
+\begin{proof}
+    For the forward direction, suppose $X$ is compact, then for all $\epsilon > 0$, consider the open cover
+    \[\bigcup_{x \in X} B_{x, \epsilon}\]
+    This is an open cover of $X$, then by compactness, there exists some finite subcover of $cl(A)$, which covers $A$. Hence $A$ has an epsilon net.\\\\
+    Now we note $X$ is compact if and only if it is sequentially compact. Let $\{x_i\}$ be a Cauchy sequence in $X$, We also know that $\{x_i\}$ has a convergent subsequence $\{x_{n_k}\}$ to some limit $L$, we claim this is also the limit of the sequence!\\\\
+    For all $\epsilon > 0$, since $\{x_i\}$ is Cauchy, there exists some $N$ such that for $m, n > N$,
+    \[d(x_m, x_n) < \epsilon/2\]
+    We can choose $N$ large enough some that for all elements of the subsequence that appeared later than $x_N$, such that for all $x_{n_k}, x_{n_{k+1}}, ...$
+    \[d(L, x_{n_{k+i}}) < \epsilon/2\]
+    Then we have that for all $n > N$
+    \[d(L, x_n) < d(L, x_{k+i}) + d(x_{k + i}, x_n) < \epsilon/2 + \epsilon/2\]
+    Thus, the Cauchy Seuquence converges.\\\\
+    Conversely, suppose $X$ is complete and totally bounded, in analysis, we showed that totally bounded implies every sequence of $X$ has a Cauchy subsequence, which converges since $X$ is complete.
+\end{proof}
+
+\begin{proposition}
+    Let $X$ be a complete metric space, then the following are equivalent:
+    \begin{enumerate}
+        \item $A \subseteq X$ is totally bounded.
+        \item $cl(A)$ is compact.
+        \item For all sequence $x_n \in A$, there exists a convergent subsequence $x_{n_k}$ to some element in $cl(A)$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    We note that a subset of metric space, 
+    For $(1) \implies (2)$, suppose $A$ is totally bounded, then for any $\epsilon > 0$, we have that there exists $x_1, ..., x_n$ so that
+    \[A \subseteq \bigcup_{i = 1}^n B_{x_i, \epsilon/2}\]
+    Then we see that
+    \[cl(A) \subseteq cl(\bigcup_{i = 1}^n B_{x_i, \epsilon/2}) \subseteq \bigcup_{i = 1}^n B_{x_i, \epsilon}\]
+    Thus, $cl(A)$ is also totally bounded. Since a closed subset of a complete metric space is complete, $cl(A)$ is totally bounded and complete and is hence compact.\\\\
+    For $(2) \implies (1)$, since $cl(A)$ is compact, it is totally bounded, hence $A$ is totally bounded.\\\\
+    For $(2) \implies (3)$, we recall that the subset of a metric space is compact if and only if it is sequentially compact, hence $cl(A)$ is sequentially compact, so we are done.\\\\
+    For $(3) \implies (1)$, suppose $A$ is not totally bounded for contradiction, then there exists some $\epsilon > 0$ such that $A$ cannot be finitely covered by balls of radius $\epsilon$. Now pick some point $x_1 \in A$, we will call $B_1 = D_{x_1, \epsilon}$. Then we pick $x_2 \in A - B_1$ and call $B_2 = D_{x_2, \epsilon}$, and so on. In each step, we make sure to pick some element that's not covered before.\\\\
+    We can repeat this process infinitely since $A$ cannot be finitely covered, and obtain a collection of balls $\{B_i\}_{i = 1}^\infty$.\\\\
+    Now the sequence $\{x_i\}$ has to have some convergent subsequence, but each $x_i$ is chosen so that $d(x_i, x_j) \geq \epsilon$ for $i \neq j$, so this can never have a convergent subsequence. So we have a contradiction.
+\end{proof}
+
+\begin{theorem}[Arzela-Ascoli Theorem]
+    Suppose $\mathcal{F} \subseteq C(K, X)$, where $C(K, X)$ is the space of continuous functions from compact metric space $K$ to metric space $X$, then $\mathcal{F}$ is totally bounded if and only if
+    \begin{enumerate}
+        \item $\bigcup_{f \in \mathcal{F}} \text{im}(f)$ is totally bounded
+        \item $\mathcal{F}$ is equicontinuous, ie. for all $f \in \mathcal{F}$, for all $x_0 \in K$, for all $\epsilon > 0$, there exists some $\delta > 0$ such that
+        \[d(x, x_0) < \delta \implies d(f(x_0), f(x)) < \epsilon\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    See Browder's Analysis.
+\end{proof}
+
+Now we will put out attention back to complex analysis:
+
+\begin{proof}[Proof of Montel's Theorem]
+    We will prove the forward direction first.\\\\
+    Let $K_n \subseteq K_{n+1} \subseteq ... \subseteq \Omega$ be a sequence of compact sets $K_i$ such that for any compact set $K \subseteq \Omega$, there exists $N$ such that $K \subseteq \bigcup_{i = 1}^N K_i$ (In other words, take $K_i$ to the compact exhaustion of $\Omega$).\\\\
+    Consider $F_n \subseteq C(K_n, X)$ defined as $F_n \coloneqq \{f|_{K_n}\ |\ f \in \mathcal{F}\}$. We note that $C(K_n, X)$ is a complete metric space, and \ul{\textbf{we want to first show that $F_n$ is totally bounded}}. To do this, we will invoke the Arzela Ascoli's Theorem:
+    \begin{enumerate}
+        \item Since $\mathcal{F}$ is normal, we know that in particular there $|f(z)| \leq C_{k_n}$ for all $f \in \mathcal{F}$ and $z \in K_n$. Thus, the union of images of $f$ is bounded and hence totally bounded.
+        \item Let $z_0 \in K_n$ and choose $r_n < dist(z_0, \partial K_{n+1})$, then take $z$ such that $|z - z_0| < r_n$, then
+        \begin{align*}
+            |f(z) - f(z_0)| &\leq |\frac{1}{2\pi i} \int_{|\xi - z_0| = r_n} f(\xi)(\frac{1}{\xi - z} - \frac{1}{\xi - z_0}) d\xi| \tag*{Cauchy's Integral Formula}\\
+            &\leq \frac{1}{2\pi} \int_{|\xi - z_0| = r_n} C_{K_n} |\frac{1}{\xi - z_0} - \frac{1}{\xi - z}| |d\xi|
+        \end{align*}
+        We claim that as we take limit from $z \to z_0$, $|\frac{1}{\xi - z_0} - \frac{1}{\xi - z}|$ converges to $0$ uniformly in $\xi$. Indeed, write
+        \[|\frac{1}{\xi - z} - \frac{1}{\xi - z_0}| = |\frac{z - z_0}{(\xi - z)(\xi - z_0)}| \leq 2\cdot\frac{|z - z_0|}{r^2}\]
+        Thus, we have an uniform convergence, so $F_n$ is equicontinuous.
+    \end{enumerate}
+    Thus, we have shown that $F_n$ is totally bounded. Since this is the norm of the function space $C(X_n, K)$, this means that any sequence of functions on $F_n$ has a uniformly convergennt subsequence.\\\\
+    Now take a sequence of functions $f_1, ..., f_n, ...$ on $\mathcal{F}$, there exists a sequence of functions $f_{n_k}$ that converges uniformly on $K_1$, write them as $f_1^1, f_2^1, f_3^1, ...$. For $K_2$, we take another subsequence $f_2^1, f_2^2, f_3^2, ...$, etc.\\\\
+    Then the seuqence $\{f_k^k\}_{k = 1}^\infty$ converges uniformly on all $K_n$! Hence, we have obtained normal convergence.
+\end{proof}

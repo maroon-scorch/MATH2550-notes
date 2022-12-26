@@ -1,0 +1,138 @@
+\section{Lecture 22 - 10/28/2022}
+
+\subsection{Elements of Geometric Function Theory}
+
+Geometric function theory is the study of univalent functions!
+
+\begin{definition}
+    Let $f: \Dbb \to \Cbb$ be a univalent function. We can without loss assume $f(0) = 0, f'(0) = 1$ by replacing $f$ by $af + b$ with appropriate constants $a, b \in \Cbb$. This class of functions are called \textbf{Schlicht} functions.
+\end{definition}
+
+\begin{theorem}[Bieberbach Conjecture - De Branges Theorem]
+    Suppose $f$ is Schlicht and write $f(z) = \sum_{n \geq 1} a_n z^n$ with $a_1 = 1$, (by normalization we always have $a_0 = 0, a_1 = 1$), then $|a_n| \leq n$ for all $n \geq 2$.
+\end{theorem}
+
+This was a long time conjecture it was proven in 1985. A lot of PhD got their dissertation from find a good $\epsilon$ such that
+\[|a_n| \leq (1 + \epsilon) \cdot n\]
+De Branges was famous for making false proofs, but no one believed in him when he proved it, so he had to go to the Soviet Union to show his proof is correct. Professor Treil was actually a graduate student at the time and saw his lecture!\\
+
+We will prove this theorem for $n = 2$. To do this, we will use what's so called the Area Principle:
+
+\begin{theorem}[Area Principle]
+    Let $f(z) = z + \sum_{k \geq 1} a_k z^{-k}$ be a univalent function in $\{z \in \Cbb\ |\ |z| > 1\}$, then
+    \[\sum_{k \geq 1} |a_k|^2 k \leq 1\]
+\end{theorem}
+
+We will first show the following Lemma, which we actually proved as an exercise!
+
+\begin{lemma}
+    Let $G$ be a bounded domain such that $\partial G \in PC^1$, then
+    \[\text{Area}(G) = \frac{1}{2i} \int_{\partial G} \overline{z} dz\]
+\end{lemma}
+
+\begin{proof}
+    We will explicitly compute this using Stoke's Theorem:
+    \[\int_{\partial G} w = \int_G dw\]
+    Expliciting computing the integral gives us:
+    \allowdisplaybreaks
+    \begin{align*}
+        \int_{\partial G} \overline{z} dz &= \int_G d(\overline{z} dz)\\
+        &= \int_G d(\overline{z}) \wedge dz\\
+        &= \int_{G} 1 d\overline{z} \wedge dz\\
+        &= \int_G (dx - idy) \wedge (dx + idy)\\
+        &= \int_G i dx \wedge dy - i dy \wedge dx\\
+        &= \int_G 2i dx \wedge dy\\
+        &= 2i \int_G dx \wedge dy\\
+        &= 2i \text{Area}(G)
+    \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of the Area Principle]
+    Let $r > 1$, let $G_r$ the the domain bounded by $f(re^{it}), t \in (0, 2\pi]$. Then we have that
+    \begin{align*}
+        0 &\leq \text{Area}(G_r)\\
+        &= \frac{1}{2i} \int_{\partial G_r} \overline{z} dz\\
+        &= \frac{1}{2i} \int_0^{2\pi} \overline{r e^{it} + \sum_{k \geq 1} \overline{a_k} r^{-k} e^{-ikt}} \cdot (r e^{it} + \sum_{k \geq 1} a_k r^{-k} e^{-ikt})' dt\\
+        &=\frac{1}{2i} \int_0^{2\pi} (r e^{-it} + \sum_{k \geq 1} \overline{a_k} r^{-k} e^{ikt}) \cdot (r e^{it} + \sum_{k \geq 1} a_k r^{-k} e^{-ikt})' dt\\
+        &= \frac{1}{2i} \int_0^{2\pi} (re^{-it} + \sum_{k\geq 1} \overline{a_k} r^{-k} e^{ikt}) \cdot (i r e^{it} - \sum_{k \geq 1} ik a_k r^{-k} e^{-ikt}) dt\\
+        &= \frac{1}{2} \int_0^{2\pi} \int_0^{2\pi} (re^{-it} + \sum_{k\geq 1} \overline{a_k} r^{-k} e^{ikt}) \cdot (r e^{it} - \sum_{k \geq 1} k a_k r^{-k} e^{-ikt}) dt\\
+    \end{align*}
+    Note that $\int_0^{2\pi} e^{ikt} e^{-int} dt=0$ whenever $k \neq n$ and $\int_0^{2\pi} e^{ikt} e^{-int} dt= 2\pi$ when $k = n$
+    \begin{align*}
+        \text{Area}(G_r) &= \frac{2\pi}{2}(r^2 - \sum_{k \geq 1} |a_k|^2 r^{-2k})
+    \end{align*}
+    Since the orientation of $re^{it}$ gives $+$ orientation of the boundary, we have that
+    \[\sum_{k\geq 1} |a_k|^2 r^{-2k} \leq r^2\]
+    Take the limit as $r \to 1$ on both side, since the values are both positive, by Monotone Convergence Theorem, we can interchange summation and limit, we have
+    \[\sum_{k \geq 1} |a_k|^2 \leq 1\]
+\end{proof}
+
+Now we are ready to prove Bieberbach conjecture for $n = 2$:
+
+\begin{proof}
+    Suppose $f(z) = z + \sum_{n \geq 2} a_n z^n$ is an univalent function, then
+    \[f(z^2) = z^2 + \sum_{n \geq 2} a_n z^{2n} = z^2(1 + \sum_{n \geq 2} a_n z^{2n -2})\]
+    Then write $g(z) = 1 + \sum_{n \geq 2} a_n z^{2n -2}$ and we have that
+    \[f(z^2) = z^2 g(z)\]
+    Now we note that $g(z) \neq 0$ for all $z \in \Dbb$ and is univalent, so we can take a logairhmic branch of $g(z)$, then we define
+    \[\psi(z) = z \sqrt{g(z)}\]
+    satisfying
+    \[\psi(z)^2 = f(z^2)\]
+    Now we note that from Calculus, we have the expansion
+    \[\sqrt{1 + z} = 1 + \frac{z}{2} + ... \]
+    So we have that
+    \[\psi(z) = z(1 + \frac{a_2}{2} z^2 + ...)\]
+    Now define
+    \[F(z) \coloneqq \frac{1}{\psi(1/z)} = z(1 + \frac{a_2}{z} z^{-2} + ... )^{-1}\]
+    What is the inverse of $1 + \frac{a_2}{z} z^{-2} + ... $? Recall that
+    \[(1 + x)^{-1} = 1 - x + x^2 - x^3 + ..., |x| < 1\]
+    So we have that
+    \begin{align*}
+        F(z) &= z(1 - \frac{a_2}{2} z^2 + ...)\\
+        &= z - \frac{a_2}{2} z^{-1} + \sum_{k \geq 2} b_k z^{-k} \tag*{$b_2 = 0$ here}
+    \end{align*}
+    Applying Area Principle gives on $F(z)$ gives us
+    \[|\frac{a_2}{2}|^2 + \sum k |b_k|^2 \leq 1 \implies |\frac{a_2}{2}|^2 \leq 1\]
+    Hence, we have that
+    \[|a_2| \leq 2\]
+\end{proof}
+
+\begin{remark}
+    What's interesting about De Brange's Theorem is that the critical case is known. In particular,
+    \[f(z) = \frac{z}{(1 - z)^2}\]
+    then $a_k = k$. It is a fun exercise to show that this $f$ is univalent in $\Dbb$ and $f(\Dbb)$ is the complex plane without a ray. All the critical functions are of the form
+    \[f(z) = \frac{z}{(1 - \alpha z)^2},\ |\alpha| = 1\]
+\end{remark}
+
+\subsection{Köbe 1/4 Theorem}
+
+\begin{theorem}[Köbe 1/4 Theorem]
+    If $f$ is a Schlicht function, then $D_{0, 1/4} \subseteq f(\Dbb)$.
+\end{theorem}
+
+\begin{proof}
+    Let $w_0 \notin f(\Dbb)$, we note $w_0$ exists because $\Cbb$ is not conformally equivalent with $\Dbb$. Then consider
+    \[\varphi(z) = \frac{f(z)}{1 - \frac{1}{w_0}f(z)}\]
+    In particular, $\varphi$ is univalent and $\varphi(0) = 0$. Then, decomposing numerator and denominator of $f(z)$ into series gives
+    \begin{align*}
+        \varphi(z) &= (z + \sum_{k \geq 2} a_k z^k) \cdot [1 - \frac{1}{w_0}(z + \sum_{k \geq 2} a_k z^k)]^{-1}\\
+       &= (z + \sum_{k \geq 2} a_k z^k) \cdot [1 + \frac{z}{w_0} + O(z^2)] \tag*{$(1 - x)^{-1} = 1 + x + x^2 + ...$}\\
+       &= z + (a_z + \frac{1}{w_0}) + ...
+    \end{align*}
+    In other words, $\varphi$ is a Schicht function! So by DeBrange's Theorem when $n = 2$,
+    \[|a_2 + \frac{1}{w_0}| \leq 2\]
+    By Triangle's Inequality,
+    \[|\frac{1}{w_0}| \leq |-a_2| + |a_2 + \frac{1}{w_0}|\]
+    Both terms on the RHS are bounded by $2$ by DeBrange's Theorem, hence
+    \[\frac{1}{w_0}| \leq 2 + 2 = 4\]
+    So in other words,
+    \[|w_0| \geq \frac{1}{4}\]
+\end{proof}
+
+There's another theorem surrounding Schlicht functions that we will state without proof:
+
+\begin{theorem}[Köbe Distortion Theorem]
+    Suppose $f$ is a Schlicht function, then
+    \[\frac{1 - |z|}{(1 + |z|)^3} \leq |f'(z)|\ \leq \frac{1 + |z|}{(1 - |z|)^3}\]
+    \[\frac{|z|}{(1 + |z|)^2} \leq |f(z)|\ \leq \frac{|z|}{(1 - |z|)^2}\]
+\end{theorem}
