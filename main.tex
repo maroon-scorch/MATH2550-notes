@@ -43,11 +43,27 @@ The notes are last updated \today.
 \include{Lecture/lecture-21.tex}
 \include{Lecture/lecture-22.tex}
 \include{Lecture/lecture-23.tex}
+\include{Lecture/lecture-24.tex}
 
-
-\section{Lecture 24 - 11/02/2022}
 
 \section{Lecture 25 - 11/04/2022}
+
+\subsection{Mittag Lefler Problem}
+
+Let $\Omega$ be a domain, and consider $\{z_k\}$ accumulating to the boundary, let $p_k$ be polynomials of the form
+\[p_k(z) = \sum_{j = 1}^{n_k} a_j^{(k)} z^k\]
+
+The question is - can we find a meromorphic $f$ such that at each $z_k$, the ``principal part" of the Laurent Series of $f$ is $p_k(\frac{1}{2 - z_k}) = \sum_{j = 1}^{n_k} a^k_j (z - z_k)^{-j}$.\\
+
+In other words, we want that $f - p_k(\frac{1}{z - z_k})$ is analytic at each $z_k$ (so $z_k$ is a removable singularity at $f - p_k(\frac{1}{z - z_k})$).
+
+\begin{example}
+    Consider $f$ with simple poles at $k \in \Nbb$ with residue $1$, our guess is that
+    \[f(z) = \sum_{k = 1}^\infty \frac{1}{z - k}\]
+    The problem with this is that $f(z)$ does NOT converge!
+\end{example}
+ 
+\newpage
 
 \section{Lecture 26 - 11/07/2022}
 

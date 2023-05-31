@@ -1,0 +1,66 @@
+\section{Lecture 24 - 11/02/2022}
+
+\subsection{Mergelyan's Theorem}
+\begin{theorem}[Mergelyan's Theorem]
+    Let $K \subseteq \Cbb$ be compact such that $\Cbb \setminus K$ is connected, and let $f \in \text{Hol}(int(K)) \cap C(K)$, then $f$ can be uniformly approximated by polynomials.
+\end{theorem}
+
+\begin{proof}
+Recall from Runge's Theorem, if $K$ is compact, and $A$ is a set containing at least one element from every connected component of $\Cbb \setminus K$, then there exists an uniform rational approximation of $f$ with only poles at $A$.\\\\
+Let $K \subseteq D_{0, R}$ be compact as before and $f$ be analytic on $K$. Let $a = \infty$, then Runge's Theorem tells us that there exist a sequence of rational functions $f_i$ that only has pole at $z = \infty$ because there's only one connected component with $\Cbb \setminus K$. Since each $f_i$ only has poles at infinity, it has no poles on all of $\Cbb$, so they are really just polynomials.
+\end{proof}
+
+\begin{example}[Connectedness is essential]
+  We claim that $f(z) = 1/z$ cannot be uniformly approximated by polynomials on the annulus $1/2 \leq |z| \leq 1$.\\\\
+Suppose for contradictions that such sequence of polynomials does exist, call it $\{f_n(z)\}_{z=1}^\infty$, and it converges uniformly to $f(z) = 1/z$.\\\\
+    We note that each of $f_n(z)$ is a polynomial and is hence an entire function on $\Cbb$, hence Cauchy's Theorem tells us that
+    \[\int_{|z| = 3/4} f_n(z) dz = 0\]
+    However, we know from lecture that the contour integral of $1/z$ of a circle centered at the origin is the following:
+    \[\int_{|z| = 3/4} f(z) dz = \lim_{|z| = 3/4} \frac{1}{z} dz = 2\pi i\]
+    However, since $\{f_n(z)\}$ converges uniformly to $f(z)$, we know from lecture that we can exchange the limit and the integral in the sense that
+    \[\lim_{n \to \infty} \int_{|z| = 3/4} f_n(z) dz = \int_{|z| = 3/4} \lim_{n \to \infty} f_n(z) dz = \int_{|z| = 3/4} f(z) dz = 2\pi i\]
+    On the other hand, we also know that $\int_{|z| = 3/4} f_n(z) dz = 0$ for all $n$, so
+    \[\lim_{n \to \infty} \int_{|z| = 3/4} f_n(z) dz = 0\]
+    So we have that
+    \[0 = 2\pi i\]
+    which is clearly not true. Hence we have a contradiction.  
+\end{example}
+
+\begin{remark}
+    In general, if $K$ is compact, then $\Cbb \setminus K$ may have infinitely many connected components. Suppose $f \in \text{Hol}(K)$, then by definition there exists some open set $\Omega$ containing $K$ that $f$ is holomorphic on, then $\Omega$ contains all but finitely many connected components of $\Cbb \setminus K$.
+\end{remark}
+
+\subsection{Swiss Cheese}
+The following counter-example is what's called a ``Swiss Cheese"
+\begin{proposition}
+    There exists a compact $K$ with non-empty interior such that there exists $f \in C(K)$ such that it cannot be approximated by rational functions with poles off $K$.
+\end{proposition}
+
+\begin{proof}
+    Let $K = \{z\ |\ |z| \leq 1\} \setminus \bigcup D_k$, where $cl(D_k) = cl(D_{z_k, r_k})$ are each disjoint with $\sum r_k < \infty$ and $\sum r_k^2 <\leq 1/2$ (we can take $r_k < 2^{-k}$. Then this is a compact set (closed minus open is closed) with non-empty interior.\\\\
+    Let $\{w_k\}$ be a countable dense subset of $cl(\Dbb)$ (take $\Qbb^2 \cap \Cbb$, this is dense in $cl(\Dbb)$). We choose $z_1 = w_1$, $r_1 = 1/2$, and $z_2 = w_K$, where $K$ is the smallest integer such that $w_k \notin cl(\overline{z_1, r_1})$, then we choose $r_2 \leq 2^{-1/2}$ such that $cl(D_2) \cap cl(D_1) = \emptyset$. We can do this repeatedly to create disks $D_1, D_2, ...$.\\\\
+    Now take $f(z) = \overline{z}$ and let $K_m \coloneqq cl(D) \setminus \bigcup_{i = 1}^m D_i$. Suppose there esxists a uniform rational approximation of $f$ on $K$ so in particular, $f_n$ uniformly approximates $f$ on $\partial K_m$, then
+    \begin{align*}
+        \int_{\partial K_m} f(z) dz &= \int_{|z| = 1} f(z) dz - \sum_{i = 1}^m \int_{\partial D_i} f(z) dz\\
+        &= 2\pi i - \sum_{i = 1}^m \int_{\partial D_i} f(z) dz\\
+        &= 2\pi i - \sum_{i = 1}^m 2\pi i r_i^2\\
+        &= 2\pi i(1 - \sum_{i = 1}^m r_i^2)\\
+        &\geq 2\pi i(1/2) \tag*{Since we construct $\sum r_i^2 \leq 1/2$}
+    \end{align*}
+    So we have that
+    \[\frac{1}{2\pi i} \int_{\partial K_m} f(z) dz \geq \frac{1}{2}\]
+    \[\lim \inf_{m \to \infty} \frac{1}{2\pi i} \int_{\partial K_m} \geq \frac{1}{2}\]
+    On the other hand, if we take $f_n$ to be rational functions with poles in $\Cbb \setminus K$, then there exists $N$ (depending on $n$) such that $f_n \in \text{Hol}(K_m)$ for all $m > N$.\\\\
+    If $|f_n - f| < \epsilon$ on $K$, then
+    \[|\int_{\partial K_m} f_n - f| \leq \epsilon 2\pi (1 + \sum_1^\infty r_k)\]
+    We can choose $\epsilon$ such that
+    \[\epsilon(1 + \sum r_k) < \frac{1}{4}\]
+    But this means that
+    \begin{align*}
+        \frac{1}{2\pi} |\int_{\partial K_m} f(z) dz| &= \frac{1}{2\pi}|\int_{\partial K_m} f(z) - f_n(z) dz| \tag*{Since $f_n \in \text{Hol}(K_m)$}\\
+        &\leq \frac{1}{4}
+    \end{align*}
+    But we also had that
+    \[[\frac{1}{2\pi i} \int_{\partial K_m} f(z) dz \geq \frac{1}{2} \]
+    So we have a contradiction.
+\end{proof}
